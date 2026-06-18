@@ -1,0 +1,132 @@
+import React, { useState } from 'react';
+import { useLeads } from '../context/LeadContext';
+import { Users, DollarSign, Percent, TrendingUp } from 'lucide-react';
+import StatsCard from '../components/dashboard/StatsCard';
+import PipelineOverview from '../components/dashboard/PipelineOverview';
+import RecentLeads from '../components/dashboard/RecentLeads';
+import QuickActions from '../components/dashboard/QuickActions';
+import AddLeadModal from '../components/leads/AddLeadModal';
+
+/**
+ * Dashboard Page Component
+ * Renders the CRM analytics workspace by aggregating and mounting:
+ * 1. 4 Key Stats Cards (Total Leads, Pipeline, Conversion, and Revenue) in a responsive grid
+ * 2. Pipeline Segment progress bar overview
+ * 3. Recent leads table view
+ * 4. Workspace Quick Actions toolbar (including inline lead registration modal trigger)
+ */
+const Dashboard = () => {
+  const { leads } = useLeads();
+
+  // State to manage opening of local AddLeadModal for quick action buttons
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  // Helper formatting for currency strings
+  const formatCurrency = (val) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 0
+    }).format(val);
+  };
+
+  // 1. Calculate stats dynamically from context leads database
+  const totalLeads = leads.length;
+  
+  const pipelineValue = leads
+    .filter((l) => l.status !== 'Lost')
+    .reduce((sum, l) => sum + l.value, 0);
+
+  const wonLeads = leads.filter((l) => l.status === 'Won');
+  const lostLeads = leads.filter((l) => l.status === 'Lost');
+  const closedLeads = wonLeads.length + lostLeads.length;
+
+  const winRate = closedLeads > 0 
+    ? Math.round((wonLeads.length / closedLeads) * 100) 
+    : 0;
+
+  const closedWonRevenue = wonLeads.reduce((sum, l) => sum + l.value, 0);
+
+  return (
+    <div className="space-y-6">
+      
+      {/* Page Welcome Intro Block */}
+      <div>
+        <h2 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
+          Dashboard Overview
+        </h2>
+        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          Monitor your startup sales velocity, leads distribution, and core revenue KPIs.
+        </p>
+      </div>
+
+      {/* 2. Key Metrics Bar: 1 col on mobile, 2 on tablet, 4 on desktop */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        {/* Metric 1: Total Leads */}
+        <StatsCard
+          title="Total Leads"
+          value={totalLeads}
+          icon={Users}
+          change={8.2}
+          color="primary"
+        />
+
+        {/* Metric 2: Active Pipeline Value */}
+        <StatsCard
+          title="Active Pipeline"
+          value={formatCurrency(pipelineValue)}
+          icon={DollarSign}
+          change={12.4}
+          color="warning"
+        />
+
+        {/* Metric 3: Conversion Win Rate */}
+        <StatsCard
+          title="Win Rate"
+          value={`${winRate}%`}
+          icon={Percent}
+          change={-1.5}
+          color="success"
+        />
+
+        {/* Metric 4: Closed Revenue Won */}
+        <StatsCard
+          title="Closed Revenue"
+          value={formatCurrency(closedWonRevenue)}
+          icon={TrendingUp}
+          change={24.1}
+          color="danger"
+        />
+
+      </div>
+
+      {/* 3. Pipeline Segment Progress bar card */}
+      <PipelineOverview leads={leads} />
+
+      {/* 4. Bottom Grid layout containing Recent leads and Actions */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        {/* Left column spanning 2 spaces on desktop: Recent Leads datatable */}
+        <div className="lg:col-span-2">
+          <RecentLeads leads={leads} />
+        </div>
+
+        {/* Right column: Action Board */}
+        <div>
+          <QuickActions onAddLeadClick={() => setIsAddModalOpen(true)} />
+        </div>
+
+      </div>
+
+      {/* Local Add Lead modal instance linked to Dashboard Quick Actions */}
+      <AddLeadModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+      />
+
+    </div>
+  );
+};
+
+export default Dashboard;
