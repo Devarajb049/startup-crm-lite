@@ -20,7 +20,7 @@ import { Plus, X } from 'lucide-react';
  */
 const Leads = () => {
   // Pull database elements from Lead context
-  const { leads, addLead, updateLead, deleteLead } = useLeads();
+  const { leads, addLead, updateLead, deleteLead, loadDemoLeads } = useLeads();
 
   // Search and Filter states
   const [searchQuery, setSearchQuery] = useState('');
@@ -160,6 +160,7 @@ const Leads = () => {
           totalLeadsCount={leads.length} 
           onClearFilters={handleResetFilters} 
           onAddLeadClick={handleOpenAddModal} 
+          onLoadDemoClick={loadDemoLeads}
         />
       )}
 

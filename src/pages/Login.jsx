@@ -1,0 +1,197 @@
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import DarkModeToggle from '../components/common/DarkModeToggle';
+import { Mail, Lock, LogIn, AlertCircle, Info, Eye, EyeOff } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+
+const Login = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    // Minor visual delay for premium loading experience
+    setTimeout(() => {
+      try {
+        login(email, password);
+        toast.success('Successfully logged in!', {
+          style: {
+            background: '#22C55E',
+            color: '#FFFFFF',
+            fontWeight: 'bold',
+          },
+          duration: 3000,
+        });
+        navigate('/');
+      } catch (err) {
+        setError(err.message || 'Something went wrong.');
+        toast.error(err.message || 'Login failed.', {
+          style: {
+            background: '#EF4444',
+            color: '#FFFFFF',
+            fontWeight: 'bold',
+          },
+          duration: 3000,
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    }, 600);
+  };
+
+  return (
+    <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 dark:bg-[#090D16] relative overflow-hidden px-4 py-12 transition-colors duration-200">
+      {/* Theme Toggle Positioned in Top Right Corner */}
+      <div className="absolute top-4 right-4 z-20">
+        <DarkModeToggle />
+      </div>
+
+      {/* Background Glowing Gradients */}
+      <div className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full bg-blue-600/5 dark:bg-blue-600/10 blur-3xl animate-float-slow" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-purple-600/5 dark:bg-purple-600/10 blur-3xl animate-float-reverse" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-pink-500/5 blur-3xl animate-float-alternate" />
+
+      {/* Login Card */}
+      <div className="w-full max-w-md bg-white/85 dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200 dark:border-slate-800/80 p-8 rounded-3xl shadow-xl dark:shadow-2xl relative z-10 animate-fade-in transition-all">
+        
+        {/* Brand/Logo Header */}
+        <div className="flex flex-col items-center text-center mb-8 select-none">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/20 mb-3.5">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" className="w-7 h-7 text-white">
+              <path 
+                d="M16 7L22.5 20.5C23 21.5 22.2 22.5 21 22.5H11C9.8 22.5 9 21.5 9.5 20.5L16 7Z" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2.5" 
+                strokeLinejoin="round" 
+              />
+              <path 
+                d="M12.8 16.5H19.2" 
+                stroke="currentColor" 
+                strokeWidth="2.5" 
+                strokeLinecap="round" 
+              />
+            </svg>
+          </div>
+          <h2 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            Welcome to Aura<span className="text-primary">CRM</span>
+          </h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Sign in to access your sales workspace
+          </p>
+        </div>
+
+        {/* Inline Error Alert */}
+        {error && (
+          <div className="flex items-start gap-2.5 p-3.5 bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900/40 text-red-600 dark:text-red-400 rounded-xl text-xs mb-6 animate-fade-in">
+            <AlertCircle size={15} className="shrink-0 mt-0.5" />
+            <span>{error}</span>
+          </div>
+        )}
+
+        {/* Login Form */}
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Email Input */}
+          <div className="space-y-1.5">
+            <label htmlFor="email" className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Email Address
+            </label>
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 dark:text-slate-500">
+                <Mail size={16} />
+              </span>
+              <input
+                id="email"
+                type="email"
+                required
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="block w-full pl-10.5 pr-4 py-3 text-xs bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-white dark:focus:bg-slate-950/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
+              />
+            </div>
+          </div>
+
+          {/* Password Input */}
+          <div className="space-y-1.5">
+            <label htmlFor="password" className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Password
+            </label>
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 dark:text-slate-500">
+                <Lock size={16} />
+              </span>
+              <input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                required
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="block w-full pl-10.5 pr-10 py-3 text-xs bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-white dark:focus:bg-slate-950/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-350 focus:outline-hidden cursor-pointer"
+                title={showPassword ? 'Hide password' : 'Show password'}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full flex items-center justify-center gap-2 py-3 bg-primary hover:bg-blue-600 active:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md cursor-pointer transition-all duration-150 active:scale-98 focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none mt-2"
+          >
+            {isLoading ? (
+              <div className="w-4.5 h-4.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              <>
+                <LogIn size={15} />
+                <span>Sign In</span>
+              </>
+            )}
+          </button>
+        </form>
+
+        {/* Demo Credentials Box */}
+        <div className="mt-6 p-4 bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100/50 dark:border-blue-900/30 rounded-2xl flex gap-3 text-xs text-blue-600 dark:text-blue-400">
+          <Info size={16} className="shrink-0 mt-0.5 text-primary" />
+          <div>
+            <p className="font-bold text-slate-800 dark:text-slate-200 text-[11px]">Demo Credentials</p>
+            <div className="mt-1 font-mono text-[10px] space-y-0.5">
+              <p><span className="text-slate-500 dark:text-slate-400">Email:</span> admin@auracrm.com</p>
+              <p><span className="text-slate-500 dark:text-slate-400">Password:</span> password123</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Switch Link */}
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-6 select-none">
+          Don't have an account?{' '}
+          <Link to="/register" className="text-primary hover:underline font-bold transition-all">
+            Sign Up
+          </Link>
+        </p>
+
+      </div>
+    </div>
+  );
+};
+
+export default Login;

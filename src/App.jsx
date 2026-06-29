@@ -1,32 +1,33 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import Layout from './components/common/Layout';
 import { AppRoutes } from './routes';
+
+// Redirect direct path entry without a hash to its corresponding HashRouter route path
+const pathname = window.location.pathname;
+if (pathname !== '/' && !pathname.endsWith('/index.html') && !window.location.hash) {
+  const targetHash = '#' + pathname + window.location.search;
+  window.location.replace(window.location.origin + '/' + targetHash);
+}
 
 /**
  * App Component
  * The central root assembly for AuraCRM.
- * - Wraps the layout in the HTML5 BrowserRouter to handle router navigation paths.
- * - Renders the Layout shell (Sidebar + Navbar frame) surrounding the lazy-loaded Page Switcher AppRoutes.
+ * - Wraps the layout in the HTML5 HashRouter to handle router navigation paths.
+ * - Renders the AppRoutes which handles protected and public route layouts.
  */
 const App = () => {
   return (
-    // BrowserRouter links URLs to specific router configurations
-    <BrowserRouter>
+    // HashRouter links URLs to specific router configurations via hash pathing, preventing page reload 404s
+    <HashRouter>
       
       {/* Toast notifications popup layer */}
       <Toaster position="top-right" />
       
-      {/* Layout provides the outer structural wireframe */}
-      <Layout>
-        
-        {/* AppRoutes renders the lazy loaded content pages based on routes */}
-        <AppRoutes />
-        
-      </Layout>
+      {/* AppRoutes renders the lazy loaded content pages based on routes */}
+      <AppRoutes />
       
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

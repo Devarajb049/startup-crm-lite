@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mail, Phone, Edit, Trash2, Building, DollarSign, Calendar } from 'lucide-react';
 import StatusBadge from './StatusBadge';
+import { useLeads } from '../../context/LeadContext';
 
 /**
  * @typedef {Object} Lead
@@ -29,15 +30,7 @@ import StatusBadge from './StatusBadge';
  * @param {LeadCardProps} props
  */
 const LeadCard = ({ lead, onEdit, onDelete }) => {
-  
-  // Format currency value helper
-  const formatCurrency = (val) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0
-    }).format(val);
-  };
+  const { formatCurrency } = useLeads();
 
   return (
     <div className="p-5 bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark rounded-xl shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">

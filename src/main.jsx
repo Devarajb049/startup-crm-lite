@@ -4,19 +4,23 @@ import './index.css';
 import App from './App.jsx';
 import { LeadProvider } from './context/LeadContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { AuthProvider } from './context/AuthContext';
 
 /**
  * Renders the React 19 application.
  * Wraps <App /> inside:
- * 1. LeadProvider: Outer wrapper maintaining CRM opportunity records.
- * 2. ThemeProvider: Inner wrapper managing Dark/Light visual styling.
+ * 1. AuthProvider: Manages active user sessions.
+ * 2. LeadProvider: Maintains CRM opportunity records.
+ * 3. ThemeProvider: Managing Dark/Light visual styling.
  */
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <LeadProvider>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </LeadProvider>
+    <AuthProvider>
+      <LeadProvider>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </LeadProvider>
+    </AuthProvider>
   </StrictMode>,
 );

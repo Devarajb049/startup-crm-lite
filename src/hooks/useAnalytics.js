@@ -23,7 +23,7 @@ import {
  */
 const useAnalytics = () => {
   const { leads } = useLeads();
-  const [filterRange, setFilterRange] = useState('Last 30 Days');
+  const [filterRange, setFilterRange] = useState('All Time');
   const [customRange, setCustomRange] = useState({ startDate: '', endDate: '' });
 
   // Filter leads based on selected date range

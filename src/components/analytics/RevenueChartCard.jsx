@@ -2,30 +2,14 @@ import React, { useMemo } from 'react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import { CHART_THEME } from '../../constants/analyticsColors';
 import { getRevenueByMonth } from '../../utils/analyticsHelpers';
-
-const formatRupeeShort = (val) => {
-  if (val >= 100000) {
-    return `₹${(val / 100000).toFixed(1)}L`; // Lakhs format
-  }
-  if (val >= 1000) {
-    return `₹${(val / 1000).toFixed(0)}k`;
-  }
-  return `₹${val}`;
-};
-
-const formatRupeeFull = (value) => {
-  return new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'INR',
-    maximumFractionDigits: 0
-  }).format(value);
-};
+import { useLeads } from '../../context/LeadContext';
 
 /**
  * RevenueChartCard Component
  * Displays a smooth area chart of won revenue over the last 6 months.
  */
 const RevenueChartCard = ({ leads }) => {
+  const { formatCurrency, formatCurrencyShort } = useLeads();
   const chartData = useMemo(() => getRevenueByMonth(leads), [leads]);
 
   return (
@@ -61,7 +45,7 @@ const RevenueChartCard = ({ leads }) => {
                 fontSize={11} 
                 tickLine={false} 
                 axisLine={false} 
-                tickFormatter={formatRupeeShort} 
+                tickFormatter={formatCurrencyShort} 
               />
               
               <Tooltip
@@ -71,7 +55,7 @@ const RevenueChartCard = ({ leads }) => {
                     return (
                       <div className="p-3 bg-slate-900/95 dark:bg-slate-950 border border-slate-800 rounded-xl shadow-lg text-white text-xs space-y-0.5">
                         <p className="font-bold">{data.name} Revenue</p>
-                        <p className="text-green-400 font-semibold">{formatRupeeFull(payload[0].value)}</p>
+                        <p className="text-green-400 font-semibold">{formatCurrency(payload[0].value)}</p>
                       </div>
                     );
                   }

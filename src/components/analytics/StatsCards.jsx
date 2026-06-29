@@ -1,22 +1,13 @@
 import React, { useMemo } from 'react';
 import { useLeads } from '../../context/LeadContext';
-import { Users, Percent, DollarSign, TrendingUp, Clock, AlertTriangle, ArrowUpRight, ArrowDownRight } from 'lucide-react';
-
-// Format Indian Rupee currency: e.g. ₹12,40,000
-const formatRupee = (value) => {
-  return new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'INR',
-    maximumFractionDigits: 0
-  }).format(value);
-};
+import { Users, Percent, DollarSign, TrendingUp, Clock, AlertTriangle, ArrowUpRight, ArrowDownRight, IndianRupee } from 'lucide-react';
 
 /**
  * StatsCards Component
  * Renders the 6 key performance indicator cards at the top of the analytics dashboard.
  */
 const StatsCards = ({ stats, filterRange }) => {
-  const { leads: allLeads } = useLeads();
+  const { leads: allLeads, formatCurrency, currency } = useLeads();
 
   // Compute previous period stats for growth comparisons
   const comparison = useMemo(() => {
@@ -98,8 +89,8 @@ const StatsCards = ({ stats, filterRange }) => {
     },
     {
       title: 'Pipeline Value',
-      value: formatRupee(stats.pipelineValue),
-      icon: DollarSign,
+      value: formatCurrency(stats.pipelineValue),
+      icon: currency === '₹' ? IndianRupee : DollarSign,
       color: 'amber',
       bgColor: 'bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400',
       borderColor: 'border-amber-100 dark:border-amber-900/25',
@@ -109,7 +100,7 @@ const StatsCards = ({ stats, filterRange }) => {
     },
     {
       title: 'Won Revenue',
-      value: formatRupee(stats.wonRevenue),
+      value: formatCurrency(stats.wonRevenue),
       icon: TrendingUp,
       color: 'success-green',
       bgColor: 'bg-green-50 dark:bg-green-950/30 text-green-600 dark:text-green-400',

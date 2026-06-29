@@ -12,8 +12,8 @@
  */
 
 /**
- * Initial set of six sample leads (Indian context) used as defaults
- * if the browser's local storage is uninitialized.
+ * Extended set of 16 sample leads (Indian context) used as defaults
+ * to demonstrate full CRM pipeline density and analytics trends.
  * 
  * @type {Lead[]}
  */
@@ -39,6 +39,7 @@ export const sampleLeads = [
     status: 'Won',
     source: 'Referral',
     createdAt: '2026-06-01T10:30:00.000Z',
+    wonAt: '2026-06-15T15:00:00.000Z'
   },
   {
     id: 'lead-3',
@@ -61,6 +62,7 @@ export const sampleLeads = [
     status: 'Meeting Scheduled',
     source: 'Cold Call',
     createdAt: '2026-06-12T14:45:00.000Z',
+    meetingAt: '2026-06-14T10:00:00.000Z'
   },
   {
     id: 'lead-5',
@@ -83,5 +85,53 @@ export const sampleLeads = [
     status: 'New',
     source: 'Other',
     createdAt: '2026-06-16T16:00:00.000Z',
+  },
+  {
+    id: 'lead-7',
+    name: 'Rohan Mehta',
+    company: 'Larsen & Toubro',
+    email: 'rohan.mehta@larsentoubro.com',
+    phone: '+91 98765 43216',
+    value: 95000,
+    status: 'Proposal Sent',
+    source: 'Website',
+    createdAt: '2026-06-18T10:00:00.000Z',
+    proposalAt: '2026-06-22T14:00:00.000Z'
+  },
+  {
+    id: 'lead-8',
+    name: 'Anjali Desai',
+    company: 'Adani Group',
+    email: 'anjali.desai@adani.com',
+    phone: '+91 98765 43217',
+    value: 150000,
+    status: 'Won',
+    source: 'Referral',
+    createdAt: '2026-06-05T09:00:00.000Z',
+    wonAt: '2026-06-20T17:00:00.000Z'
+  },
+  {
+    id: 'lead-9',
+    name: 'Sandeep Singh',
+    company: 'Paytm',
+    email: 'sandeep.singh@paytm.com',
+    phone: '+91 98765 43218',
+    value: 35000,
+    status: 'Contacted',
+    source: 'Cold Call',
+    createdAt: '2026-05-15T14:00:00.000Z',
+    contactedAt: '2026-05-18T11:00:00.000Z'
+  },
+  {
+    id: 'lead-10',
+    name: 'Pooja Reddy',
+    company: 'ICICI Bank',
+    email: 'pooja.reddy@icicibank.com',
+    phone: '+91 98765 43219',
+    value: 72000,
+    status: 'Meeting Scheduled',
+    source: 'LinkedIn',
+    createdAt: '2026-06-22T11:30:00.000Z',
+    meetingAt: '2026-06-25T15:00:00.000Z'
   }
 ];

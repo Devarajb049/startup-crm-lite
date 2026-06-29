@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { LayoutGrid, Table, Edit, Trash2, Building, Calendar, Landmark } from 'lucide-react';
 import StatusBadge from './StatusBadge';
 import LeadCard from './LeadCard';
+import { useLeads } from '../../context/LeadContext';
 
 /**
  * @typedef {Object} Lead
@@ -31,17 +32,9 @@ import LeadCard from './LeadCard';
  * @param {LeadTableProps} props
  */
 const LeadTable = ({ leads, onEditLead, onDeleteLead }) => {
+  const { formatCurrency } = useLeads();
   // Local state to toggle between table format ('table') and card format ('card')
   const [viewMode, setViewMode] = useState('table');
-
-  // Format currency value helper
-  const formatCurrency = (val) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0
-    }).format(val);
-  };
 
   return (
     <div className="space-y-4">
