@@ -157,21 +157,23 @@ const Register = () => {
         
         {/* Header Title */}
         <div className="flex flex-col items-center text-center mb-8 select-none">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/20 mb-3.5">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" className="w-7 h-7 text-white">
-              <path 
-                d="M16 7L22.5 20.5C23 21.5 22.2 22.5 21 22.5H11C9.8 22.5 9 21.5 9.5 20.5L16 7Z" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2.5" 
-                strokeLinejoin="round" 
-              />
-              <path 
-                d="M12.8 16.5H19.2" 
-                stroke="currentColor" 
-                strokeWidth="2.5" 
-                strokeLinecap="round" 
-              />
+          <div className="w-12 h-12 mb-3.5 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" className="w-full h-full">
+              <defs>
+                <linearGradient id="registerLogoGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#2563EB" />
+                  <stop offset="50%" stopColor="#0EA5E9" />
+                  <stop offset="100%" stopColor="#10B981" />
+                </linearGradient>
+              </defs>
+              <g stroke="url(#registerLogoGrad)" strokeWidth="2.8" strokeLinejoin="round" strokeLinecap="round">
+                {/* Left leg */}
+                <path d="M 6 26 L 18 5 L 21 11" />
+                {/* Right leg */}
+                <path d="M 22.5 14.5 L 27 26" />
+                {/* Futuristic arrow crossbar pointing up-right */}
+                <path d="M 8 20 L 29 11 M 29 11 L 23 8 M 29 11 L 26 17" />
+              </g>
             </svg>
           </div>
           <h2 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">

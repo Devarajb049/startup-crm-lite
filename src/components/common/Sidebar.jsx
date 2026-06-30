@@ -120,22 +120,30 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed = false, toggleCollapse })
                   if (window.innerWidth < 768) toggleSidebar();
                 }}
                 className={({ isActive }) =>
-                  `flex items-center ${isCollapsed ? 'justify-center' : 'justify-center lg:justify-start'} gap-3 px-3.5 py-3 rounded-xl text-sm font-medium transition-all duration-150 ${isActive
+                  `group flex items-center ${isCollapsed ? 'justify-center' : 'justify-center lg:justify-start'} gap-3 px-3.5 py-3 rounded-xl text-sm font-medium transition-all duration-150 ${isActive
                     ? 'bg-primary text-white shadow-md shadow-primary/10 font-semibold'
                     : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-950 dark:hover:text-slate-100'
                   }`
                 }
                 title={link.name}
               >
-                <IconComponent size={18} strokeWidth={2} className="shrink-0" />
+                {({ isActive }) => (
+                  <>
+                    <IconComponent size={18} strokeWidth={2} className="shrink-0" />
 
-                {/* Text Labels - Hidden on tablet collapsed sidebar or when collapsed */}
-                <div className={`hidden ${isCollapsed ? 'md:hidden' : 'lg:flex'} flex-col text-left`}>
-                  <span className="font-semibold text-xs leading-none">{link.name}</span>
-                  <span className="text-[9px] text-slate-500 mt-1 font-medium group-hover:text-slate-700 dark:group-hover:text-slate-400 leading-none truncate max-w-[150px]">
-                    {link.subLabel}
-                  </span>
-                </div>
+                    {/* Text Labels - Hidden on tablet collapsed sidebar or when collapsed */}
+                    <div className={`hidden ${isCollapsed ? 'md:hidden' : 'lg:flex'} flex-col text-left`}>
+                      <span className="font-semibold text-xs leading-none">{link.name}</span>
+                      <span className={`text-[9px] mt-1 font-medium leading-none truncate max-w-[150px] ${
+                        isActive
+                          ? 'text-blue-200/95'
+                          : 'text-slate-450 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200'
+                      }`}>
+                        {link.subLabel}
+                      </span>
+                    </div>
+                  </>
+                )}
               </NavLink>
             );
           })}

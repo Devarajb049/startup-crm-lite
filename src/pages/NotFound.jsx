@@ -35,13 +35,20 @@ const NotFound = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[80vh] max-w-4xl mx-auto px-4 text-center py-10">
+    <div className="relative flex flex-col items-center justify-center min-h-[80vh] max-w-4xl mx-auto px-4 text-center py-10 overflow-hidden">
       
+      {/* Floating background glowing mesh elements - fixed to fill full viewport */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden select-none -z-10">
+        <div className="absolute -top-20 -left-20 w-[450px] h-[450px] rounded-full bg-primary/6 dark:bg-primary/4 blur-3xl animate-float-slow" />
+        <div className="absolute top-1/3 -right-20 w-[500px] h-[500px] rounded-full bg-emerald-500/6 dark:bg-emerald-500/4 blur-3xl animate-float-reverse" />
+        <div className="absolute -bottom-20 left-1/4 w-[450px] h-[450px] rounded-full bg-pink-500/6 dark:bg-pink-500/4 blur-3xl animate-float-alternate" />
+      </div>
+
       {/* 1. Large Aesthetic Radar & 404 Block */}
       <div className="relative w-full max-w-sm mx-auto mb-6 flex items-center justify-center">
         {/* Glow Effects */}
-        <div className="absolute w-44 h-44 rounded-full bg-primary/10 blur-3xl dark:bg-primary/5" />
-        <div className="absolute w-36 h-36 rounded-full bg-pink-500/10 blur-3xl dark:bg-pink-500/5" />
+        <div className="absolute w-44 h-44 rounded-full bg-primary/10 blur-3xl dark:bg-primary/5 animate-float-slow" />
+        <div className="absolute w-36 h-36 rounded-full bg-pink-500/10 blur-3xl dark:bg-pink-500/5 animate-float-reverse" />
         
         {/* Radial graphic SVG */}
         <svg viewBox="0 0 200 120" className="w-full h-full text-slate-300 dark:text-slate-700 drop-shadow-xl select-none">
@@ -51,22 +58,55 @@ const NotFound = () => {
               <stop offset="50%" stopColor="#8B5CF6" />
               <stop offset="100%" stopColor="#EC4899" />
             </linearGradient>
+            <style>{`
+              @keyframes radar-spin-cw {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+              }
+              @keyframes radar-spin-ccw {
+                from { transform: rotate(360deg); }
+                to { transform: rotate(0deg); }
+              }
+              .spin-radar-slow {
+                transform-origin: 100px 60px;
+                animation: radar-spin-cw 25s linear infinite;
+              }
+              .spin-radar-fast {
+                transform-origin: 100px 60px;
+                animation: radar-spin-ccw 15s linear infinite;
+              }
+              .spin-radar-inner {
+                transform-origin: 100px 60px;
+                animation: radar-spin-cw 10s linear infinite;
+              }
+            `}</style>
           </defs>
           
-          {/* Radar Circles */}
-          <circle cx="100" cy="60" r="50" stroke="currentColor" strokeWidth="1" strokeDasharray="4 6" opacity="0.3" fill="none" />
-          <circle cx="100" cy="60" r="35" stroke="currentColor" strokeWidth="1" strokeDasharray="3 4" opacity="0.4" fill="none" />
-          <circle cx="100" cy="60" r="20" stroke="currentColor" strokeWidth="0.75" opacity="0.5" fill="none" />
+          {/* Group 1: Outer Radar circle & nodes (Clockwise slow) */}
+          <g className="spin-radar-slow">
+            <circle cx="100" cy="60" r="50" stroke="currentColor" strokeWidth="1" strokeDasharray="4 6" opacity="0.3" fill="none" />
+            <circle cx="65" cy="30" r="3" fill="#3B82F6" className="animate-pulse" />
+          </g>
+          
+          {/* Group 2: Middle Radar circle & nodes (Counter-clockwise fast) */}
+          <g className="spin-radar-fast">
+            <circle cx="100" cy="60" r="35" stroke="currentColor" strokeWidth="1" strokeDasharray="3 4" opacity="0.4" fill="none" />
+            <circle cx="135" cy="35" r="4" fill="#8B5CF6" className="animate-pulse" />
+          </g>
+          
+          {/* Group 3: Inner Radar circle & nodes (Clockwise inner) */}
+          <g className="spin-radar-inner">
+            <circle cx="100" cy="60" r="20" stroke="currentColor" strokeWidth="0.75" opacity="0.5" fill="none" />
+            <circle cx="118" cy="52" r="2" fill="#EC4899" className="animate-pulse" />
+          </g>
           
           {/* Big Neon 404 Text */}
           <text x="100" y="70" textAnchor="middle" className="fill-[url(#glowGrad)] text-5xl font-extrabold tracking-widest font-mono select-none">
             404
           </text>
           
-          {/* Orbital nodes */}
-          <circle cx="65" cy="30" r="3" fill="#3B82F6" className="animate-pulse" />
-          <circle cx="140" cy="85" r="2.5" fill="#EC4899" className="animate-pulse" />
-          <circle cx="135" cy="35" r="4" fill="#8B5CF6" className="animate-pulse" />
+          {/* Extra orbital nodes that hover slowly */}
+          <circle cx="140" cy="85" r="2.5" fill="#EC4899" className="animate-pulse animate-float-slow" />
         </svg>
       </div>
 

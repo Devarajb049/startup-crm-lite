@@ -1,11 +1,12 @@
 
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Users, BarChart3 } from 'lucide-react';
+import { LayoutDashboard, Users, BarChart3, Settings, LogOut } from 'lucide-react';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import AddLeadModal from '../leads/AddLeadModal';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { useAuth } from '../../context/AuthContext';
 
 /**
  * Layout Component
@@ -19,6 +20,8 @@ import useLocalStorage from '../../hooks/useLocalStorage';
  * - children (React.ReactNode): Router pages inside the layout
  */
 const Layout = ({ children }) => {
+  const { logout } = useAuth();
+
   // Mobile sidebar drawer display toggle state
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -38,7 +41,8 @@ const Layout = ({ children }) => {
   const bottomNavLinks = [
     { name: 'Dashboard', path: '/', icon: LayoutDashboard },
     { name: 'Leads', path: '/leads', icon: Users },
-    { name: 'Analytics', path: '/analytics', icon: BarChart3 }
+    { name: 'Analytics', path: '/analytics', icon: BarChart3 },
+    { name: 'Settings', path: '/settings', icon: Settings }
   ];
 
   return (
@@ -57,8 +61,8 @@ const Layout = ({ children }) => {
         }`}>
 
         {/* Top Header Navigation Toolbar */}
-        <Navbar 
-          onOpenAddLead={openAddLeadModal} 
+        <Navbar
+          onOpenAddLead={openAddLeadModal}
         />
 
         {/* Content canvas with dynamic view entrance animation */}
