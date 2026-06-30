@@ -9,7 +9,6 @@ const Leads = lazy(() => import('../pages/Leads'));
 const Analytics = lazy(() => import('../pages/Analytics'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const Login = lazy(() => import('../pages/Login'));
-const Register = lazy(() => import('../pages/Register'));
 const Settings = lazy(() => import('../pages/Settings'));
 
 // A premium visual page loader rendered in place of the page chunk until the lazy import resolves.
@@ -75,14 +74,7 @@ export const AppRoutes = () => {
             </PublicOnly>
           } 
         />
-        <Route 
-          path="/register" 
-          element={
-            <PublicOnly>
-              <Register />
-            </PublicOnly>
-          } 
-        />
+
 
         {/* Private Dashboard Shell Canvas */}
         <Route element={<ProtectedLayout />}>

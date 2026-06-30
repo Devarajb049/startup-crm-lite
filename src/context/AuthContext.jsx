@@ -66,33 +66,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('startup-crm-auth-user', JSON.stringify(matchedUser));
   };
 
-  /**
-   * Registers a new user account and logs them in immediately.
-   * Throws an error if the email is already in use.
-   * 
-   * @param {string} name
-   * @param {string} email
-   * @param {string} password
-   */
-  const register = (name, email, password) => {
-    const emailExists = registeredUsers.some(
-      (u) => u.email.toLowerCase() === email.toLowerCase()
-    );
 
-    if (emailExists) {
-      throw new Error('Email address is already in use.');
-    }
-
-    const newUser = { name, email, password };
-    const updatedUsers = [...registeredUsers, newUser];
-
-    setRegisteredUsers(updatedUsers);
-    localStorage.setItem('startup-crm-registered-users', JSON.stringify(updatedUsers));
-    
-    // Automatically log in the newly registered user
-    setUser(newUser);
-    localStorage.setItem('startup-crm-auth-user', JSON.stringify(newUser));
-  };
 
   /**
    * Logs out the current user, clearing session states.
@@ -132,7 +106,6 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated: !!user,
         isLoading,
         login,
-        register,
         logout,
         updateProfile
       }}

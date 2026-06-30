@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import DarkModeToggle from '../components/common/DarkModeToggle';
 import { Mail, Lock, LogIn, AlertCircle, Info, Eye, EyeOff } from 'lucide-react';
@@ -177,13 +177,7 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Switch Link */}
-        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-6 select-none">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-primary hover:underline font-bold transition-all">
-            Sign Up
-          </Link>
-        </p>
+
 
       </div>
     </div>
