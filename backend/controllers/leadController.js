@@ -9,7 +9,7 @@ import { successResponse, errorResponse } from '../utils/apiResponse.js';
 export const getLeads = async (req, res, next) => {
   try {
     const { search, status } = req.query;
-    let query = { user: req.user.id };
+    let query = { owner: req.user.id };
 
     // Apply status filter if provided
     if (status) {
@@ -39,7 +39,7 @@ export const getLeads = async (req, res, next) => {
  */
 export const getLeadById = async (req, res, next) => {
   try {
-    const lead = await Lead.findOne({ _id: req.params.id, user: req.user.id });
+    const lead = await Lead.findOne({ _id: req.params.id, owner: req.user.id });
 
     if (!lead) {
       return errorResponse(res, 'Lead not found', 404);
@@ -61,7 +61,7 @@ export const createLead = async (req, res, next) => {
 
   try {
     const leadData = {
-      user: req.user.id,
+      owner: req.user.id,
       name,
       company,
       email,
@@ -95,7 +95,7 @@ export const updateLead = async (req, res, next) => {
   const { name, company, email, phone, value, status, source } = req.body;
 
   try {
-    let lead = await Lead.findOne({ _id: req.params.id, user: req.user.id });
+    let lead = await Lead.findOne({ _id: req.params.id, owner: req.user.id });
 
     if (!lead) {
       return errorResponse(res, 'Lead not found or unauthorized', 404);
@@ -134,7 +134,7 @@ export const updateLead = async (req, res, next) => {
  */
 export const deleteLead = async (req, res, next) => {
   try {
-    const lead = await Lead.findOne({ _id: req.params.id, user: req.user.id });
+    const lead = await Lead.findOne({ _id: req.params.id, owner: req.user.id });
 
     if (!lead) {
       return errorResponse(res, 'Lead not found or unauthorized', 404);
