@@ -34,33 +34,7 @@ export const register = async (req, res, next) => {
   const { name, email, password } = req.body;
 
   try {
-    // Check if email already exists in database
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-      return errorResponse(res, 'Email already exists', 409);
-    }
-
-    // Create new User instance (password is auto-hashed in UserSchema pre-save hook)
-    const user = await User.create({
-      name,
-      email,
-      password,
-    });
-
-    // Generate JWT (uses '7d' as default or environment value)
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '7d',
-    });
-
-    // Strip password field from outgoing user payload
-    const userObject = user.toJSON();
-
-    return successResponse(
-      res,
-      { token, user: userObject },
-      'User registered successfully',
-      201
-    );
+    return errorResponse(res, 'Registration is disabled for this workspace. Only one admin user is allowed.', 403);
   } catch (error) {
     next(error);
   }
@@ -87,7 +61,7 @@ export const login = async (req, res, next) => {
   try {
     // Find user by email and explicitly select password field for validation
     const user = await User.findOne({ email }).select('+password');
-    
+
     // Security best practice: Never tell the client whether email or password was wrong
     if (!user) {
       return errorResponse(res, 'Invalid credentials', 401);
@@ -107,7 +81,7 @@ export const login = async (req, res, next) => {
     // Generate JWT
     const token = generateToken(user._id);
 
-    // Strip password from user payload (toJSON handles this, but we explicitly clean it here too)
+    // Strip password from user payload
     const userObject = user.toJSON();
 
     return successResponse(
@@ -191,6 +165,23 @@ export const updateProfile = async (req, res, next) => {
       updatedUser,
       'Profile updated successfully'
     );
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Logout the currently authenticated user.
+ * Handled client-side by invalidating the token, but this endpoint provides a clean success response 
+ * and can optionally be extended to clear token cookies or blacklist tokens.
+ * 
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
+export const logout = async (req, res, next) => {
+  try {
+    return successResponse(res, null, 'Logged out successfully. Token invalidated client-side.');
   } catch (error) {
     next(error);
   }

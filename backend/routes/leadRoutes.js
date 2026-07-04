@@ -62,11 +62,13 @@ const statusUpdateValidation = [
    (Must be registered BEFORE dynamic /:id endpoints to avoid parameter collision)
    ========================================================================= */
 
-// 1. GET /api/leads/stats - Fetch pipeline stats (total counts, conversion rates, and revenue)
+// 1. GET /api/leads/stats & /api/leads/stats/summary - Fetch pipeline stats (total counts, conversion rates, and revenue)
 router.get('/stats', getLeadStats);
+router.get('/stats/summary', getLeadStats);
 
-// 2. GET /api/leads/monthly-stats - Fetch monthly aggregation counts for the last 6 months
+// 2. GET /api/leads/monthly-stats & /api/leads/stats/monthly - Fetch monthly aggregation counts for the last 6 months
 router.get('/monthly-stats', getMonthlyStats);
+router.get('/stats/monthly', getMonthlyStats);
 
 /* =========================================================================
    COLLECTION API ENDPOINTS

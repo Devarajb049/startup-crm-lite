@@ -38,8 +38,7 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed = false, toggleCollapse })
   const navigationLinks = [
     { name: 'Dashboard', subLabel: 'Overview & KPI Metrics', path: '/', icon: LayoutDashboard },
     { name: 'Leads Management', subLabel: 'Active Opportunities Directory', path: '/leads', icon: Users },
-    { name: 'Analytics', subLabel: 'Conversion & Revenue Charts', path: '/analytics', icon: BarChart3 },
-    { name: 'Settings & Profile', subLabel: 'Account & CRM Config', path: '/settings', icon: Settings }
+    { name: 'Analytics', subLabel: 'Conversion & Revenue Charts', path: '/analytics', icon: BarChart3 }
   ];
 
   return (

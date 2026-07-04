@@ -13,10 +13,10 @@ const UserSchema = new mongoose.Schema(
      */
     name: {
       type: String,
-      required: [true, 'User name is required'],
+      required: [true, 'Name is required'],
       trim: true,
       minlength: [2, 'Name must be at least 2 characters long'],
-      maxlength: [50, 'Name cannot exceed 50 characters']
+      maxlength: [50, 'Name cannot exceed 50 characters'],
     },
     /**
      * User's unique email address.
@@ -24,16 +24,16 @@ const UserSchema = new mongoose.Schema(
      */
     email: {
       type: String,
-      required: [true, 'Email address is required'],
+      required: [true, 'Email is required'],
       unique: true,
       lowercase: true,
       trim: true,
       validate: {
-        validator: function (value) {
-          return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+        validator: function (v) {
+          return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
         },
-        message: props => `${props.value} is not a valid email address`
-      }
+        message: 'Email must be a valid email address',
+      },
     },
     /**
      * User's hashed security credentials.
@@ -42,7 +42,7 @@ const UserSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, 'Password is required'],
-      minlength: [6, 'Password must be at least 6 characters long']
+      minlength: [6, 'Password must be at least 6 characters long'],
     },
     /**
      * User's authorization role.
@@ -52,9 +52,9 @@ const UserSchema = new mongoose.Schema(
       type: String,
       enum: {
         values: ['admin', 'user'],
-        message: '{VALUE} is not a valid role. Allowed roles are: admin, user'
+        message: '{VALUE} is not a valid role. Allowed roles: admin, user',
       },
-      default: 'user'
+      default: 'user',
     },
     /**
      * Indicates whether the user account is active.
@@ -62,18 +62,18 @@ const UserSchema = new mongoose.Schema(
      */
     isActive: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   {
-    timestamps: true,
+    timestamps: true, // Auto-generates and manages createdAt and updatedAt fields
     toJSON: { virtuals: true },
-    toObject: { virtuals: true }
+    toObject: { virtuals: true },
   }
 );
 
 /**
- * Pre-save Mongoose hook to encrypt password using bcrypt before storage.
+ * Pre-save Mongoose hook to encrypt password using bcryptjs before storage.
  */
 UserSchema.pre('save', async function (next) {
   // Only hash password if it was modified (or is new)
@@ -91,7 +91,8 @@ UserSchema.pre('save', async function (next) {
 });
 
 /**
- * Compares candidate plain text password with database stored hashed password.
+ * Compares plain text password with database stored hashed password.
+ * 
  * @param {String} candidatePassword - Plain text password input
  * @returns {Promise<Boolean>} True if matches, false otherwise
  */
@@ -100,7 +101,8 @@ UserSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 /**
- * Custom serialization to strip password field from outgoing JSON models.
+ * Override standard serialization to strip password field from outgoing JSON models.
+ * 
  * @returns {Object} User document without the password field
  */
 UserSchema.methods.toJSON = function () {
@@ -109,7 +111,7 @@ UserSchema.methods.toJSON = function () {
   return userObject;
 };
 
-// Export the schema separately for reuse/nesting
+// Export the schema separately for nesting or extension
 export { UserSchema };
 
 // Export the model as the default export

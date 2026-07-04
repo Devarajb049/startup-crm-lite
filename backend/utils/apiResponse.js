@@ -3,7 +3,7 @@
  *
  * @param {Object} res - Express response object
  * @param {any} data - The payload data to be returned
- * @param {string} message - Optional summary or info message
+ * @param {string} message - Optional success description
  * @param {number} statusCode - HTTP status code (defaults to 200)
  * @returns {Object} JSON response
  */

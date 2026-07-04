@@ -288,7 +288,7 @@ export const getLeadStats = async (req, res, next) => {
       lostRate: 0,
       pipelineValue: 0,
       wonRevenue: 0,
-      averageSalesCycle: 0, // Mocked or calculated if needed
+      averageSalesCycle: 0,
       statusBreakdown: {
         New: 0,
         Contacted: 0,
@@ -374,7 +374,7 @@ export const getMonthlyStats = async (req, res, next) => {
     // Construct reference list of last 6 calendar months to guarantee zero-filled slots are plotted
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const chronologicalMonths = [];
-    
+
     for (let i = 5; i >= 0; i--) {
       const d = new Date();
       d.setMonth(d.getMonth() - i);

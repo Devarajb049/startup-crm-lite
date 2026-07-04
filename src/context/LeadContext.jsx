@@ -1,30 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
-import { sampleLeads } from '../data/sampleLeads';
+import * as leadService from '../services/leadService';
+import { toast } from 'react-hot-toast';
 
-/**
- * shape definition of the Lead object
- * 
- * @typedef {Object} Lead
- * @property {string} id - Unique identifier (generates via Date.now())
- * @property {string} name - Full name of the contact person
- * @property {string} company - Name of the startup/organization
- * @property {string} email - Contact email address
- * @property {string} phone - Contact telephone number
- * @property {'New' | 'Contacted' | 'Meeting Scheduled' | 'Proposal Sent' | 'Won' | 'Lost'} status - Active stage of sales pipeline
- * @property {'Website' | 'Referral' | 'LinkedIn' | 'Cold Call' | 'Email Campaign' | 'Other'} source - Channel channel
- * @property {number} value - Estimated deal size value in INR
- * @property {string} createdAt - ISO date string timestamp
- */
-
-// Create the Context object
 const LeadContext = createContext(undefined);
 
 /**
  * LeadProvider Component
- * Exposes opportunity leads database operations and recent notifications to child consumer layouts.
- * Isolates data scoped by the currently logged-in user email.
- * 
+ * Exposes opportunity leads database operations from the API and notifies components.
+ *
  * @param {Object} props
  * @param {React.ReactNode} props.children - Child elements
  */
@@ -32,11 +16,13 @@ export const LeadProvider = ({ children }) => {
   const { user, isAuthenticated } = useAuth();
 
   const [leads, setLeads] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [pagination, setPagination] = useState({ total: 0, page: 1, limit: 20, pages: 1 });
   const [notifications, setNotifications] = useState([]);
   const [currency, setCurrencyState] = useState('₹');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Dynamically load leads, notifications and currency when the user session changes
+  // Dynamically load currency preference and notifications from localStorage when user session changes
   useEffect(() => {
     if (!isAuthenticated || !user) {
       setLeads([]);
@@ -46,58 +32,32 @@ export const LeadProvider = ({ children }) => {
     }
 
     const emailKey = user.email.toLowerCase();
-    const leadsKey = `startup-crm-leads-${emailKey}`;
-    const notifsKey = `startup-crm-notifications-${emailKey}`;
     const currencyKey = `startup-crm-currency-${emailKey}`;
+    const notifsKey = `startup-crm-notifications-${emailKey}`;
 
     // Load currency preference
     const storedCurrency = localStorage.getItem(currencyKey) || '₹';
     setCurrencyState(storedCurrency);
 
-    // Load leads
-    try {
-      const storedLeads = localStorage.getItem(leadsKey);
-      if (storedLeads && JSON.parse(storedLeads).length > 0) {
-        setLeads(JSON.parse(storedLeads));
-      } else {
-        // Pre-populate for all accounts on initialization
-        const initialLeads = sampleLeads;
-        localStorage.setItem(leadsKey, JSON.stringify(initialLeads));
-        setLeads(initialLeads);
-      }
-    } catch (e) {
-      console.error('Failed to parse leads from local storage:', e);
-      setLeads([]);
-    }
-
-    // Load notifications
+    // Load local notification history
     try {
       const storedNotifs = localStorage.getItem(notifsKey);
       if (storedNotifs) {
         setNotifications(JSON.parse(storedNotifs));
       } else {
-        localStorage.setItem(notifsKey, JSON.stringify([]));
         setNotifications([]);
       }
     } catch (e) {
-      console.error('Failed to parse notifications from local storage:', e);
+      console.error('Failed to parse notifications:', e);
       setNotifications([]);
     }
+
+    // Load initial leads from the server API
+    fetchLeads();
   }, [user, isAuthenticated]);
 
   /**
-   * Helper: Saves leads to local storage under user-specific key.
-   */
-  const saveLeads = (updatedLeads) => {
-    if (!user) return;
-    const emailKey = user.email.toLowerCase();
-    const leadsKey = `startup-crm-leads-${emailKey}`;
-    localStorage.setItem(leadsKey, JSON.stringify(updatedLeads));
-    setLeads(updatedLeads);
-  };
-
-  /**
-   * Helper: Saves notifications to local storage under user-specific key.
+   * Helper: Saves notifications to local storage.
    */
   const saveNotifications = (updatedNotifs) => {
     if (!user) return;
@@ -105,6 +65,180 @@ export const LeadProvider = ({ children }) => {
     const notifsKey = `startup-crm-notifications-${emailKey}`;
     localStorage.setItem(notifsKey, JSON.stringify(updatedNotifs));
     setNotifications(updatedNotifs);
+  };
+
+  /**
+   * Fetch leads from the API.
+   *
+   * @param {Object} [params] - Filter/search query params
+   */
+  const fetchLeads = async (params) => {
+    if (!isAuthenticated) return;
+    setIsLoading(true);
+    try {
+      const response = await leadService.getLeads({
+        search: searchQuery || undefined,
+        ...params,
+      });
+      // The API response is: { success: true, data: [...], pagination: { ... } }
+      setLeads(response.data || []);
+      if (response.pagination) {
+        setPagination(response.pagination);
+      }
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || 'Failed to fetch leads from server';
+      console.error(errorMsg);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Re-fetch leads when the global search query changes
+  useEffect(() => {
+    if (isAuthenticated) {
+      const delayDebounce = setTimeout(() => {
+        fetchLeads();
+      }, 350);
+      return () => clearTimeout(delayDebounce);
+    }
+  }, [searchQuery, isAuthenticated]);
+
+  /**
+   * Add a new lead.
+   * 
+   * @param {Object} data - Lead input parameters
+   * @returns {Promise<Object>} The created lead object
+   */
+  const addLead = async (data) => {
+    setIsLoading(true);
+    try {
+      const response = await leadService.createLead(data);
+      const newLead = response.data || response;
+      setLeads((prev) => [newLead, ...prev]);
+      
+      toast.success('Lead created successfully');
+
+      // Create a local notification
+      const newNotif = {
+        id: `notif-${Date.now()}`,
+        title: 'New Lead Registered',
+        message: `${newLead.name} from ${newLead.company} was added to the pipeline (${formatCurrency(newLead.value)}).`,
+        type: 'info',
+        read: false,
+        time: 'Just now',
+      };
+      saveNotifications([newNotif, ...notifications]);
+
+      return newLead;
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || 'Failed to create lead';
+      toast.error(errorMsg);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  /**
+   * Update an existing lead record.
+   * 
+   * @param {string} id - Lead ID
+   * @param {Object} updatedFields - Fields to update
+   * @returns {Promise<Object>} The updated lead object
+   */
+  const updateLead = async (id, updatedFields) => {
+    setIsLoading(true);
+    try {
+      let response;
+      // Optimize: If updating only the status, call status update patch endpoint
+      if (Object.keys(updatedFields).length === 1 && updatedFields.status) {
+        response = await leadService.updateLeadStatus(id, updatedFields.status);
+      } else {
+        response = await leadService.updateLead(id, updatedFields);
+      }
+      const updated = response.data || response;
+      
+      // Update local state array
+      setLeads((prev) => prev.map((l) => (l._id === id || l.id === id ? updated : l)));
+      toast.success('Lead updated successfully');
+
+      // Generate status change notification if stage modified
+      const oldLead = leads.find((l) => l._id === id || l.id === id);
+      if (oldLead && updatedFields.status && oldLead.status !== updatedFields.status) {
+        let title = 'Lead Status Updated';
+        let type = 'info';
+        if (updatedFields.status === 'Won') {
+          title = 'Deal Won! 🚀';
+          type = 'success';
+        } else if (updatedFields.status === 'Lost') {
+          title = 'Deal Lost 😔';
+          type = 'danger';
+        } else if (updatedFields.status === 'Meeting Scheduled') {
+          title = 'Meeting Scheduled 📅';
+          type = 'warning';
+        }
+
+        const newNotif = {
+          id: `notif-${Date.now()}`,
+          title,
+          message: `${updated.name} (${updated.company}) is now in stage "${updatedFields.status}".`,
+          type,
+          read: false,
+          time: 'Just now',
+        };
+        saveNotifications([newNotif, ...notifications]);
+      }
+
+      return updated;
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || 'Failed to update lead';
+      toast.error(errorMsg);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  /**
+   * Deletes a lead record.
+   * 
+   * @param {string} id - Target lead ID
+   */
+  const deleteLead = async (id) => {
+    setIsLoading(true);
+    try {
+      const leadToDelete = leads.find((l) => l._id === id || l.id === id);
+      await leadService.deleteLead(id);
+      
+      setLeads((prev) => prev.filter((l) => l._id !== id && l.id !== id));
+      toast.success('Lead deleted successfully');
+
+      // Generate deletion notification
+      if (leadToDelete) {
+        const newNotif = {
+          id: `notif-${Date.now()}`,
+          title: 'Lead Deleted',
+          message: `${leadToDelete.name} from ${leadToDelete.company} was removed.`,
+          type: 'danger',
+          read: false,
+          time: 'Just now',
+        };
+        saveNotifications([newNotif, ...notifications]);
+      }
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || 'Failed to delete lead';
+      toast.error(errorMsg);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  /**
+   * Get a single lead from local state.
+   */
+  const getLeadById = (id) => {
+    return leads.find((l) => l._id === id || l.id === id);
   };
 
   /**
@@ -119,7 +253,7 @@ export const LeadProvider = ({ children }) => {
   };
 
   /**
-   * Formats standard numbers into localized currency display representation.
+   * Formats numbers into currency text.
    */
   const formatCurrency = (val) => {
     const num = Number(val) || 0;
@@ -127,19 +261,19 @@ export const LeadProvider = ({ children }) => {
       return new Intl.NumberFormat('en-IN', {
         style: 'currency',
         currency: 'INR',
-        maximumFractionDigits: 0
+        maximumFractionDigits: 0,
       }).format(num);
     } else {
       return new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
-        maximumFractionDigits: 0
+        maximumFractionDigits: 0,
       }).format(num);
     }
   };
 
   /**
-   * Formats numbers into a shortened string with currency symbols (e.g. ₹12L, $1.2M, $50k) for chart axes.
+   * Formats numbers into shortened representations.
    */
   const formatCurrencyShort = (val) => {
     const num = Number(val) || 0;
@@ -152,130 +286,6 @@ export const LeadProvider = ({ children }) => {
       if (num >= 1000) return `$${(num / 1000).toFixed(0)}k`;
       return `$${num}`;
     }
-  };
-
-  /**
-   * Registers a new lead.
-   * Generates a unique ID and attaches a createdAt timestamp.
-   * 
-   * @param {Omit<Lead, 'id' | 'createdAt'>} newLeadData - Lead input parameters
-   * @returns {Lead} The created lead object
-   */
-  const addLead = (newLeadData) => {
-    const lead = {
-      ...newLeadData,
-      id: `lead-${Date.now()}`,
-      value: Number(newLeadData.value) || 0,
-      createdAt: new Date().toISOString(),
-      date: new Date().toISOString().split('T')[0]
-    };
-
-    const updatedLeads = [lead, ...leads];
-    saveLeads(updatedLeads);
-
-    // Create a new unread notification
-    const newNotif = {
-      id: `notif-${Date.now()}`,
-      title: 'New Lead Registered',
-      message: `${lead.name} from ${lead.company} was added to the pipeline (${formatCurrency(lead.value)}).`,
-      type: 'info',
-      read: false,
-      time: 'Just now'
-    };
-    saveNotifications([newNotif, ...notifications]);
-
-    return lead;
-  };
-
-  /**
-   * Updates an existing lead record.
-   * 
-   * @param {string} id - Target lead identifier to search
-   * @param {Partial<Lead>} updatedFields - Key-value map of updated parameters
-   * @returns {Lead|null} The updated lead object, or null if not found
-   */
-  const updateLead = (id, updatedFields) => {
-    let updatedLead = null;
-    const oldLead = leads.find((l) => l.id === id);
-
-    const updatedLeads = leads.map((lead) => {
-      if (lead.id === id) {
-        updatedLead = {
-          ...lead,
-          ...updatedFields,
-          value: updatedFields.value !== undefined ? Number(updatedFields.value) : lead.value
-        };
-        return updatedLead;
-      }
-      return lead;
-    });
-
-    saveLeads(updatedLeads);
-
-    // Create a status change notification if stage modified
-    if (updatedLead && oldLead && updatedFields.status && oldLead.status !== updatedFields.status) {
-      let title = 'Lead Status Updated';
-      let type = 'info';
-      if (updatedFields.status === 'Won') {
-        title = 'Deal Won! 🚀';
-        type = 'success';
-      } else if (updatedFields.status === 'Lost') {
-        title = 'Deal Lost 😔';
-        type = 'danger';
-      } else if (updatedFields.status === 'Meeting Scheduled') {
-        title = 'Meeting Scheduled 📅';
-        type = 'warning';
-      }
-
-      const newNotif = {
-        id: `notif-${Date.now()}`,
-        title,
-        message: `${updatedLead.name} (${updatedLead.company}) is now in stage "${updatedFields.status}".`,
-        type,
-        read: false,
-        time: 'Just now'
-      };
-      saveNotifications([newNotif, ...notifications]);
-    }
-
-    return updatedLead;
-  };
-
-  /**
-   * Deletes a lead record from the database.
-   * 
-   * @param {string} id - Target lead identifier to delete
-   * @returns {Lead|null} The deleted lead object, or null if not found
-   */
-  const deleteLead = (id) => {
-    const leadToDelete = leads.find((l) => l.id === id);
-    if (!leadToDelete) return null;
-
-    const updatedLeads = leads.filter((lead) => lead.id !== id);
-    saveLeads(updatedLeads);
-
-    // Create a lead deletion notification
-    const newNotif = {
-      id: `notif-${Date.now()}`,
-      title: 'Lead Deleted',
-      message: `${leadToDelete.name} from ${leadToDelete.company} was removed from opportunities.`,
-      type: 'danger',
-      read: false,
-      time: 'Just now'
-    };
-    saveNotifications([newNotif, ...notifications]);
-
-    return leadToDelete;
-  };
-
-  /**
-   * Queries and returns a single lead by its identifier.
-   * 
-   * @param {string} id - Target lead identifier
-   * @returns {Lead|undefined} The matched lead object, or undefined
-   */
-  const getLeadById = (id) => {
-    return leads.find((lead) => lead.id === id);
   };
 
   // Notification action handlers
@@ -301,34 +311,35 @@ export const LeadProvider = ({ children }) => {
   };
 
   /**
-   * Pre-populates the workspace leads database with rich sample data.
+   * Seeding helper. Since we use a real DB backend, this will register sample leads on the API database.
    */
-  const loadDemoLeads = () => {
-    // Generate fresh IDs/timestamps for current user instance
-    const freshSampleLeads = sampleLeads.map((lead, idx) => ({
-      ...lead,
-      id: `lead-${Date.now()}-${idx}`,
-      createdAt: new Date(Date.now() - idx * 24 * 60 * 60 * 1000).toISOString(),
-      date: new Date(Date.now() - idx * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-    }));
-
-    saveLeads(freshSampleLeads);
-
-    const newNotif = {
-      id: `notif-${Date.now()}`,
-      title: 'Sample Workspace Seeded 🎉',
-      message: 'Workspace leads database initialized with 10 enterprise opportunities.',
-      type: 'success',
-      read: false,
-      time: 'Just now'
-    };
-    saveNotifications([newNotif, ...notifications]);
+  const loadDemoLeads = async () => {
+    setIsLoading(true);
+    try {
+      const sampleLeads = [
+        { name: 'Amit Sharma', company: 'Zenith Tech', email: 'amit@zenith.com', phone: '9876543210', value: 85000, status: 'New', source: 'LinkedIn' },
+        { name: 'Priya Patel', company: 'Nova Retail', email: 'priya@novaretail.com', phone: '9123456789', value: 120000, status: 'Contacted', source: 'Referral' },
+        { name: 'Rahul Verma', company: 'Apex Ventures', email: 'rahul@apex.co', phone: '8888888888', value: 300000, status: 'Meeting Scheduled', source: 'Cold Call' },
+      ];
+      for (const sample of sampleLeads) {
+        await leadService.createLead(sample);
+      }
+      await fetchLeads();
+      toast.success('Sample Workspace Seeded 🎉');
+    } catch (error) {
+      toast.error('Failed to seed demo leads');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <LeadContext.Provider
       value={{
         leads,
+        isLoading,
+        pagination,
+        fetchLeads,
         addLead,
         updateLead,
         deleteLead,
@@ -344,7 +355,7 @@ export const LeadProvider = ({ children }) => {
         formatCurrencyShort,
         loadDemoLeads,
         searchQuery,
-        setSearchQuery
+        setSearchQuery,
       }}
     >
       {children}
@@ -354,10 +365,6 @@ export const LeadProvider = ({ children }) => {
 
 /**
  * useLeads custom hook
- * Consumer hook allowing immediate access to LeadContext getters, mutators, and notification history.
- * Throws a descriptive developer exception if used outside LeadProvider.
- * 
- * @returns {{ leads: Lead[], addLead: (data: Omit<Lead, 'id' | 'createdAt'>) => Lead, updateLead: (id: string, data: Partial<Lead>) => Lead, deleteLead: (id: string) => Lead, getLeadById: (id: string) => Lead, notifications: Array, markNotificationAsRead: (id: string) => void, markAllNotificationsAsRead: () => void, clearNotifications: () => void, deleteNotification: (id: string) => void, currency: string, changeCurrency: (symbol: string) => void, formatCurrency: (val: number) => string, formatCurrencyShort: (val: number) => string, loadDemoLeads: () => void }}
  */
 export const useLeads = () => {
   const context = useContext(LeadContext);

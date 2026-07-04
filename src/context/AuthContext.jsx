@@ -1,113 +1,127 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import * as authService from '../services/authService';
 
 const AuthContext = createContext(undefined);
-
-// Initial registered users list containing the demo credentials
-const defaultUsers = [
-  {
-    name: 'John Doe',
-    email: 'admin@auracrm.com',
-    password: 'password123'
-  }
-];
 
 /**
  * AuthProvider Component
  * Exposes active session states, credentials verification, and account registration.
- * Persists session state in localStorage.
- * 
+ * Synchronizes and persists session JWT token in localStorage under key 'crm-token'.
+ *
  * @param {Object} props
  * @param {React.ReactNode} props.children - Child elements
  */
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [registeredUsers, setRegisteredUsers] = useState([]);
+  const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Initialize registered users and check active sessions from localStorage
+  // Restore session from localStorage on component mount
   useEffect(() => {
-    try {
-      const storedUsers = localStorage.getItem('startup-crm-registered-users');
-      if (storedUsers) {
-        setRegisteredUsers(JSON.parse(storedUsers));
-      } else {
-        localStorage.setItem('startup-crm-registered-users', JSON.stringify(defaultUsers));
-        setRegisteredUsers(defaultUsers);
+    const restoreSession = async () => {
+      const storedToken = localStorage.getItem('crm-token');
+      if (storedToken) {
+        try {
+          setToken(storedToken);
+          const userData = await authService.getProfile();
+          // The API response returns { success: true, data: user }
+          setUser(userData.data || userData);
+        } catch (error) {
+          console.error('Failed to restore user session:', error.message);
+          // Token is invalid/expired; clear local credentials
+          localStorage.removeItem('crm-token');
+          localStorage.removeItem('startup-crm-auth-user');
+          setToken(null);
+          setUser(null);
+        }
       }
-
-      const activeUser = localStorage.getItem('startup-crm-auth-user');
-      if (activeUser) {
-        setUser(JSON.parse(activeUser));
-      }
-    } catch (e) {
-      console.error('Error initializing Auth context:', e);
-    } finally {
       setIsLoading(false);
-    }
+    };
+
+    restoreSession();
   }, []);
 
   /**
    * Logs a user in with given credentials.
-   * Throws an error if details are incorrect.
-   * 
+   *
    * @param {string} email
    * @param {string} password
    */
-  const login = (email, password) => {
-    const matchedUser = registeredUsers.find(
-      (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password
-    );
-
-    if (!matchedUser) {
-      throw new Error('Invalid email or password. Hint: admin@auracrm.com / password123');
+  const login = async (email, password) => {
+    setIsLoading(true);
+    try {
+      const response = await authService.login(email, password);
+      // The API response contains { success: true, data: { token, user } }
+      const { token: receivedToken, user: receivedUser } = response.data || response;
+      
+      localStorage.setItem('crm-token', receivedToken);
+      localStorage.setItem('startup-crm-auth-user', JSON.stringify(receivedUser));
+      
+      setToken(receivedToken);
+      setUser(receivedUser);
+      return response;
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoading(false);
     }
-
-    setUser(matchedUser);
-    localStorage.setItem('startup-crm-auth-user', JSON.stringify(matchedUser));
-  };
-
-
-
-  /**
-   * Logs out the current user, clearing session states.
-   */
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('startup-crm-auth-user');
   };
 
   /**
-   * Updates current user profile details in both active state and users database registry.
-   * 
-   * @param {Object} updatedFields
+   * Register a new user account.
+   *
+   * @param {string} name
+   * @param {string} email
+   * @param {string} password
    */
-  const updateProfile = (updatedFields) => {
-    if (!user) return;
+  const register = async (name, email, password) => {
+    setIsLoading(true);
+    try {
+      const response = await authService.register(name, email, password);
+      // The API response contains { success: true, data: { token, user } }
+      const { token: receivedToken, user: receivedUser } = response.data || response;
+      
+      localStorage.setItem('crm-token', receivedToken);
+      localStorage.setItem('startup-crm-auth-user', JSON.stringify(receivedUser));
+      
+      setToken(receivedToken);
+      setUser(receivedUser);
+      return response;
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    const updatedUser = {
-      ...user,
-      ...updatedFields
-    };
-
-    setUser(updatedUser);
-    localStorage.setItem('startup-crm-auth-user', JSON.stringify(updatedUser));
-
-    const updatedUsersList = registeredUsers.map((u) => 
-      u.email.toLowerCase() === user.email.toLowerCase() ? { ...u, ...updatedFields } : u
-    );
-    setRegisteredUsers(updatedUsersList);
-    localStorage.setItem('startup-crm-registered-users', JSON.stringify(updatedUsersList));
+  /**
+   * Logs out the current user and clears session states.
+   */
+  const logout = async () => {
+    setIsLoading(true);
+    try {
+      await authService.logout();
+    } catch (error) {
+      console.warn('Logout request failed:', error.message);
+    } finally {
+      setToken(null);
+      setUser(null);
+      setIsLoading(false);
+      // Redirect to login screen
+      window.location.href = '/login';
+    }
   };
 
   return (
     <AuthContext.Provider
       value={{
         user,
+        token,
         isAuthenticated: !!user,
         isLoading,
         login,
+        register,
         logout,
-        updateProfile
       }}
     >
       {children}
@@ -118,8 +132,8 @@ export const AuthProvider = ({ children }) => {
 /**
  * useAuth Custom Hook
  * Consumer hook allowing immediate access to AuthContext states and helpers.
- * 
- * @returns {{ user: Object|null, isAuthenticated: boolean, isLoading: boolean, login: (email, password) => void, register: (name, email, password) => void, logout: () => void, updateProfile: (fields: Object) => void }}
+ *
+ * @returns {{ user: Object|null, token: string|null, isAuthenticated: boolean, isLoading: boolean, login: (email, password) => Promise<any>, register: (name, email, password) => Promise<any>, logout: () => Promise<void> }}
  */
 export const useAuth = () => {
   const context = useContext(AuthContext);

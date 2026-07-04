@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 /**
  * Mongoose schema definition for CRM opportunity leads.
- * Links to owner users and tracks pipeline stages.
+ * Tracks client contact information, status stages, and refers to owner user.
  */
 const LeadSchema = new mongoose.Schema(
   {
@@ -15,40 +15,40 @@ const LeadSchema = new mongoose.Schema(
       required: [true, 'Contact name is required'],
       trim: true,
       minlength: [2, 'Contact name must be at least 2 characters long'],
-      maxlength: [100, 'Contact name cannot exceed 100 characters']
+      maxlength: [100, 'Contact name cannot exceed 100 characters'],
     },
     /**
-     * Organization or enterprise company name.
+     * Company or organization name the lead belongs to.
      * @type {String}
      */
     company: {
       type: String,
       required: [true, 'Company name is required'],
-      trim: true
+      trim: true,
     },
     /**
-     * Contact email address for the lead.
+     * Lead contact email address.
      * @type {String}
      */
     email: {
       type: String,
-      required: [true, 'Lead email is required'],
+      required: [true, 'Email is required'],
       trim: true,
       lowercase: true,
       validate: {
-        validator: function (value) {
-          return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+        validator: function (v) {
+          return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
         },
-        message: props => `${props.value} is not a valid email address`
-      }
+        message: 'Email must be a valid email address',
+      },
     },
     /**
-     * Contact telephone number.
+     * Optional telephone contact number.
      * @type {String}
      */
     phone: {
       type: String,
-      trim: true
+      trim: true,
     },
     /**
      * Sales pipeline stage status.
@@ -58,54 +58,55 @@ const LeadSchema = new mongoose.Schema(
       type: String,
       enum: {
         values: ['New', 'Contacted', 'Meeting Scheduled', 'Proposal Sent', 'Won', 'Lost'],
-        message: '{VALUE} is not a valid lead status'
+        message: '{VALUE} is not a valid lead status',
       },
-      default: 'New'
+      default: 'New',
     },
     /**
-     * Acquisition channel source.
+     * Customer acquisition channel source.
      * @type {String}
      */
     source: {
       type: String,
       enum: {
         values: ['Website', 'Referral', 'LinkedIn', 'Cold Call', 'Email Campaign', 'Other'],
-        message: '{VALUE} is not a valid acquisition source'
+        message: '{VALUE} is not a valid lead source',
       },
-      default: 'Website'
+      default: 'Website',
     },
     /**
-     * Additional notes, details, or context about the lead.
+     * Optional text notes or details about the client opportunity.
      * @type {String}
      */
     notes: {
       type: String,
-      maxlength: [1000, 'Notes cannot exceed 1000 characters']
+      maxlength: [1000, 'Notes cannot exceed 1000 characters'],
     },
     /**
-     * Reference to the User account owning/managing the lead.
+     * Reference to the User account owning/managing this lead.
      * @type {mongoose.Schema.Types.ObjectId}
      */
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: [true, 'Owner reference is required']
-    }
+      required: [true, 'Owner reference is required'],
+    },
   },
   {
-    timestamps: true,
+    timestamps: true, // Auto-generates and manages createdAt and updatedAt fields
     toJSON: { virtuals: true },
-    toObject: { virtuals: true }
+    toObject: { virtuals: true },
   }
 );
 
-// Indexes for fast lookups and sorted pipeline filtering
+// Compound index on owner and status for fast filtered queries
 LeadSchema.index({ owner: 1, status: 1 });
+
+// Index on email for fast lookups
 LeadSchema.index({ email: 1 });
 
 /**
- * Virtual property calculating lead age in days.
- * Useful for pipeline stagnation analysis.
+ * Virtual property calculating lead age in days since it was created.
  * @returns {Number} Days elapsed since lead creation
  */
 LeadSchema.virtual('age').get(function () {
@@ -116,7 +117,7 @@ LeadSchema.virtual('age').get(function () {
   return Math.floor(diffMs / (1000 * 60 * 60 * 24));
 });
 
-// Export the schema separately for reuse/nesting
+// Export the schema separately for nesting or extension
 export { LeadSchema };
 
 // Export the model as the default export

@@ -5,6 +5,7 @@ import {
   login,
   getProfile,
   updateProfile,
+  logout,
 } from '../controllers/authController.js';
 import { protect } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
@@ -60,5 +61,8 @@ router.get('/profile', protect, getProfile);
 
 // 4. PUT /api/auth/profile - Update authenticated user's profile details
 router.put('/profile', protect, updateProfile);
+
+// 5. POST /api/auth/logout - Logout user and clear session state (invalidated client-side)
+router.post('/logout', protect, logout);
 
 export default router;

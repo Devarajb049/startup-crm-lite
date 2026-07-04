@@ -2,20 +2,22 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import DarkModeToggle from '../components/common/DarkModeToggle';
-import { Mail, Lock, LogIn, AlertCircle, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, User, LogIn, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 
 /**
- * Login Component
- * Renders a premium, glassmorphism login interface.
- * Connects directly to the AuthContext backend session validation.
+ * Register Component
+ * Renders a premium, glassmorphism registration interface.
+ * Connects directly to the AuthContext backend signup validation.
  */
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { register } = useAuth();
   
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -23,11 +25,23 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    // Client-side validations
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      await login(email, password);
-      toast.success('Successfully logged in!', {
+      await register(name, email, password);
+      toast.success('Successfully registered!', {
         style: {
           background: '#22C55E',
           color: '#FFFFFF',
@@ -37,7 +51,7 @@ const Login = () => {
       });
       navigate('/');
     } catch (err) {
-      const errorMsg = err.response?.data?.message || err.message || 'Login failed.';
+      const errorMsg = err.response?.data?.message || err.message || 'Registration failed.';
       setError(errorMsg);
       toast.error(errorMsg, {
         style: {
@@ -64,14 +78,14 @@ const Login = () => {
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-purple-600/5 dark:bg-purple-600/10 blur-3xl animate-float-reverse" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-pink-500/5 blur-3xl animate-float-alternate" />
 
-      {/* Login Card */}
+      {/* Register Card */}
       <div className="w-full max-w-md bg-white/85 dark:bg-[#1C1C1C]/90 backdrop-blur-xl border border-slate-100 dark:border-slate-800/40 p-8 rounded-3xl shadow-xl dark:shadow-2xl relative z-10 animate-fade-in transition-all">
         
         {/* Brand/Logo Header */}
-        <div className="flex flex-col items-center text-center mb-8 select-none">
-          <div className="w-12 h-12 mb-3.5 flex items-center justify-center">
+        <div className="flex flex-col items-center text-center mb-6 select-none">
+          <div className="w-10 h-10 mb-3 flex items-center justify-center">
             {/* Brand Logo - Styled as futuristic A geometry */}
-            <svg viewBox="0 0 32 32" fill="none" className="w-12 h-12 text-primary">
+            <svg viewBox="0 0 32 32" fill="none" className="w-10 h-10 text-primary">
               <g stroke="currentColor" strokeWidth="2.8" strokeLinejoin="round" strokeLinecap="round">
                 <path d="M 6 26 L 18 5 L 21 11" />
                 <path d="M 22.5 14.5 L 27 26" />
@@ -80,28 +94,49 @@ const Login = () => {
             </svg>
           </div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5 justify-center">
-            Welcome to AURA<span className="text-primary">CRM</span>
+            Join AURA<span className="text-primary">CRM</span>
             <span className="text-[9px] bg-slate-100 dark:bg-slate-800 text-slate-650 dark:text-slate-400 px-1.5 py-0.2 rounded font-mono font-semibold uppercase tracking-wider select-none">
               Lite
             </span>
           </h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Sign in to access your sales workspace
+            Create a new account to manage your CRM workspace
           </p>
         </div>
 
         {/* Inline Error Alert */}
         {error && (
-          <div className="flex items-start gap-2.5 p-3.5 bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900/40 text-red-600 dark:text-red-400 rounded-xl text-xs mb-6 animate-fade-in">
+          <div className="flex items-start gap-2.5 p-3 bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900/40 text-red-600 dark:text-red-400 rounded-xl text-xs mb-5 animate-fade-in">
             <AlertCircle size={15} className="shrink-0 mt-0.5" />
             <span>{error}</span>
           </div>
         )}
 
-        {/* Login Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Register Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Name Input */}
+          <div className="space-y-1">
+            <label htmlFor="name" className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Full Name
+            </label>
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 dark:text-slate-500">
+                <User size={16} />
+              </span>
+              <input
+                id="name"
+                type="text"
+                required
+                placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="block w-full pl-10.5 pr-4 py-2.5 text-xs bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-white dark:focus:bg-slate-950/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
+              />
+            </div>
+          </div>
+
           {/* Email Input */}
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             <label htmlFor="email" className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               Email Address
             </label>
@@ -116,13 +151,13 @@ const Login = () => {
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="block w-full pl-10.5 pr-4 py-3 text-xs bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-white dark:focus:bg-slate-950/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
+                className="block w-full pl-10.5 pr-4 py-2.5 text-xs bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-white dark:focus:bg-slate-950/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
               />
             </div>
           </div>
 
           {/* Password Input */}
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             <label htmlFor="password" className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               Password
             </label>
@@ -134,10 +169,10 @@ const Login = () => {
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 required
-                placeholder="Enter password"
+                placeholder="Minimum 6 characters"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="block w-full pl-10.5 pr-10 py-3 text-xs bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-white dark:focus:bg-slate-950/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
+                className="block w-full pl-10.5 pr-10 py-2.5 text-xs bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-white dark:focus:bg-slate-950/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
               />
               <button
                 type="button"
@@ -148,6 +183,27 @@ const Login = () => {
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
+            </div>
+          </div>
+
+          {/* Confirm Password Input */}
+          <div className="space-y-1">
+            <label htmlFor="confirmPassword" className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Confirm Password
+            </label>
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 dark:text-slate-500">
+                <Lock size={16} />
+              </span>
+              <input
+                id="confirmPassword"
+                type={showPassword ? 'text' : 'password'}
+                required
+                placeholder="Repeat password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="block w-full pl-10.5 pr-10 py-2.5 text-xs bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-white dark:focus:bg-slate-950/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
+              />
             </div>
           </div>
 
@@ -162,17 +218,25 @@ const Login = () => {
             ) : (
               <>
                 <LogIn size={15} />
-                <span>Sign In</span>
+                <span>Create Account</span>
               </>
             )}
           </button>
         </form>
 
-
+        {/* Link back to Login */}
+        <div className="text-center mt-5 border-t border-slate-100 dark:border-slate-800/40 pt-3">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            Already have an account?{' '}
+            <Link to="/login" className="text-primary hover:underline font-semibold ml-1">
+              Sign In
+            </Link>
+          </p>
+        </div>
 
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;
