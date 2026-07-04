@@ -4,9 +4,9 @@ import { errorResponse } from '../utils/apiResponse.js';
 
 /**
  * Middleware to protect routes by verifying the JSON Web Token (JWT).
- * Extracts token from the Authorization header, validates signature/expiration,
- * resolves user from database (excluding password), and attaches user to req.user.
- * 
+ * Checks the Authorization header for 'Bearer <token>'.
+ * Verifies token validity, expiration, and ensures the referenced user still exists.
+ *
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
@@ -20,7 +20,7 @@ export const protect = async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     try {
-      // Extract the token component
+      // Extract the token component from the header
       token = req.headers.authorization.split(' ')[1];
 
       if (!token) {
@@ -30,7 +30,7 @@ export const protect = async (req, res, next) => {
       // Verify token signature and expiration
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      // Find user matching token subject payload (exclude password payload)
+      // Find user matching token subject payload (exclude password)
       const user = await User.findById(decoded.id).select('-password');
       if (!user) {
         return errorResponse(res, 'User belonging to this token no longer exists', 401);
@@ -40,22 +40,22 @@ export const protect = async (req, res, next) => {
       req.user = user;
       return next();
     } catch (error) {
-      console.error('JWT Verification Error:', error.message);
+      console.error('JWT verification error:', error.message);
 
-      // Handle specific JWT error cases
+      // If token expired
       if (error.name === 'TokenExpiredError') {
         return errorResponse(res, 'Token has expired, please login again', 401);
       }
-      if (error.name === 'JsonWebTokenError') {
-        return errorResponse(res, 'Token is invalid', 401);
-      }
 
+      // If token invalid
       return errorResponse(res, 'Token is invalid', 401);
     }
   }
 
-  // Handle case where header is missing or incorrectly formatted
+  // If token is missing completely
   if (!token) {
     return errorResponse(res, 'No token provided, access denied', 401);
   }
 };
+
+export default protect;

@@ -1,46 +1,46 @@
 /**
- * Sends a consistent successful API response.
- * 
+ * Helper function to send a consistent success response.
+ *
  * @param {Object} res - Express response object
- * @param {any} data - Response payload data
- * @param {string} message - User-friendly success message
- * @param {number} statusCode - HTTP status code (default: 200)
- * @returns {Object} JSON response payload
+ * @param {any} data - The payload data to be returned
+ * @param {string} message - Optional summary or info message
+ * @param {number} statusCode - HTTP status code (defaults to 200)
+ * @returns {Object} JSON response
  */
 export const successResponse = (res, data, message, statusCode = 200) => {
   return res.status(statusCode).json({
     success: true,
     message,
-    data
+    data,
   });
 };
 
 /**
- * Sends a consistent error API response.
- * 
+ * Helper function to send a consistent error response.
+ *
  * @param {Object} res - Express response object
- * @param {string} message - User-friendly error explanation message
- * @param {number} statusCode - HTTP status code (default: 500)
- * @param {any} errors - Validation errors detail or error stack trace details
- * @returns {Object} JSON response payload
+ * @param {string} message - Error explanation message
+ * @param {number} statusCode - HTTP status code (defaults to 500)
+ * @param {any} errors - Additional details (like validation error objects or stack trace)
+ * @returns {Object} JSON response
  */
 export const errorResponse = (res, message, statusCode = 500, errors = null) => {
   return res.status(statusCode).json({
     success: false,
     message,
-    errors
+    errors,
   });
 };
 
 /**
- * Sends a consistent paginated API response.
- * 
+ * Helper function to send a consistent paginated response.
+ *
  * @param {Object} res - Express response object
- * @param {Array} data - Array of paginated data items
- * @param {number} total - Total count of records in database matching query
- * @param {number} page - Current requested page number
- * @param {number} limit - Maximum number of records per page
- * @returns {Object} JSON response payload with pagination metadata
+ * @param {Array} data - Paginated data array
+ * @param {number} total - Total records in database
+ * @param {number} page - Current active page number
+ * @param {number} limit - Maximum items allowed per page
+ * @returns {Object} JSON response with pagination metadata
  */
 export const paginatedResponse = (res, data, total, page, limit) => {
   const totalPages = Math.ceil(total / limit);
@@ -51,7 +51,7 @@ export const paginatedResponse = (res, data, total, page, limit) => {
       total,
       page,
       limit,
-      pages: totalPages
-    }
+      pages: totalPages,
+    },
   });
 };

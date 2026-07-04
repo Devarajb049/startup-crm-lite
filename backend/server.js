@@ -3,50 +3,17 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import path from 'path';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
 
-// Import configurations, routes, and custom middlewares
+// Import configurations and routes
 import connectDB from './config/database.js';
 import authRoutes from './routes/authRoutes.js';
 import leadRoutes from './routes/leadRoutes.js';
+
+// Import global error handler
 import { errorHandler } from './middleware/errorHandler.js';
 
-// Resolve filename and directory name for ES module compatibility
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-/**
- * Resiliently loads configuration variables from a `.env` file.
- * Checks current working directory, script directory, and parent directory,
- * which ensures that configuration is successfully loaded whether the server
- * is run from the backend subdirectory or the workspace root.
- */
-const loadEnvironmentVariables = () => {
-  const possiblePaths = [
-    path.resolve(process.cwd(), '.env'),
-    path.resolve(__dirname, '.env'),
-    path.resolve(__dirname, '..', '.env')
-  ];
-
-  for (const envPath of possiblePaths) {
-    if (fs.existsSync(envPath)) {
-      dotenv.config({ path: envPath });
-      console.log(`Environment config loaded successfully from: ${envPath}`);
-      return;
-    }
-  }
-  // Standard dotenv config fallback if no custom path exists
-  dotenv.config();
-  console.log('Default dotenv loader executed.');
-};
-
-// Initialize configuration variables
-loadEnvironmentVariables();
-
-// Establish connection to MongoDB Atlas database
-connectDB();
+// Load environment configuration variables
+dotenv.config();
 
 // Initialize the Express framework instance
 const app = express();
@@ -55,39 +22,41 @@ const app = express();
    GLOBAL SECURITY & DIAGNOSTIC MIDDLEWARES
    ========================================== */
 
-// Use Helmet middleware to secure Express apps by setting various HTTP headers
+// Use Helmet middleware to secure the application by setting various HTTP headers
 app.use(helmet());
 
-// Use Morgan logger middleware to trace HTTP requests in dev environment
+// Use Morgan logger middleware in development mode to trace incoming HTTP requests
 if (process.env.NODE_ENV === 'development' || !process.env.NODE_ENV) {
   app.use(morgan('dev'));
 }
 
-// Enable Cross-Origin Resource Sharing (CORS) for communication with the frontend client
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-  credentials: true
-}));
+// Enable Cross-Origin Resource Sharing (CORS) with frontend client
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 
-// Body parser: parses incoming requests with JSON payloads (with a 10kb safety size limit)
+// Body parser middleware: parses incoming request payloads in JSON (capped at 10kb to avoid payload attacks)
 app.use(express.json({ limit: '10kb' }));
 
-// URL-encoded body parser: parses incoming request bodies from HTML forms
+// Body parser middleware: parses URL-encoded data from standard HTML forms
 app.use(express.urlencoded({ extended: true }));
 
 /* ==========================================
    API ENDPOINTS & BUSINESS LOGIC ROUTING
    ========================================== */
 
-// Base health check API endpoint
+// Base Health Check endpoint to monitor server uptime and response speed
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     status: 'OK',
-    timestamp: new Date()
+    timestamp: new Date(),
   });
 });
 
-// Mount modular sub-routers
+// Register feature modules routes
 app.use('/api/auth', authRoutes);
 app.use('/api/leads', leadRoutes);
 
@@ -95,23 +64,19 @@ app.use('/api/leads', leadRoutes);
    GLOBAL CENTRALIZED ERROR HANDLING LAYER
    ========================================== */
 
-// Centralized error handling middleware (MUST be registered last)
+// Register the custom global error handler middleware (must be registered last)
 app.use(errorHandler);
 
 /* ==========================================
    SERVER INITIALIZATION & STARTUP
    ========================================== */
 
-const PORT = process.env.PORT || 5000;
-const MODE = process.env.NODE_ENV || 'development';
+// Connect to MongoDB Atlas first, then start the Express server
+connectDB().then(() => {
+  const PORT = process.env.PORT || 5000;
+  const MODE = process.env.NODE_ENV || 'development';
 
-const server = app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT} in ${MODE} mode`);
-});
-
-// Handle unhandled Promise rejections safely to prevent server crashes
-process.on('unhandledRejection', (err) => {
-  console.error(`Unhandled Promise Rejection: ${err.message}`);
-  // Gracefully close server listener and exit Node process
-  server.close(() => process.exit(1));
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT} in ${MODE} mode`);
+  });
 });

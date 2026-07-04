@@ -1,64 +1,69 @@
 import { errorResponse } from '../utils/apiResponse.js';
 
 /**
- * Global Express Error Handler Middleware.
- * Handles validation, database key conflicts, token expiration, and database cast exceptions.
- * Ensures stack traces are never exposed in production environments.
- * 
- * @param {Error} err - Error object thrown in application pipeline
+ * Global Express centralized error-handling middleware.
+ * Catch-all handler for errors occurring inside the application logic.
+ *
+ * @param {Error} err - Error object caught by Express
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  */
 export const errorHandler = (err, req, res, next) => {
-  // Always log the stack trace locally on the server console for debugging
-  console.error(err.stack || err);
-
+  // Define default values
   let statusCode = err.statusCode || 500;
   let message = err.message || 'Server error';
   let errors = null;
 
-  // 1. Mongoose ValidationError
+  // Log the actual error stack in the server console for debugging purposes
+  console.error('Logged Error:', err);
+
+  // 1. Handle Mongoose validation errors (e.g. schema checks fail)
   if (err.name === 'ValidationError') {
     statusCode = 400;
+    message = 'Validation Error';
     errors = {};
-    Object.keys(err.errors).forEach((field) => {
-      errors[field] = err.errors[field].message;
+    
+    // Construct field-by-field error details map
+    Object.keys(err.errors).forEach((key) => {
+      errors[key] = err.errors[key].message;
     });
-    // Create a aggregated message string for convenience
-    message = Object.values(err.errors).map((val) => val.message).join(', ');
-  }
-  // 2. Mongoose CastError (e.g., invalid MongoDB ObjectId lookup)
+  } 
+  // 2. Handle Mongoose CastError (e.g. invalid MongoDB ObjectId format)
   else if (err.name === 'CastError') {
     statusCode = 404;
     message = 'Resource not found';
-  }
-  // 3. MongoDB Duplicate Key Error (e.g., non-unique index conflict)
+  } 
+  // 3. Handle MongoDB Duplicate Key Conflict (code 11000)
   else if (err.code === 11000) {
     statusCode = 409;
     message = 'Email already exists';
-    // If the error contains specific keys, try to customize the message dynamically
-    if (err.keyValue) {
-      const duplicateField = Object.keys(err.keyValue)[0];
-      const capitalizedField = duplicateField.charAt(0).toUpperCase() + duplicateField.slice(1);
-      message = `${capitalizedField} already exists`;
+  } 
+  // 4. Handle JWT authorization verification issues
+  else if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError') {
+    statusCode = 401;
+    message = err.name === 'TokenExpiredError' ? 'Token expired' : 'Invalid token';
+  } 
+  // 5. Handle all other unmapped errors
+  else {
+    // If status code was not explicitly set on the error, fallback to 500 "Server error"
+    if (!err.statusCode) {
+      statusCode = 500;
+      message = 'Server error';
     }
   }
-  // 4. JWT JsonWebTokenError (Signature validation failed)
-  else if (err.name === 'JsonWebTokenError') {
-    statusCode = 401;
-    message = 'Invalid token, authorization denied';
-  }
-  // 5. JWT TokenExpiredError (Token expiration validation failed)
-  else if (err.name === 'TokenExpiredError') {
-    statusCode = 401;
-    message = 'Token has expired, please log in again';
+
+  // Format error payload: Include stack trace when process.env.NODE_ENV is 'development'
+  let errorPayload;
+  if (process.env.NODE_ENV === 'development') {
+    errorPayload = {
+      stack: err.stack,
+      details: errors,
+    };
+  } else {
+    errorPayload = errors;
   }
 
-  // Include stack trace in development mode only
-  const responsePayloadErrors = process.env.NODE_ENV === 'development'
-    ? { stack: err.stack, details: errors }
-    : errors;
-
-  return errorResponse(res, message, statusCode, responsePayloadErrors);
+  // Respond using the API response helper
+  return errorResponse(res, message, statusCode, errorPayload);
 };

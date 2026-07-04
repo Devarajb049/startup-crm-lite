@@ -3,14 +3,14 @@ import User from '../models/User.js';
 import { successResponse, errorResponse } from '../utils/apiResponse.js';
 
 /**
- * Helper function to generate a JSON Web Token (JWT) for a authenticated user.
+ * Helper function to generate a JSON Web Token (JWT) for a user.
  * 
- * @param {string} userId - User document ID
+ * @param {string} userId - User database ID
  * @returns {string} Signed JWT token
  */
 export const generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN || '7d'
+    expiresIn: process.env.JWT_EXPIRES_IN || '7d',
   });
 };
 
@@ -19,8 +19,13 @@ export const generateToken = (userId) => {
  * Checks for existing emails, creates user document, generates authentication JWT,
  * and returns success code 201 with signed payload (excluding password).
  * 
- * PRODUCTION TIP: Wire up express-rate-limit middleware on this endpoint to block registration spam.
- * 
+ * PRODUCTION NOTE:
+ * In a production environment, you should add `express-rate-limit` middleware
+ * to this endpoint to prevent denial-of-service (DoS) or automated registration spam.
+ * Example registration rate limiter:
+ *   const registerLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 5 });
+ *   router.post('/register', registerLimiter, ...);
+ *
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
@@ -32,22 +37,27 @@ export const register = async (req, res, next) => {
     // Check if email already exists in database
     const userExists = await User.findOne({ email });
     if (userExists) {
-      return errorResponse(res, 'User already exists', 400);
+      return errorResponse(res, 'Email already exists', 409);
     }
 
-    // Create new User instance (password auto-hashed on save hook)
+    // Create new User instance (password is auto-hashed in UserSchema pre-save hook)
     const user = await User.create({
       name,
       email,
-      password
+      password,
     });
 
-    const token = generateToken(user._id);
+    // Generate JWT (uses '7d' as default or environment value)
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '7d',
+    });
 
-    // Format user payload excluding password (handled by User.toJSON custom schema method)
+    // Strip password field from outgoing user payload
+    const userObject = user.toJSON();
+
     return successResponse(
       res,
-      { token, user },
+      { token, user: userObject },
       'User registered successfully',
       201
     );
@@ -60,8 +70,13 @@ export const register = async (req, res, next) => {
  * Authenticate user credentials and return authentication JWT token.
  * Validates existence, verifies password, and checks active status.
  * 
- * PRODUCTION TIP: Wire up express-rate-limit middleware on this login endpoint to prevent brute-force attacks.
- * 
+ * PRODUCTION NOTE:
+ * In a production environment, you should add `express-rate-limit` middleware
+ * to this login endpoint to prevent brute-force attacks on user passwords.
+ * Example login rate limiter:
+ *   const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10 });
+ *   router.post('/login', loginLimiter, ...);
+ *
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
@@ -72,6 +87,8 @@ export const login = async (req, res, next) => {
   try {
     // Find user by email and explicitly select password field for validation
     const user = await User.findOne({ email }).select('+password');
+    
+    // Security best practice: Never tell the client whether email or password was wrong
     if (!user) {
       return errorResponse(res, 'Invalid credentials', 401);
     }
@@ -87,9 +104,10 @@ export const login = async (req, res, next) => {
       return errorResponse(res, 'Account is deactivated', 403);
     }
 
+    // Generate JWT
     const token = generateToken(user._id);
 
-    // Format user payload (toJSON handles password exclusion)
+    // Strip password from user payload (toJSON handles this, but we explicitly clean it here too)
     const userObject = user.toJSON();
 
     return successResponse(
@@ -111,6 +129,7 @@ export const login = async (req, res, next) => {
  */
 export const getProfile = async (req, res, next) => {
   try {
+    // req.user has already been attached by the protect middleware without the password field
     return successResponse(
       res,
       req.user,
@@ -134,13 +153,13 @@ export const updateProfile = async (req, res, next) => {
   const { name, oldPassword, newPassword } = req.body;
 
   try {
-    // Find user by ID and select password field
+    // Find user by ID and select password field to validate old password
     const user = await User.findById(req.user._id).select('+password');
     if (!user) {
       return errorResponse(res, 'User not found', 404);
     }
 
-    // Update name only
+    // Allow updating name only
     if (name) {
       user.name = name;
     }
@@ -151,19 +170,21 @@ export const updateProfile = async (req, res, next) => {
         return errorResponse(res, 'Old password is required to change password', 400);
       }
 
+      // Validate old password first
       const isMatch = await user.comparePassword(oldPassword);
       if (!isMatch) {
         return errorResponse(res, 'Invalid old password', 401);
       }
 
+      // Update password field (triggers pre-save hook to hash password)
       user.password = newPassword;
     }
 
-    // Save user document (triggers validation and pre-save password hash)
+    // Save user document (triggers validation and password hashing if updated)
     await user.save();
 
     // Retrieve updated record without password for response
-    const updatedUser = await User.findById(user._id);
+    const updatedUser = await User.findById(user._id).select('-password');
 
     return successResponse(
       res,
