@@ -67,17 +67,13 @@ export const LeadProvider = ({ children }) => {
     setNotifications(updatedNotifs);
   };
 
-  /**
-   * Fetch leads from the API.
-   *
-   * @param {Object} [params] - Filter/search query params
-   */
   const fetchLeads = async (params) => {
     if (!isAuthenticated) return;
     setIsLoading(true);
     try {
       const response = await leadService.getLeads({
         search: searchQuery || undefined,
+        limit: 1000, // Load all leads to correctly drive local UI search, filters, and analytics
         ...params,
       });
       // The API response is: { success: true, data: [...], pagination: { ... } }

@@ -51,6 +51,14 @@ const LeadSchema = new mongoose.Schema(
       trim: true,
     },
     /**
+     * Estimated opportunity deal size value.
+     * @type {Number}
+     */
+    value: {
+      type: Number,
+      default: 0,
+    },
+    /**
      * Sales pipeline stage status.
      * @type {String}
      */

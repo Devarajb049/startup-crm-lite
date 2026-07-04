@@ -37,7 +37,17 @@ const Login = () => {
       });
       navigate('/');
     } catch (err) {
-      const errorMsg = err.response?.data?.message || err.message || 'Login failed.';
+      let errorMsg = 'Login failed.';
+      
+      // Check if validation errors array is returned from backend express-validator
+      if (err.response?.data?.errors && Array.isArray(err.response.data.errors)) {
+        errorMsg = err.response.data.errors.map((e) => e.message).join(', ');
+      } else if (err.response?.data?.message) {
+        errorMsg = err.response.data.message;
+      } else if (err.message) {
+        errorMsg = err.message;
+      }
+      
       setError(errorMsg);
       toast.error(errorMsg, {
         style: {

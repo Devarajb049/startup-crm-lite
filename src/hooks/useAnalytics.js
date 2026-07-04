@@ -36,10 +36,14 @@ const useAnalytics = () => {
 
     return leads.filter((lead) => {
       const createdStr = lead.createdAt || lead.date;
-      if (!createdStr) return false;
+      if (!createdStr) {
+        return filterRange === 'All Time';
+      }
 
       const createdDate = new Date(createdStr);
-      if (isNaN(createdDate.getTime())) return false;
+      if (isNaN(createdDate.getTime())) {
+        return filterRange === 'All Time';
+      }
 
       switch (filterRange) {
         case 'Last 7 Days': {
