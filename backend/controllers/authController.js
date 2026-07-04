@@ -3,104 +3,173 @@ import User from '../models/User.js';
 import { successResponse, errorResponse } from '../utils/apiResponse.js';
 
 /**
- * Generate a JWT token
- * @param {string} id - User ID
+ * Helper function to generate a JSON Web Token (JWT) for a authenticated user.
+ * 
+ * @param {string} userId - User document ID
  * @returns {string} Signed JWT token
  */
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+export const generateToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN || '7d'
   });
 };
 
 /**
- * @desc    Register a new user
- * @route   POST /api/auth/register
- * @access  Public
+ * Register a new user account.
+ * Checks for existing emails, creates user document, generates authentication JWT,
+ * and returns success code 201 with signed payload (excluding password).
+ * 
+ * PRODUCTION TIP: Wire up express-rate-limit middleware on this endpoint to block registration spam.
+ * 
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
  */
 export const register = async (req, res, next) => {
   const { name, email, password } = req.body;
 
   try {
-    // Check if user already exists
+    // Check if email already exists in database
     const userExists = await User.findOne({ email });
     if (userExists) {
       return errorResponse(res, 'User already exists', 400);
     }
 
-    // Create user (password is encrypted automatically via Mongoose pre-save middleware)
+    // Create new User instance (password auto-hashed on save hook)
     const user = await User.create({
       name,
       email,
       password
     });
 
-    if (user) {
-      return successResponse(
-        res,
-        'User registered successfully',
-        {
-          _id: user._id,
-          name: user.name,
-          email: user.email,
-          token: generateToken(user._id)
-        },
-        201
-      );
-    } else {
-      return errorResponse(res, 'Invalid user data received', 400);
-    }
+    const token = generateToken(user._id);
+
+    // Format user payload excluding password (handled by User.toJSON custom schema method)
+    return successResponse(
+      res,
+      { token, user },
+      'User registered successfully',
+      201
+    );
   } catch (error) {
     next(error);
   }
 };
 
 /**
- * @desc    Authenticate user & get token (Login)
- * @route   POST /api/auth/login
- * @access  Public
+ * Authenticate user credentials and return authentication JWT token.
+ * Validates existence, verifies password, and checks active status.
+ * 
+ * PRODUCTION TIP: Wire up express-rate-limit middleware on this login endpoint to prevent brute-force attacks.
+ * 
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
  */
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
-    // Find user by email
-    const user = await User.findOne({ email });
+    // Find user by email and explicitly select password field for validation
+    const user = await User.findOne({ email }).select('+password');
     if (!user) {
-      return errorResponse(res, 'Invalid email or password', 401);
+      return errorResponse(res, 'Invalid credentials', 401);
     }
 
-    // Check if password matches
+    // Compare input password with database hashed password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return errorResponse(res, 'Invalid email or password', 401);
+      return errorResponse(res, 'Invalid credentials', 401);
     }
 
-    return successResponse(res, 'Login successful', {
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      token: generateToken(user._id)
-    });
+    // Verify account active status
+    if (!user.isActive) {
+      return errorResponse(res, 'Account is deactivated', 403);
+    }
+
+    const token = generateToken(user._id);
+
+    // Format user payload (toJSON handles password exclusion)
+    const userObject = user.toJSON();
+
+    return successResponse(
+      res,
+      { token, user: userObject },
+      'Login successful'
+    );
   } catch (error) {
     next(error);
   }
 };
 
 /**
- * @desc    Get user profile details
- * @route   GET /api/auth/profile
- * @access  Private
+ * Get profile details of the currently authenticated user.
+ * 
+ * @param {Object} req - Express request object (contains req.user set by protect middleware)
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
  */
 export const getProfile = async (req, res, next) => {
   try {
-    // req.user has already been set by the protect middleware
-    return successResponse(res, 'User profile retrieved successfully', {
-      _id: req.user._id,
-      name: req.user.name,
-      email: req.user.email,
-      createdAt: req.user.createdAt
-    });
+    return successResponse(
+      res,
+      req.user,
+      'User profile retrieved successfully'
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Update authenticated user profile details.
+ * Restricts updates to the 'name' field, and allows changing password
+ * if old password matches current records.
+ * 
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
+export const updateProfile = async (req, res, next) => {
+  const { name, oldPassword, newPassword } = req.body;
+
+  try {
+    // Find user by ID and select password field
+    const user = await User.findById(req.user._id).select('+password');
+    if (!user) {
+      return errorResponse(res, 'User not found', 404);
+    }
+
+    // Update name only
+    if (name) {
+      user.name = name;
+    }
+
+    // Handle password update flow
+    if (newPassword) {
+      if (!oldPassword) {
+        return errorResponse(res, 'Old password is required to change password', 400);
+      }
+
+      const isMatch = await user.comparePassword(oldPassword);
+      if (!isMatch) {
+        return errorResponse(res, 'Invalid old password', 401);
+      }
+
+      user.password = newPassword;
+    }
+
+    // Save user document (triggers validation and pre-save password hash)
+    await user.save();
+
+    // Retrieve updated record without password for response
+    const updatedUser = await User.findById(user._id);
+
+    return successResponse(
+      res,
+      updatedUser,
+      'Profile updated successfully'
+    );
   } catch (error) {
     next(error);
   }
