@@ -43,16 +43,6 @@ app.use(express.json({ limit: '10kb' }));
 
 // Body parser middleware: parses URL-encoded data from standard HTML forms
 app.use(express.urlencoded({ extended: true }));
-app.get('/', (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'Startup CRM Backend is running'
-  });
-});
-/* ==========================================
-   API ENDPOINTS & BUSINESS LOGIC ROUTING
-   ========================================== */
-
 // Root endpoint to confirm the backend service is live
 app.get('/', (req, res) => {
   res.status(200).json({
