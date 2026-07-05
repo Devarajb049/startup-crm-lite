@@ -32,23 +32,20 @@ if (process.env.NODE_ENV === 'development' || !process.env.NODE_ENV) {
 
 // Enable Cross-Origin Resource Sharing (CORS) with frontend client
 const allowedOrigins = [
-  process.env.FRONTEND_URL?.replace(/\/$/, ""),
+  "https://aura-startup-crm-lite.vercel.app",
   "http://localhost:5173",
-  "http://localhost:3000",
 ];
 
 app.use(
   cors({
-    origin(origin, callback) {
+    origin: (origin, callback) => {
       if (!origin) return callback(null, true);
 
-      const normalizedOrigin = origin.replace(/\/$/, "");
-
-      if (allowedOrigins.includes(normalizedOrigin)) {
+      if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 
-      callback(new Error("Not allowed by CORS"));
+      return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
   })
