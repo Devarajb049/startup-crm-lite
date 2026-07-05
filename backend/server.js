@@ -43,7 +43,12 @@ app.use(express.json({ limit: '10kb' }));
 
 // Body parser middleware: parses URL-encoded data from standard HTML forms
 app.use(express.urlencoded({ extended: true }));
-
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Startup CRM Backend is running'
+  });
+});
 /* ==========================================
    API ENDPOINTS & BUSINESS LOGIC ROUTING
    ========================================== */
@@ -76,7 +81,7 @@ connectDB().then(() => {
   const PORT = process.env.PORT || 5000;
   const MODE = process.env.NODE_ENV || 'development';
 
-  app.listen(PORT, () => {
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT} in ${MODE} mode`);
   });
 });
