@@ -10,9 +10,9 @@ dotenv.config({ path: path.resolve('x:/Codeon/Project/startup-crm-lite/backend/.
 const dbURI = process.env.MONGODB_URI.replace('/startup_crm_lite', '/test');
 console.log('Connecting to:', dbURI);
 
-mongoose.connect(dbURI)
+mongoose.connect(dbURI, { dbName: 'startup_crm_lite' })
   .then(async () => {
-    console.log('Connected to test DB.');
+    console.log('Connected to DB successfully with dbName option override.');
     
     const users = await User.find({});
     console.log('\n=== USERS in test ===');
