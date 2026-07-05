@@ -65,7 +65,7 @@ const LeadSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: {
-        values: ['New', 'Contacted', 'Meeting Scheduled', 'Proposal Sent', 'Won', 'Lost'],
+        values: ['New', 'Contacted', 'Qualified', 'Meeting Scheduled', 'Proposal Sent', 'Negotiation', 'Won', 'Lost'],
         message: '{VALUE} is not a valid lead status',
       },
       default: 'New',
@@ -77,7 +77,7 @@ const LeadSchema = new mongoose.Schema(
     source: {
       type: String,
       enum: {
-        values: ['Website', 'Referral', 'LinkedIn', 'Cold Call', 'Email Campaign', 'Other'],
+        values: ['Website', 'Referral', 'LinkedIn', 'Cold Call', 'Email Campaign', 'Facebook', 'Instagram', 'Google Ads', 'Other'],
         message: '{VALUE} is not a valid lead source',
       },
       default: 'Website',

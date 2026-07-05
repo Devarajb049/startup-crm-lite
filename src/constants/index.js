@@ -9,8 +9,10 @@
 export const STATUS_OPTIONS = [
   'New',
   'Contacted',
+  'Qualified',
   'Meeting Scheduled',
   'Proposal Sent',
+  'Negotiation',
   'Won',
   'Lost'
 ];
@@ -25,6 +27,9 @@ export const SOURCE_OPTIONS = [
   'LinkedIn',
   'Cold Call',
   'Email Campaign',
+  'Facebook',
+  'Instagram',
+  'Google Ads',
   'Other'
 ];
 
@@ -35,8 +40,10 @@ export const SOURCE_OPTIONS = [
 export const STATUS_COLORS = {
   'New': 'bg-slate-50 text-slate-600 border-slate-200 dark:bg-slate-800/40 dark:text-slate-350 dark:border-slate-700/60',
   'Contacted': 'bg-amber-50 text-warning border-amber-200/50 dark:bg-amber-950/20 dark:border-amber-900/30',
+  'Qualified': 'bg-purple-50 text-purple-600 border-purple-200/50 dark:bg-purple-950/20 dark:border-purple-900/30',
   'Meeting Scheduled': 'bg-indigo-50 text-indigo-600 border-indigo-200/50 dark:bg-indigo-950/20 dark:border-indigo-900/30',
   'Proposal Sent': 'bg-blue-50 text-primary border-blue-200/50 dark:bg-blue-950/20 dark:border-blue-900/30',
+  'Negotiation': 'bg-pink-50 text-pink-600 border-pink-200/50 dark:bg-pink-950/20 dark:border-pink-900/30',
   'Won': 'bg-green-50 text-success border-green-200/50 dark:bg-green-950/20 dark:border-green-900/30',
   'Lost': 'bg-red-50 text-danger border-red-200/50 dark:bg-red-950/20 dark:border-red-900/30',
 };

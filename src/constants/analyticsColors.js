@@ -1,8 +1,10 @@
 export const STATUS_COLORS = {
   New: '#94A3B8',
   Contacted: '#2563EB',
+  Qualified: '#8B5CF6',
   'Meeting Scheduled': '#F59E0B',
   'Proposal Sent': '#7C3AED',
+  Negotiation: '#EC4899',
   Won: '#22C55E',
   Lost: '#EF4444'
 };
@@ -11,10 +13,11 @@ export const SOURCE_COLORS = {
   Website: '#3B82F6',
   Referral: '#10B981',
   LinkedIn: '#0077B5',
-  Instagram: '#E1306C',
-  Ads: '#F59E0B',
   'Cold Call': '#6366F1',
-  'Cold Email': '#EC4899',
+  'Email Campaign': '#EC4899',
+  Facebook: '#1877F2',
+  Instagram: '#E1306C',
+  'Google Ads': '#4285F4',
   Other: '#64748B'
 };
 

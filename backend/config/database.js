@@ -43,6 +43,7 @@ export const connectDB = async () => {
     try {
       // Connect to MongoDB Atlas with options: { useNewUrlParser: true, useUnifiedTopology: true }
       conn = await mongoose.connect(dbURI, {
+        dbName: 'startup_crm_lite',
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
@@ -53,7 +54,9 @@ export const connectDB = async () => {
         console.warn(
           'Warning: useNewUrlParser and useUnifiedTopology options are deprecated/unsupported in this Mongoose version. Connecting without them...'
         );
-        conn = await mongoose.connect(dbURI);
+        conn = await mongoose.connect(dbURI, {
+          dbName: 'startup_crm_lite',
+        });
       } else {
         throw optionError;
       }

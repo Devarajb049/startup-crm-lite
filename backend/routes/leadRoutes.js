@@ -36,11 +36,11 @@ const leadValidation = [
     .normalizeEmail(),
   body('status')
     .optional()
-    .isIn(['New', 'Contacted', 'Meeting Scheduled', 'Proposal Sent', 'Won', 'Lost'])
+    .isIn(['New', 'Contacted', 'Qualified', 'Meeting Scheduled', 'Proposal Sent', 'Negotiation', 'Won', 'Lost'])
     .withMessage('Invalid lead status'),
   body('source')
     .optional()
-    .isIn(['Website', 'Referral', 'LinkedIn', 'Cold Call', 'Email Campaign', 'Other'])
+    .isIn(['Website', 'Referral', 'LinkedIn', 'Cold Call', 'Email Campaign', 'Facebook', 'Instagram', 'Google Ads', 'Other'])
     .withMessage('Invalid lead source'),
   body('value')
     .optional()
@@ -53,7 +53,7 @@ const statusUpdateValidation = [
   body('status')
     .notEmpty()
     .withMessage('Status is required')
-    .isIn(['New', 'Contacted', 'Meeting Scheduled', 'Proposal Sent', 'Won', 'Lost'])
+    .isIn(['New', 'Contacted', 'Qualified', 'Meeting Scheduled', 'Proposal Sent', 'Negotiation', 'Won', 'Lost'])
     .withMessage('Invalid lead status'),
 ];
 
