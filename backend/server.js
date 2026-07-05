@@ -53,6 +53,14 @@ app.get('/', (req, res) => {
    API ENDPOINTS & BUSINESS LOGIC ROUTING
    ========================================== */
 
+// Root endpoint to confirm the backend service is live
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Startup CRM Backend is running',
+  });
+});
+
 // Base Health Check endpoint to monitor server uptime and response speed
 app.get('/api/health', (req, res) => {
   res.status(200).json({
