@@ -31,9 +31,21 @@ if (process.env.NODE_ENV === 'development' || !process.env.NODE_ENV) {
 }
 
 // Enable Cross-Origin Resource Sharing (CORS) with frontend client
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:5173",
+  "http://localhost:3000",
+];
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   })
 );
