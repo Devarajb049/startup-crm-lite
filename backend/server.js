@@ -48,6 +48,14 @@ app.use(express.urlencoded({ extended: true }));
    API ENDPOINTS & BUSINESS LOGIC ROUTING
    ========================================== */
 
+// Root health check endpoint
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Startup CRM Backend is running',
+  });
+});
+
 // Base Health Check endpoint to monitor server uptime and response speed
 app.get('/api/health', (req, res) => {
   res.status(200).json({
@@ -76,7 +84,7 @@ connectDB().then(() => {
   const PORT = process.env.PORT || 5000;
   const MODE = process.env.NODE_ENV || 'development';
 
-  app.listen(PORT, () => {
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT} in ${MODE} mode`);
   });
 });
