@@ -108,7 +108,7 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
       setIsLoading(false);
       // Redirect to login screen
-      window.location.href = '/login';
+      window.location.href = '/#/login';
     }
   };
 

@@ -35,8 +35,8 @@ api.interceptors.response.use(
       localStorage.removeItem('startup-crm-auth-user');
       
       // Perform full page redirect only if not already navigating to /login
-      if (window.location.pathname !== '/login') {
-        window.location.href = '/login';
+      if (window.location.hash !== '#/login') {
+        window.location.href = '/#/login';
       }
     } 
     // 2. Local network or connection failures (no response received)
