@@ -60,16 +60,16 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
       />
 
       {/* Main Dropdown Panel Container */}
-      <div className="absolute right-0 mt-3 w-80 sm:w-96 max-h-[480px] z-50 flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl transition-all duration-200 animate-fade-in origin-top-right">
+      <div className="absolute right-0 mt-3 w-80 sm:w-96 max-h-[480px] z-50 flex flex-col bg-white/85 dark:bg-[#0F131C]/85 backdrop-blur-2xl border border-slate-200/50 dark:border-white/5 rounded-2xl shadow-2xl transition-all duration-200 animate-fade-in origin-top-right">
         
         {/* Dropdown Header */}
-        <div className="flex items-center justify-between px-4 py-3.5 border-b border-slate-150 dark:border-slate-800">
+        <div className="flex items-center justify-between px-4 py-3.5 border-b border-slate-200/40 dark:border-white/5">
           <div className="flex items-center gap-2">
-            <h4 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white">
+            <h4 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">
               Recent Notifications
             </h4>
             {unreadCount > 0 && (
-              <span className="text-[10px] bg-primary text-white font-bold px-1.5 py-0.5 rounded-full shrink-0">
+              <span className="text-[9px] bg-primary text-white font-extrabold px-1.5 py-0.5 rounded-full shrink-0 select-none">
                 {unreadCount} new
               </span>
             )}
@@ -78,7 +78,7 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
           <button 
             type="button" 
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-hidden md:hidden"
+            className="p-1 rounded-lg text-slate-400 hover:text-slate-650 dark:hover:text-slate-200 focus:outline-hidden md:hidden"
             aria-label="Close notifications"
           >
             <X size={15} />
@@ -87,7 +87,7 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
 
         {/* Action Toolbar */}
         {notifications.length > 0 && (
-          <div className="flex items-center justify-between px-4 py-2 bg-slate-50/50 dark:bg-slate-950/20 border-b border-slate-100 dark:border-slate-800/80 text-[10px]">
+          <div className="flex items-center justify-between px-4 py-2 bg-slate-50/20 dark:bg-slate-950/20 border-b border-slate-200/30 dark:border-white/5 text-[10px]">
             <button
               type="button"
               onClick={markAllNotificationsAsRead}
@@ -108,7 +108,7 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
         )}
 
         {/* Notifications Scroll Area */}
-        <div className="flex-1 overflow-y-auto max-h-[350px] divide-y divide-slate-100 dark:divide-slate-800/50">
+        <div className="flex-1 overflow-y-auto max-h-[350px] divide-y divide-slate-200/40 dark:divide-white/5">
           {notifications.length > 0 ? (
             notifications.map((notif) => {
               const config = getNotificationConfig(notif.type);

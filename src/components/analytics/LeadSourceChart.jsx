@@ -11,7 +11,7 @@ const LeadSourceChart = ({ leads }) => {
   const chartData = useMemo(() => getLeadSourceStats(leads), [leads]);
 
   return (
-    <div className="p-6 bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+    <div className="p-6 glass-card border border-slate-200/40 dark:border-white/5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
       
       {/* Card Header */}
       <div>

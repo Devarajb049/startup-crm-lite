@@ -1,14 +1,16 @@
 import { useMemo } from 'react';
 
 // Static constants lifted outside of the render cycle
-const STAGES = ['New', 'Contacted', 'Meeting Scheduled', 'Proposal Sent', 'Won', 'Lost'];
+const STAGES = ['New', 'Contacted', 'Qualified', 'Meeting Scheduled', 'Proposal Sent', 'Negotiation', 'Won', 'Lost'];
 
 // Tailwind BG color variants for horizontal segment bar
 const STAGE_COLORS = {
   'New': 'bg-slate-400 dark:bg-slate-500',
   'Contacted': 'bg-warning',
+  'Qualified': 'bg-purple-500',
   'Meeting Scheduled': 'bg-indigo-500',
   'Proposal Sent': 'bg-primary',
+  'Negotiation': 'bg-pink-500',
   'Won': 'bg-success',
   'Lost': 'bg-danger'
 };
@@ -62,7 +64,7 @@ const PipelineOverview = ({ leads }) => {
   };
 
   return (
-    <div className="p-5 bg-white dark:bg-[#1C1C1C] border border-slate-100 dark:border-slate-800/40 rounded-2xl shadow-xs">
+    <div className="p-5 rounded-2xl glass-card border border-slate-200/40 dark:border-white/5 shadow-xs">
       <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
         Pipeline Segment Summary
       </h3>
@@ -88,7 +90,7 @@ const PipelineOverview = ({ leads }) => {
           </div>
 
           {/* Sub-grid listing stage count details and cumulative values */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 pt-1">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-4 pt-1">
             {stageStats.map((stat) => {
               return (
                 <div key={stat.name} className="space-y-1">

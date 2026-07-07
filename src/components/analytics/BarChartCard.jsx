@@ -12,7 +12,7 @@ const BarChartCard = ({ leads }) => {
 
   return (
     <div className="p-6 bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
-      
+
       {/* Card Header */}
       <div>
         <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white">
@@ -30,10 +30,10 @@ const BarChartCard = ({ leads }) => {
             <BarChart data={chartData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" className="dark:hidden" />
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1E293B" className="hidden dark:block" />
-              
+
               <XAxis dataKey="name" stroke="#94A3B8" fontSize={11} tickLine={false} axisLine={false} />
               <YAxis stroke="#94A3B8" fontSize={11} tickLine={false} axisLine={false} allowDecimals={false} />
-              
+
               <Tooltip
                 cursor={{ fill: 'rgba(148, 163, 184, 0.1)' }}
                 content={({ active, payload }) => {
@@ -49,13 +49,13 @@ const BarChartCard = ({ leads }) => {
                   return null;
                 }}
               />
-              
-              <Bar 
-                dataKey="value" 
-                fill={CHART_THEME.primary} 
-                radius={[4, 4, 0, 0]} 
-                maxBarSize={32} 
-                isAnimationActive={true} 
+
+              <Bar
+                dataKey="value"
+                fill={CHART_THEME.primary}
+                radius={[4, 4, 0, 0]}
+                maxBarSize={32}
+                isAnimationActive={true}
               />
             </BarChart>
           </ResponsiveContainer>

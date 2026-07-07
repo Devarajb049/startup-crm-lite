@@ -33,21 +33,21 @@ const LeadCard = ({ lead, onEdit, onDelete }) => {
   const { formatCurrency } = useLeads();
 
   return (
-    <div className="p-5 bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark rounded-xl shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
+    <div className="p-5 glass-card border border-slate-200/40 dark:border-white/5 rounded-2xl shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between text-left">
       
       {/* 1. Header Section (Avatar circle + Title Name + Actions) */}
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-blue-50 dark:bg-blue-950/40 text-primary flex items-center justify-center font-bold text-sm select-none">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
+          <div className="w-9 h-9 rounded-full bg-blue-50 dark:bg-blue-950/40 text-primary flex items-center justify-center font-bold text-sm select-none shrink-0">
             {lead.name.charAt(0)}
           </div>
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate">
               {lead.name}
             </h4>
-            <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              <Building size={12} className="text-slate-400" />
-              <span className="truncate">{lead.company}</span>
+            <div className="flex items-start gap-1.5 text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              <Building size={12} className="text-slate-400 shrink-0 mt-0.5" />
+              <span className="break-words whitespace-normal leading-tight">{lead.company}</span>
             </div>
           </div>
         </div>

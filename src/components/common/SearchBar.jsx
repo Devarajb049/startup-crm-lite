@@ -45,12 +45,12 @@ const SearchBar = ({ value, onChange }) => {
   };
 
   return (
-    <div className="relative flex-1">
+    <div className="relative w-full">
       {/* Visual Search magnifying glass icon */}
-      <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400 dark:text-slate-500">
-        <Search size={16} />
+      <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400 dark:text-slate-550">
+        <Search size={15} />
       </span>
-      
+
       {/* Interactive Search Input */}
       <input
         type="text"
@@ -58,9 +58,9 @@ const SearchBar = ({ value, onChange }) => {
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="Search by name, company, or email..."
         aria-label="Search leads, companies, and emails"
-        className="w-full pl-9 pr-9 py-2 text-sm rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-border-dark text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-primary placeholder-slate-400 dark:placeholder-slate-500 transition-all duration-150 shadow-xs"
+        className="w-full pl-9.5 pr-9 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden"
       />
-      
+
       {/* Clear Button (appears when input is not empty) */}
       {inputValue && (
         <button

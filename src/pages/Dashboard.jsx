@@ -6,6 +6,7 @@ import PipelineOverview from '../components/dashboard/PipelineOverview';
 import RecentLeads from '../components/dashboard/RecentLeads';
 import QuickActions from '../components/dashboard/QuickActions';
 import AddLeadModal from '../components/leads/AddLeadModal';
+import ShimmerButton from '../components/common/ShimmerButton';
 
 /**
  * Dashboard Page Component
@@ -60,100 +61,66 @@ const Dashboard = () => {
         </p>
       </div>
 
-      {totalLeads === 0 ? (
-        <div className="bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark rounded-2xl p-8 sm:p-12 text-center max-w-xl mx-auto shadow-xs animate-fade-in my-10 select-none">
-          <div className="w-14 h-14 rounded-2xl bg-blue-500/10 dark:bg-blue-500/15 text-primary flex items-center justify-center mx-auto mb-4 border border-blue-500/20">
-            <Users className="w-7 h-7" />
-          </div>
+      <>
+        {/* 2. Key Metrics Bar: 1 col on mobile, 2 on tablet, 4 on desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
-          <h3 className="text-sm sm:text-base font-extrabold text-slate-800 dark:text-slate-200">
-            Welcome to your sales workspace! 🚀
-          </h3>
-          
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2 max-w-sm mx-auto leading-relaxed">
-            Your sales pipeline is currently empty. Get started by seeding sample opportunities or adding a new lead manually.
-          </p>
+          {/* Metric 1: Total Leads */}
+          <StatsCard
+            index={0}
+            title="Total Leads"
+            value={totalLeads}
+            icon={Users}
+            change={8.2}
+          />
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
-            <button
-              type="button"
-              onClick={loadDemoLeads}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-primary hover:bg-blue-600 active:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer transition-all active:scale-95"
-            >
-              <span>Seed Sample Leads</span>
-            </button>
-            
-            <button
-              type="button"
-              onClick={() => setIsAddModalOpen(true)}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900/60 font-bold text-xs rounded-xl shadow-xs cursor-pointer transition-all active:scale-95"
-            >
-              <span>Add Custom Lead</span>
-            </button>
-          </div>
+          {/* Metric 2: Active Pipeline Value */}
+          <StatsCard
+            index={1}
+            title="Active Pipeline"
+            value={formatCurrency(pipelineValue)}
+            icon={PipelineIcon}
+            change={12.4}
+          />
+
+          {/* Metric 3: Conversion Win Rate */}
+          <StatsCard
+            index={2}
+            title="Win Rate"
+            value={`${winRate}%`}
+            icon={Percent}
+            change={-1.5}
+          />
+
+          {/* Metric 4: Closed Revenue Won */}
+          <StatsCard
+            index={3}
+            title="Closed Revenue"
+            value={formatCurrency(closedWonRevenue)}
+            icon={TrendingUp}
+            change={24.1}
+          />
+
         </div>
-      ) : (
-        <>
-          {/* 2. Key Metrics Bar: 1 col on mobile, 2 on tablet, 4 on desktop */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            
-            {/* Metric 1: Total Leads */}
-            <StatsCard
-              index={0}
-              title="Total Leads"
-              value={totalLeads}
-              icon={Users}
-              change={8.2}
-            />
 
-            {/* Metric 2: Active Pipeline Value */}
-            <StatsCard
-              index={1}
-              title="Active Pipeline"
-              value={formatCurrency(pipelineValue)}
-              icon={PipelineIcon}
-              change={12.4}
-            />
+        {/* 3. Pipeline Segment Progress bar card */}
+        <PipelineOverview leads={leads} />
 
-            {/* Metric 3: Conversion Win Rate */}
-            <StatsCard
-              index={2}
-              title="Win Rate"
-              value={`${winRate}%`}
-              icon={Percent}
-              change={-1.5}
-            />
-
-            {/* Metric 4: Closed Revenue Won */}
-            <StatsCard
-              index={3}
-              title="Closed Revenue"
-              value={formatCurrency(closedWonRevenue)}
-              icon={TrendingUp}
-              change={24.1}
-            />
-
+        {/* 4. Bottom Grid layout containing Recent leads and Actions */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          {/* Left column spanning 2 spaces on desktop: Recent Leads datatable */}
+          <div className="lg:col-span-2">
+            <RecentLeads leads={leads} />
           </div>
 
-          {/* 3. Pipeline Segment Progress bar card */}
-          <PipelineOverview leads={leads} />
-
-          {/* 4. Bottom Grid layout containing Recent leads and Actions */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            
-            {/* Left column spanning 2 spaces on desktop: Recent Leads datatable */}
-            <div className="lg:col-span-2">
-              <RecentLeads leads={leads} />
-            </div>
-
-            {/* Right column: Action Board */}
-            <div>
-              <QuickActions onAddLeadClick={() => setIsAddModalOpen(true)} />
-            </div>
-
+          {/* Right column: Action Board */}
+          <div>
+            <QuickActions onAddLeadClick={() => setIsAddModalOpen(true)} />
           </div>
-        </>
-      )}
+
+        </div>
+      </>
 
       {/* Local Add Lead modal instance linked to Dashboard Quick Actions */}
       <AddLeadModal

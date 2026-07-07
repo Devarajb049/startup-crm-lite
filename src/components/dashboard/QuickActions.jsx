@@ -82,7 +82,7 @@ const QuickActions = ({ onAddLeadClick }) => {
   };
 
   return (
-    <div className="p-6 bg-white dark:bg-[#1C1C1C] border border-slate-100 dark:border-slate-800/40 rounded-2xl shadow-xs transition-all duration-205 flex flex-col justify-between">
+    <div className="p-6 rounded-2xl glass-card border border-slate-200/40 dark:border-white/5 shadow-xs flex flex-col justify-between">
       <div>
         <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
           Quick Actions
@@ -99,17 +99,17 @@ const QuickActions = ({ onAddLeadClick }) => {
         <button
           type="button"
           onClick={onAddLeadClick}
-          className="flex items-center justify-between p-4 bg-blue-50/40 dark:bg-blue-950/10 hover:bg-blue-100/60 dark:hover:bg-blue-950/20 text-blue-855 dark:text-blue-300 rounded-xl cursor-pointer transition-all duration-150 border border-blue-100/50 dark:border-blue-900/20 focus:outline-hidden hover:translate-x-0.5 group w-full text-left"
+          className="flex items-center justify-between p-4 bg-blue-500/5 dark:bg-blue-500/10 hover:bg-blue-500/10 dark:hover:bg-blue-500/15 text-blue-600 dark:text-blue-400 rounded-xl cursor-pointer transition-all duration-155 border border-blue-500/10 dark:border-blue-500/15 focus:outline-hidden hover:translate-x-0.5 group w-full text-left"
         >
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-xl bg-primary text-white shadow-xs group-hover:scale-105 transition-transform duration-200">
               <Plus size={16} />
             </div>
             <div>
-              <p className="text-xs font-extrabold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white group-hover:text-primary transition-colors">
                 Add New Lead
               </p>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed font-semibold">
                 Register a new opportunity contact
               </p>
             </div>
@@ -121,17 +121,17 @@ const QuickActions = ({ onAddLeadClick }) => {
         <button
           type="button"
           onClick={() => navigate('/leads')}
-          className="flex items-center justify-between p-4 bg-emerald-50/40 dark:bg-emerald-950/10 hover:bg-emerald-100/60 dark:hover:bg-emerald-950/20 text-emerald-855 dark:text-emerald-300 rounded-xl cursor-pointer transition-all duration-155 border border-emerald-100/50 dark:border-emerald-900/20 focus:outline-hidden hover:translate-x-0.5 group w-full text-left"
+          className="flex items-center justify-between p-4 bg-emerald-500/5 dark:bg-emerald-500/10 hover:bg-emerald-500/10 dark:hover:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 rounded-xl cursor-pointer transition-all duration-155 border border-emerald-500/10 dark:border-emerald-500/15 focus:outline-hidden hover:translate-x-0.5 group w-full text-left"
         >
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-xl bg-success text-white shadow-xs group-hover:scale-105 transition-transform duration-200">
               <Users size={16} />
             </div>
             <div>
-              <p className="text-xs font-extrabold text-slate-900 dark:text-white group-hover:text-success transition-colors">
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white group-hover:text-success transition-colors">
                 View Directory
               </p>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed font-semibold">
                 Manage your sales pipeline rows
               </p>
             </div>
@@ -143,17 +143,17 @@ const QuickActions = ({ onAddLeadClick }) => {
         <button
           type="button"
           onClick={handleExportCSV}
-          className="flex items-center justify-between p-4 bg-amber-50/40 dark:bg-amber-950/10 hover:bg-amber-100/60 dark:hover:bg-amber-950/20 text-amber-855 dark:text-amber-300 rounded-xl cursor-pointer transition-all duration-155 border border-amber-100/50 dark:border-amber-900/20 focus:outline-hidden hover:translate-x-0.5 group w-full text-left"
+          className="flex items-center justify-between p-4 bg-amber-500/5 dark:bg-amber-500/10 hover:bg-amber-500/10 dark:hover:bg-amber-500/15 text-amber-600 dark:text-amber-400 rounded-xl cursor-pointer transition-all duration-155 border border-amber-500/10 dark:border-amber-500/15 focus:outline-hidden hover:translate-x-0.5 group w-full text-left"
         >
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-xl bg-warning text-white shadow-xs group-hover:scale-105 transition-transform duration-200">
               <Download size={16} />
             </div>
             <div>
-              <p className="text-xs font-extrabold text-slate-900 dark:text-white group-hover:text-warning transition-colors">
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white group-hover:text-warning transition-colors">
                 Export Data
               </p>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed font-semibold">
                 Download database as CSV file
               </p>
             </div>

@@ -18,6 +18,20 @@ import LeadForm from './LeadForm';
 const AddLeadModal = ({ isOpen, onClose, leadToEdit = null }) => {
   const { addLead, updateLead } = useLeads();
 
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   // Form submit interceptor
@@ -51,38 +65,36 @@ const AddLeadModal = ({ isOpen, onClose, leadToEdit = null }) => {
 
       {/* Backdrop overlay */}
       <div
-        className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs transition-opacity"
+        className="fixed inset-0 bg-slate-950/40 backdrop-blur-md transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Modal Card content wrapper: full screen on mobile, centered max-w-lg on tablet+ */}
-      <div className="relative w-full h-full sm:h-auto sm:max-w-lg bg-white dark:bg-gray-800 border-0 sm:border border-slate-200 dark:border-gray-700 sm:rounded-xl shadow-xl z-10 overflow-hidden transform transition-all max-h-screen sm:max-h-[90vh] flex flex-col animate-fade-in">
+      {/* Modal Card content wrapper */}
+      <div className="relative w-full sm:max-w-2xl bg-white/80 dark:bg-[#0F131C]/80 backdrop-blur-2xl border border-slate-200/40 dark:border-white/5 rounded-2xl shadow-2xl z-10 overflow-hidden max-h-[90vh] sm:max-h-[85vh] flex flex-col animate-fade-in">
 
         {/* Title Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/20">
-          <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/40 dark:border-white/5 bg-slate-50/20 dark:bg-slate-950/20 shrink-0">
+          <h2 className="text-xs sm:text-sm font-extrabold tracking-wider uppercase text-slate-900 dark:text-white">
             {leadToEdit ? 'Modify Lead Details' : 'Register New Lead'}
           </h2>
           <button
             type="button"
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-505 dark:hover:text-slate-350 hover:bg-slate-105 dark:hover:bg-hover-dark transition-colors focus:outline-hidden"
+            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-650 dark:hover:text-slate-200 hover:bg-white/40 dark:hover:bg-white/5 transition-colors focus:outline-hidden cursor-pointer"
             onClick={onClose}
             aria-label="Close dialog modal"
           >
-            <X size={17} />
+            <X size={16} />
           </button>
         </div>
 
         {/* Form area */}
-        <div className="flex-1 overflow-y-auto p-6">
-          <LeadForm
-            key={leadToEdit?.id || 'new'}
-            initialData={leadToEdit}
-            onSubmit={handleFormSubmit}
-            onCancel={onClose}
-          />
-        </div>
+        <LeadForm
+          key={leadToEdit?.id || 'new'}
+          initialData={leadToEdit}
+          onSubmit={handleFormSubmit}
+          onCancel={onClose}
+        />
 
       </div>
 

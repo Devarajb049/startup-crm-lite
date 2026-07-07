@@ -1,10 +1,11 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useLeads } from '../context/LeadContext';
 import SearchBar from '../components/common/SearchBar';
 import FilterBar from '../components/common/FilterBar';
 import EmptyState from '../components/common/EmptyState';
 import LeadTable from '../components/leads/LeadTable';
 import LeadForm from '../components/leads/LeadForm';
+import ShimmerButton from '../components/common/ShimmerButton';
 import { toast } from 'react-hot-toast';
 import { Plus, X } from 'lucide-react';
 
@@ -57,6 +58,21 @@ const Leads = () => {
     setIsModalOpen(false);
     setSelectedLead(null);
   }, []);
+
+  // Close on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        handleCloseModal();
+      }
+    };
+    if (isModalOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isModalOpen, handleCloseModal]);
 
   // Handles form submit (Creation or Updating)
   const handleFormSubmit = useCallback((data) => {
@@ -122,18 +138,19 @@ const Leads = () => {
         </div>
         
         {/* + Add Lead button */}
-        <button
-          type="button"
+        <ShimmerButton
           onClick={handleOpenAddModal}
-          className="flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-blue-700 active:bg-blue-800 rounded-xl shadow-sm hover:shadow-md cursor-pointer transition-all duration-150 active:scale-98 focus:outline-hidden shrink-0"
+          className="shadow-md shadow-primary/10 border border-blue-400/20 shrink-0"
+          title="Create New Lead"
+          aria-label="Create New Lead"
         >
           <Plus size={16} />
-          <span>Add New Lead</span>
-        </button>
+          <span className="text-[11px] tracking-wide">Add New Lead</span>
+        </ShimmerButton>
       </div>
 
       {/* 2. Search & Filter Bar Group */}
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between bg-white dark:bg-[#1C1C1C] p-4 rounded-2xl border border-slate-100 dark:border-slate-800/40 shadow-xs">
+      <div className="flex flex-col gap-4 w-full glass-card p-4 rounded-2xl border border-slate-200/40 dark:border-white/5 shadow-xs">
         
         {/* Search Bar Input */}
         <SearchBar value={searchQuery} onChange={setSearchQuery} />
@@ -169,38 +186,36 @@ const Leads = () => {
           
           {/* backdrop overlay */}
           <div 
-            className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs transition-opacity duration-300"
+            className="fixed inset-0 bg-slate-950/40 backdrop-blur-md transition-opacity duration-300"
             onClick={handleCloseModal}
             aria-hidden="true"
           />
 
           {/* Modal content body card: full screen on mobile, centered max-w-lg on tablet+ */}
-          <div className="relative w-full h-full sm:h-auto sm:max-w-lg bg-white dark:bg-[#1C1C1C] border-0 sm:border border-slate-100 dark:border-slate-800/40 sm:rounded-2xl shadow-xl z-10 overflow-hidden transform transition-all max-h-screen sm:max-h-[90vh] flex flex-col animate-fade-in">
+          <div className="relative w-full sm:max-w-2xl bg-white/80 dark:bg-[#0F131C]/80 backdrop-blur-2xl border border-slate-200/40 dark:border-white/5 rounded-2xl shadow-2xl z-10 overflow-hidden max-h-[90vh] sm:max-h-[85vh] flex flex-col animate-fade-in">
             
             {/* Title Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/10">
-              <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/40 dark:border-white/5 bg-slate-50/20 dark:bg-slate-950/20 shrink-0">
+              <h2 className="text-xs sm:text-sm font-extrabold tracking-wider uppercase text-slate-900 dark:text-white">
                 {selectedLead ? 'Modify Lead Details' : 'Register New Lead'}
               </h2>
               <button 
                 type="button"
-                className="p-1.5 rounded-xl text-slate-400 hover:text-slate-505 dark:hover:text-slate-350 hover:bg-slate-105 dark:hover:bg-hover-dark transition-colors duration-150 focus:outline-hidden"
+                className="p-1.5 rounded-xl text-slate-400 hover:text-slate-650 dark:hover:text-slate-200 hover:bg-white/40 dark:hover:bg-white/5 transition-colors focus:outline-hidden cursor-pointer"
                 onClick={handleCloseModal}
                 aria-label="Close dialog modal"
               >
-                <X size={17} />
+                <X size={16} />
               </button>
             </div>
 
-            {/* Scrollable Form Body Container */}
-            <div className="flex-1 overflow-y-auto p-6">
-              <LeadForm 
-                key={selectedLead?.id || 'new'}
-                initialData={selectedLead} 
-                onSubmit={handleFormSubmit} 
-                onCancel={handleCloseModal} 
-              />
-            </div>
+            {/* Form Area */}
+            <LeadForm 
+              key={selectedLead?.id || 'new'}
+              initialData={selectedLead} 
+              onSubmit={handleFormSubmit} 
+              onCancel={handleCloseModal} 
+            />
 
           </div>
 

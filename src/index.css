@@ -1,27 +1,88 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #007AFF;
+  --color-primary: #3B82F6; /* Premium Indigo/Blue */
   --color-success: #10B981;
   --color-warning: #F59E0B;
   --color-danger: #EF4444;
-  --color-bg: #F7F9FB;
+  --color-bg: #F8FAFC;
   --color-card-white: #FFFFFF;
-  --color-text-dark: #1C1C1C;
-  --color-text-grey: #94A3B8;
+  --color-text-dark: #0F172A;
+  --color-text-grey: #64748B;
   
-  /* snowui / AuraCRM Custom Dark Palette */
-  --color-brand-dark: #0E0E11;
-  --color-card-dark: #1C1C1C;
-  --color-border-dark: #2C2D30;
-  --color-hover-dark: #2C2D30;
+  /* AuraCRM Premium Dark Palette */
+  --color-brand-dark: #07090E;
+  --color-card-dark: #0F131C;
+  --color-border-dark: rgba(255, 255, 255, 0.08);
+  --color-hover-dark: rgba(255, 255, 255, 0.05);
 }
 
 /* Enable class-based dark mode variant in Tailwind v4 */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Custom scrollbar for modern premium feel */
+/* Glassmorphism Design System Utilities */
 @layer utilities {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+  }
+
+  .dark .glass-card {
+    background: rgba(15, 19, 28, 0.65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+  }
+
+  .glass-card-glow {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.06), 0 0 1px 1px rgba(59, 130, 246, 0.1);
+  }
+
+  .dark .glass-card-glow {
+    background: rgba(15, 19, 28, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35), 0 0 15px 1px rgba(59, 130, 246, 0.15);
+  }
+
+  .glass-input {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark .glass-input {
+    background: rgba(7, 9, 14, 0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-input:focus {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+  }
+
+  .dark .glass-input:focus {
+    background: rgba(7, 9, 14, 0.8);
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+  }
+
+  /* Custom scrollbar for modern premium feel */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -30,19 +91,19 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #CBD5E1;
+    background: rgba(203, 213, 225, 0.6);
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #94A3B8;
+    background: rgba(148, 163, 184, 0.8);
   }
   
   /* Dark mode scrollbars */
   .dark ::-webkit-scrollbar-thumb {
-    background: #334155;
+    background: rgba(255, 255, 255, 0.1);
   }
   .dark ::-webkit-scrollbar-thumb:hover {
-    background: #475569;
+    background: rgba(255, 255, 255, 0.2);
   }
 }
 
@@ -50,16 +111,17 @@
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  overflow-x: hidden;
 }
 
 /* Custom fade animation for page loading */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Float Slow Keyframes for Aura Background glows */

@@ -94,9 +94,9 @@ const LeadTable = ({ leads, onEditLead, onDeleteLead }) => {
           <div className="hidden md:block">
             {viewMode === 'table' ? (
               /* Table Layout */
-              <div className="bg-white dark:bg-[#1C1C1C] border border-slate-100 dark:border-slate-800/40 rounded-2xl shadow-xs overflow-hidden">
-                <table className="min-w-full divide-y divide-slate-100 dark:divide-slate-805/40 text-left">
-                  <thead className="bg-slate-50/75 dark:bg-slate-950/20 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <div className="bg-white/80 dark:bg-[#0F131C]/80 backdrop-blur-2xl border border-slate-200/40 dark:border-white/5 rounded-2xl shadow-xs overflow-hidden">
+                <table className="min-w-full divide-y divide-slate-200/30 dark:divide-white/5 text-left">
+                  <thead className="bg-slate-50/50 dark:bg-slate-950/20 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     <tr>
                       <th className="px-6 py-4">Contact</th>
                       <th className="px-6 py-4">Company</th>
@@ -107,11 +107,11 @@ const LeadTable = ({ leads, onEditLead, onDeleteLead }) => {
                       <th className="px-6 py-4 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-xs text-slate-700 dark:text-slate-350">
+                  <tbody className="divide-y divide-slate-200/20 dark:divide-white/5 text-xs text-slate-700 dark:text-slate-350">
                     {leads.map((lead) => (
                       <tr 
                         key={lead.id} 
-                        className="hover:bg-slate-50/50 dark:hover:bg-slate-950/10 transition-colors duration-100 text-slate-700 dark:text-slate-300"
+                        className="hover:bg-white/40 dark:hover:bg-white/5 transition-colors duration-100 text-slate-700 dark:text-slate-300"
                       >
                         {/* Contact info details */}
                         <td className="px-6 py-3.5">
@@ -162,7 +162,7 @@ const LeadTable = ({ leads, onEditLead, onDeleteLead }) => {
                         <td className="px-6 py-3.5 text-slate-500 dark:text-slate-400 font-medium">
                           <div className="flex items-center gap-1">
                             <Calendar size={13} className="text-slate-400" />
-                            <span>{lead.date}</span>
+                            <span>{lead.date || (lead.createdAt ? lead.createdAt.split('T')[0] : '')}</span>
                           </div>
                         </td>
 
@@ -174,22 +174,22 @@ const LeadTable = ({ leads, onEditLead, onDeleteLead }) => {
                             <button
                               type="button"
                               onClick={() => onEditLead(lead)}
-                              className="p-1.5 rounded-xl border border-slate-200 dark:border-border-dark text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-hover-dark transition-colors focus:outline-hidden"
+                              className="p-1.5 rounded-xl border border-slate-200 dark:border-border-dark text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-hover-dark transition-colors duration-150 active:scale-95 group/edit focus:outline-hidden"
                               title="Edit Lead"
                               aria-label={`Edit ${lead.name}`}
                             >
-                              <Edit size={14} />
+                              <Edit size={14} className="transition-transform duration-200 group-hover/edit:scale-110 group-hover/edit:rotate-6" />
                             </button>
                             
                             {/* Delete Action Button */}
                             <button
                               type="button"
                               onClick={() => onDeleteLead(lead.id)}
-                              className="p-1.5 rounded-xl border border-slate-200 dark:border-border-dark text-danger hover:bg-red-50 dark:hover:bg-red-950/20 hover:border-red-200/50 transition-colors focus:outline-hidden"
+                              className="p-1.5 rounded-xl border border-slate-200 dark:border-border-dark text-danger hover:bg-red-50 dark:hover:bg-red-950/20 hover:border-red-200/50 transition-colors duration-150 active:scale-95 group/del focus:outline-hidden"
                               title="Delete Lead"
                               aria-label={`Delete ${lead.name}`}
                             >
-                              <Trash2 size={14} />
+                              <Trash2 size={14} className="transition-transform duration-200 group-hover/del:scale-110 group-hover/del:-rotate-6" />
                             </button>
 
                           </div>

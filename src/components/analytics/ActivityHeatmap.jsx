@@ -4,9 +4,9 @@ import { CalendarRange } from 'lucide-react';
 
 // Color classes based on activity count (shades of green)
 const getActivityColor = (count) => {
-  if (count === 0) return 'bg-slate-100 dark:bg-slate-800/50 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/20';
-  if (count <= 2) return 'bg-green-100 dark:bg-green-950/40 text-green-800 hover:bg-green-200 dark:hover:bg-green-900/50 border border-green-200/20';
-  if (count <= 4) return 'bg-green-300 dark:bg-green-800/60 text-green-900 hover:bg-green-400 dark:hover:bg-green-700/70 border border-green-400/20';
+  if (count === 0) return 'bg-slate-100 dark:bg-slate-800/30 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/20 text-slate-400 dark:text-slate-500';
+  if (count <= 2) return 'bg-green-100 dark:bg-green-950/40 text-green-800 dark:text-green-400 hover:bg-green-200 dark:hover:bg-green-900/50 border border-green-200/20';
+  if (count <= 4) return 'bg-green-300 dark:bg-green-800/60 text-green-900 dark:text-green-300 hover:bg-green-400 dark:hover:bg-green-700/70 border border-green-400/20';
   if (count <= 7) return 'bg-green-500 dark:bg-green-600 text-white hover:bg-green-600 dark:hover:bg-green-500 border border-green-600/20';
   return 'bg-green-700 dark:bg-green-400 text-white dark:text-slate-900 hover:bg-green-800 dark:hover:bg-green-300 border border-green-800/20';
 };
@@ -32,7 +32,7 @@ const ActivityHeatmap = ({ leads }) => {
   }, [heatmapData]);
 
   return (
-    <div className="p-6 bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+    <div className="p-6 glass-card border border-slate-200/40 dark:border-white/5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
       
       {/* Card Header */}
       <div>

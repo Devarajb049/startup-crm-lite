@@ -125,6 +125,17 @@ LeadSchema.virtual('age').get(function () {
   return Math.floor(diffMs / (1000 * 60 * 60 * 24));
 });
 
+/**
+ * Virtual property formatting the creation date as YYYY-MM-DD.
+ * @returns {String} Creation date formatted as YYYY-MM-DD
+ */
+LeadSchema.virtual('date').get(function () {
+  if (!this.createdAt) {
+    return '';
+  }
+  return this.createdAt.toISOString().split('T')[0];
+});
+
 // Export the schema separately for nesting or extension
 export { LeadSchema };
 

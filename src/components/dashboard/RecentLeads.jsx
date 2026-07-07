@@ -26,12 +26,12 @@ const RecentLeads = ({ leads }) => {
   // Sort by calendar date in descending order and extract the top 5 records
   const recentLeads = useMemo(() => {
     return [...leads]
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .sort((a, b) => new Date(b.createdAt || b.date).getTime() - new Date(a.createdAt || a.date).getTime())
       .slice(0, 5);
   }, [leads]);
 
   return (
-    <div className="p-5 bg-white dark:bg-[#1C1C1C] border border-slate-100 dark:border-slate-800/40 rounded-2xl shadow-xs">
+    <div className="p-5 rounded-2xl glass-card border border-slate-200/40 dark:border-white/5 shadow-xs">
       <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
         Recent Leads
       </h3>
@@ -43,7 +43,7 @@ const RecentLeads = ({ leads }) => {
       <div className="overflow-x-auto -mx-5">
         <div className="inline-block min-w-full align-middle px-5">
           {recentLeads.length > 0 ? (
-            <table className="min-w-full divide-y divide-slate-100 dark:divide-slate-800 text-left">
+            <table className="min-w-full divide-y divide-slate-200/30 dark:divide-white/5 text-left">
               <thead>
                 <tr className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   <th className="pb-3">Contact</th>
@@ -52,11 +52,11 @@ const RecentLeads = ({ leads }) => {
                   <th className="pb-3 text-right">Date Added</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-xs text-slate-755 dark:text-slate-300">
+              <tbody className="divide-y divide-slate-200/20 dark:divide-white/5 text-xs text-slate-700 dark:text-slate-300">
                 {recentLeads.map((lead) => (
                   <tr 
                     key={lead.id} 
-                    className="hover:bg-slate-50/50 dark:hover:bg-slate-950/20 transition-colors duration-100"
+                    className="hover:bg-white/40 dark:hover:bg-white/5 transition-colors duration-100"
                   >
                     {/* Contact Name */}
                     <td className="py-3 font-semibold text-slate-900 dark:text-white">
@@ -74,8 +74,8 @@ const RecentLeads = ({ leads }) => {
                     </td>
                     
                     {/* Calendar Registration Date */}
-                    <td className="py-3 text-right text-slate-400 dark:text-slate-500 font-medium whitespace-nowrap">
-                      {lead.date}
+                    <td className="py-3 text-right text-slate-400 dark:text-slate-500 font-semibold whitespace-nowrap">
+                      {lead.date || (lead.createdAt ? lead.createdAt.split('T')[0] : '')}
                     </td>
                   </tr>
                 ))}

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Users, BarChart3, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, BarChart3, LogOut } from 'lucide-react';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import AddLeadModal from '../leads/AddLeadModal';
@@ -41,12 +41,16 @@ const Layout = ({ children }) => {
   const bottomNavLinks = [
     { name: 'Dashboard', path: '/', icon: LayoutDashboard },
     { name: 'Leads', path: '/leads', icon: Users },
-    { name: 'Analytics', path: '/analytics', icon: BarChart3 },
-    { name: 'Settings', path: '/settings', icon: Settings }
+    { name: 'Analytics', path: '/analytics', icon: BarChart3 }
   ];
 
   return (
-    <div className="min-h-screen flex bg-bg dark:bg-brand-dark transition-colors duration-200">
+    <div className="h-screen flex bg-[#F8FAFC] dark:bg-[#07090E] relative overflow-hidden transition-colors duration-200">
+      
+      {/* Ambient background glows for glassmorphism mesh effect */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-500/5 dark:bg-blue-650/8 blur-[120px] pointer-events-none animate-float-slow" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-500/5 dark:bg-purple-650/6 blur-[150px] pointer-events-none animate-float-reverse" />
+      <div className="absolute top-[30%] right-[10%] w-[35%] h-[35%] rounded-full bg-pink-500/3 dark:bg-pink-650/4 blur-[120px] pointer-events-none animate-float-alternate" />
 
       {/* 1. Left Sidebar (tablet + desktop) */}
       <Sidebar
@@ -57,7 +61,7 @@ const Layout = ({ children }) => {
       />
 
       {/* 2. Main Page Container */}
-      <div className={`flex-1 flex flex-col min-w-0 pb-16 md:pb-0 transition-all duration-250 ease-in-out ${isCollapsed ? 'md:pl-20 lg:pl-20' : 'md:pl-20 lg:pl-64'
+      <div className={`flex-1 flex flex-col min-w-0 pb-16 md:pb-0 transition-all duration-250 ease-in-out relative z-10 ${isCollapsed ? 'md:pl-20 lg:pl-20' : 'md:pl-20 lg:pl-64'
         }`}>
 
         {/* Top Header Navigation Toolbar */}
@@ -74,7 +78,7 @@ const Layout = ({ children }) => {
       </div>
 
       {/* 3. Mobile Bottom Navigation Bar (Visible only on mobile devices) */}
-      <nav className="fixed bottom-0 left-0 right-0 h-16 bg-white dark:bg-card-dark border-t border-slate-200 dark:border-border-dark flex items-center justify-around z-40 md:hidden shadow-[0_-2px_10px_rgba(0,0,0,0.05)] transition-colors">
+      <nav className="fixed bottom-0 left-0 right-0 h-16 bg-white/70 dark:bg-[#0F131C]/75 backdrop-blur-xl border-t border-slate-200/50 dark:border-white/10 flex items-center justify-around z-40 md:hidden shadow-[0_-8px_30px_rgba(0,0,0,0.03)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.2)] transition-colors">
         {bottomNavLinks.map((link) => {
           const Icon = link.icon;
           return (
@@ -82,14 +86,14 @@ const Layout = ({ children }) => {
               key={link.path}
               to={link.path}
               className={({ isActive }) =>
-                `w-12 h-12 flex items-center justify-center rounded-xl transition-all duration-150 active:scale-90 ${isActive
-                  ? 'bg-blue-50 dark:bg-blue-950/40 text-primary'
-                  : 'text-slate-400 hover:text-slate-650 dark:text-slate-500'
+                `w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-150 active:scale-90 ${isActive
+                  ? 'bg-blue-50/80 dark:bg-blue-950/40 text-primary border border-blue-100/30 dark:border-blue-900/30'
+                  : 'text-slate-400 hover:text-slate-600 dark:text-slate-500'
                 }`
               }
               aria-label={link.name}
             >
-              <Icon size={20} strokeWidth={2} />
+              <Icon size={19} strokeWidth={2} />
             </NavLink>
           );
         })}

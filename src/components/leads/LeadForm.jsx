@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { STATUS_OPTIONS, SOURCE_OPTIONS } from '../../constants';
+import ShimmerButton from '../common/ShimmerButton';
 
 /**
  * @typedef {Object} LeadData
@@ -17,15 +18,13 @@ import { STATUS_OPTIONS, SOURCE_OPTIONS } from '../../constants';
  * @typedef {Object} LeadFormProps
  * @property {LeadData} [initialData] - Existing lead data to load in edit mode
  * @property {function} onSubmit - Submit callback passing form inputs
- * @property {function} onCancel - Cancel cancel callback
+ * @property {function} onCancel - Cancel callback
  */
 
 /**
  * LeadForm Component
  * Renders the form inputs for lead creation and modification.
  * Integrates error states and required validators.
- * 
- * @param {LeadFormProps} props
  */
 const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
   // Local state initialized with defaults or editing fields
@@ -79,148 +78,156 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {/* 1. Name Input */}
-      <div>
-        <label htmlFor="form-name" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-          Contact Name *
-        </label>
-        <input
-          type="text"
-          id="form-name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="e.g. Sarah Connor"
-          className={`w-full px-3.5 py-2 text-sm rounded-lg bg-white dark:bg-slate-950 border ${
-            errors.name ? 'border-danger focus:ring-danger' : 'border-slate-200 dark:border-border-dark focus:ring-primary'
-          } text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 transition-all placeholder-slate-400`}
-        />
-        {errors.name && <p className="mt-1 text-xs text-danger">{errors.name}</p>}
-      </div>
+    <form onSubmit={handleSubmit} className="flex-1 flex flex-col min-h-0 overflow-hidden text-left">
+      {/* Scrollable form body */}
+      <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3.5">
+          
+          {/* 1. Name Input */}
+          <div>
+            <label htmlFor="form-name" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+              Contact Name *
+            </label>
+            <input
+              type="text"
+              id="form-name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="e.g. Sarah Connor"
+              className={`w-full px-3.5 py-2.5 text-xs rounded-xl glass-input ${
+                errors.name ? 'border-danger focus:border-danger' : ''
+              } text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500`}
+            />
+            {errors.name && <p className="mt-1 text-[10px] font-bold text-danger">{errors.name}</p>}
+          </div>
 
-      {/* 2. Company Input */}
-      <div>
-        <label htmlFor="form-company" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-          Company *
-        </label>
-        <input
-          type="text"
-          id="form-company"
-          name="company"
-          value={formData.company}
-          onChange={handleChange}
-          placeholder="e.g. Cyberdyne Systems"
-          className={`w-full px-3.5 py-2 text-sm rounded-lg bg-white dark:bg-slate-950 border ${
-            errors.company ? 'border-danger focus:ring-danger' : 'border-slate-200 dark:border-border-dark focus:ring-primary'
-          } text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 transition-all placeholder-slate-400`}
-        />
-        {errors.company && <p className="mt-1 text-xs text-danger">{errors.company}</p>}
-      </div>
+          {/* 2. Company Input */}
+          <div>
+            <label htmlFor="form-company" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+              Company *
+            </label>
+            <input
+              type="text"
+              id="form-company"
+              name="company"
+              value={formData.company}
+              onChange={handleChange}
+              placeholder="e.g. Cyberdyne Systems"
+              className={`w-full px-3.5 py-2.5 text-xs rounded-xl glass-input ${
+                errors.company ? 'border-danger focus:border-danger' : ''
+              } text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500`}
+            />
+            {errors.company && <p className="mt-1 text-[10px] font-bold text-danger">{errors.company}</p>}
+          </div>
 
-      {/* 3. Email Input */}
-      <div>
-        <label htmlFor="form-email" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-          Email Address *
-        </label>
-        <input
-          type="email"
-          id="form-email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="sarah@cyberdyne.com"
-          className={`w-full px-3.5 py-2 text-sm rounded-lg bg-white dark:bg-slate-950 border ${
-            errors.email ? 'border-danger focus:ring-danger' : 'border-slate-200 dark:border-border-dark focus:ring-primary'
-          } text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 transition-all placeholder-slate-400`}
-        />
-        {errors.email && <p className="mt-1 text-xs text-danger">{errors.email}</p>}
-      </div>
+          {/* 3. Email Input */}
+          <div>
+            <label htmlFor="form-email" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+              Email Address *
+            </label>
+            <input
+              type="email"
+              id="form-email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="sarah@cyberdyne.com"
+              className={`w-full px-3.5 py-2.5 text-xs rounded-xl glass-input ${
+                errors.email ? 'border-danger focus:border-danger' : ''
+              } text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500`}
+            />
+            {errors.email && <p className="mt-1 text-[10px] font-bold text-danger">{errors.email}</p>}
+          </div>
 
-      {/* 4. Phone Input */}
-      <div>
-        <label htmlFor="form-phone" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-          Phone Number
-        </label>
-        <input
-          type="text"
-          id="form-phone"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          placeholder="+1 (555) 0144"
-          className="w-full px-3.5 py-2 text-sm rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-border-dark text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-primary transition-all placeholder-slate-400"
-        />
-      </div>
+          {/* 4. Phone Input */}
+          <div>
+            <label htmlFor="form-phone" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+              Phone Number
+            </label>
+            <input
+              type="text"
+              id="form-phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="+1 (555) 0144"
+              className="w-full px-3.5 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
+            />
+          </div>
 
-      {/* 5. Est Value Input */}
-      <div>
-        <label htmlFor="form-value" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-          Estimated Value (USD)
-        </label>
-        <input
-          type="number"
-          id="form-value"
-          name="value"
-          value={formData.value}
-          onChange={handleChange}
-          placeholder="25000"
-          className="w-full px-3.5 py-2 text-sm rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-border-dark text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-primary transition-all placeholder-slate-400"
-        />
-      </div>
+          {/* 5. Est Value Input */}
+          <div>
+            <label htmlFor="form-value" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+              Estimated Value (USD)
+            </label>
+            <input
+              type="number"
+              id="form-value"
+              name="value"
+              value={formData.value}
+              onChange={handleChange}
+              placeholder="25000"
+              className="w-full px-3.5 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
+            />
+          </div>
 
-      {/* 6. Dropdowns grid: Status and Source */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="form-status" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-            Status Stage
-          </label>
-          <select
-            id="form-status"
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            className="w-full px-3.5 py-2 text-sm rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-border-dark text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-primary transition-all"
-          >
-            {statusOptions.map((opt) => (
-              <option key={opt} value={opt}>{opt}</option>
-            ))}
-          </select>
+          {/* 6. Status Stage */}
+          <div>
+            <label htmlFor="form-status" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+              Status Stage
+            </label>
+            <select
+              id="form-status"
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+              className="w-full px-3 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white cursor-pointer"
+            >
+              {statusOptions.map((opt) => (
+                <option key={opt} value={opt} className="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white">{opt}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* 7. Source Channel (full-width on desktop) */}
+          <div className="sm:col-span-2">
+            <label htmlFor="form-source" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+              Source Channel
+            </label>
+            <select
+              id="form-source"
+              name="source"
+              value={formData.source}
+              onChange={handleChange}
+              className="w-full px-3 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white cursor-pointer"
+            >
+              {sourceOptions.map((opt) => (
+                <option key={opt} value={opt} className="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white">{opt}</option>
+              ))}
+            </select>
+          </div>
+
         </div>
-
-        <div>
-          <label htmlFor="form-source" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-            Source Channel
-          </label>
-          <select
-            id="form-source"
-            name="source"
-            value={formData.source}
-            onChange={handleChange}
-            className="w-full px-3.5 py-2 text-sm rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-border-dark text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-primary transition-all"
-          >
-            {sourceOptions.map((opt) => (
-              <option key={opt} value={opt}>{opt}</option>
-            ))}
-          </select>
-        </div>
       </div>
 
-      {/* 7. Action CTA buttons */}
-      <div className="flex justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+      {/* Fixed footer CTA */}
+      <div className="flex justify-end gap-3 p-4 border-t border-slate-200/40 dark:border-white/5 bg-slate-50/20 dark:bg-slate-950/20 shrink-0">
         <button
           type="button"
           onClick={onCancel}
-          className="px-4 py-2 text-sm font-semibold border border-slate-200 dark:border-border-dark hover:bg-slate-100 dark:hover:bg-hover-dark text-slate-700 dark:text-slate-300 rounded-xl cursor-pointer transition-all active:scale-98"
+          className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-650 dark:text-slate-350 border border-slate-200/60 dark:border-white/5 hover:bg-white/40 dark:hover:bg-white/5 rounded-xl cursor-pointer transition-all active:scale-97"
         >
           Cancel
         </button>
-        <button
+        <ShimmerButton
           type="submit"
-          className="px-4 py-2 text-sm font-semibold text-white bg-primary hover:bg-blue-700 rounded-xl shadow-sm hover:shadow-md cursor-pointer transition-all active:scale-98"
+          px="px-4"
+          py="py-2"
+          className="border border-blue-400/20"
         >
           {initialData ? 'Save Changes' : 'Create Lead'}
-        </button>
+        </ShimmerButton>
       </div>
     </form>
   );
