@@ -105,10 +105,8 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(false);
     
     // Redirect to login screen
-    if (window.location.hash) {
+    if (window.location.hash !== '#/login') {
       window.location.href = '/#/login';
-    } else {
-      window.location.href = '/login';
     }
   };
 

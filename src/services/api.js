@@ -29,15 +29,9 @@ api.interceptors.response.use(
     // 1. Session expired or Unauthorized (401)
     if (error.response && error.response.status === 401) {
       localStorage.removeItem('crm-token');
-      // If HashRouter is used, redirect via hash; otherwise via path
-      if (window.location.hash) {
-        if (window.location.hash !== '#/login') {
-          window.location.href = '/#/login';
-        }
-      } else {
-        if (window.location.pathname !== '/login') {
-          window.location.href = '/login';
-        }
+      // Redirect to hash-based login route unless already there
+      if (window.location.hash !== '#/login') {
+        window.location.href = '/#/login';
       }
     } 
     // 2. Local network or connection failures (no response received)
