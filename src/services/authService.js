@@ -26,19 +26,11 @@ export const login = async (email, password) => {
 };
 
 /**
- * Logs out the active user session. Clears tokens locally, and alerts the server.
+ * Logs out the active user session. Clears tokens locally.
  */
-export const logout = async () => {
-  try {
-    // Call server logout route (stateless session invalidate request)
-    await api.post('/api/auth/logout');
-  } catch (error) {
-    console.warn('Stateless server logout failed, clearing credentials client-side:', error.message);
-  } finally {
-    // Clear credentials locally
-    localStorage.removeItem('crm-token');
-    localStorage.removeItem('startup-crm-auth-user');
-  }
+export const logout = () => {
+  localStorage.removeItem('crm-token');
+  localStorage.removeItem('startup-crm-auth-user');
 };
 
 /**

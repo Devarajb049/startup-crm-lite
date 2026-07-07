@@ -67,6 +67,11 @@ export const LeadProvider = ({ children }) => {
     setNotifications(updatedNotifs);
   };
 
+  /**
+   * Fetch leads from the API.
+   *
+   * @param {Object} [params] - Query parameters for pagination/sorting/filtering
+   */
   const fetchLeads = async (params) => {
     if (!isAuthenticated) return;
     setIsLoading(true);
@@ -84,6 +89,7 @@ export const LeadProvider = ({ children }) => {
     } catch (error) {
       const errorMsg = error.response?.data?.message || 'Failed to fetch leads from server';
       console.error(errorMsg);
+      toast.error(errorMsg);
     } finally {
       setIsLoading(false);
     }

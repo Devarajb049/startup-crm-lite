@@ -27,6 +27,7 @@ const Leads = delayedImport(() => import('../pages/Leads'));
 const Analytics = delayedImport(() => import('../pages/Analytics'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const Login = lazy(() => import('../pages/Login'));
+const Register = lazy(() => import('../pages/Register'));
 
 // Premium visual page loader rendered in place of the page chunk until lazy imports resolve
 const PageLoader = () => (
@@ -258,6 +259,14 @@ export const AppRoutes = () => {
           element={
             <PublicOnly>
               <Login />
+            </PublicOnly>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PublicOnly>
+              <Register />
             </PublicOnly>
           }
         />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import DarkModeToggle from '../components/common/DarkModeToggle';
 import ShimmerButton from '../components/common/ShimmerButton';
@@ -238,8 +238,22 @@ const Login = () => {
             </ShimmerButton>
           </form>
 
+
+          {/* Register Link */}
+          <div className="mt-6 text-center">
+            <p className="text-xs text-slate-550 dark:text-slate-400">
+              Don't have an account?{' '}
+              <Link
+                to="/register"
+                className="font-bold text-primary hover:underline"
+              >
+                Register
+              </Link>
+            </p>
+          </div>
+
           {/* Credits footer */}
-          <div className="mt-8 pt-6 border-t border-slate-200/40 dark:border-white/5 text-center">
+          <div className="mt-6 pt-6 border-t border-slate-200/40 dark:border-white/5 text-center">
             <p className="text-[10px] text-slate-400 dark:text-slate-500">
               Developed by{' '}
               <a

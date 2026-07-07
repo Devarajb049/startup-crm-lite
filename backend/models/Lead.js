@@ -113,6 +113,19 @@ LeadSchema.index({ owner: 1, status: 1 });
 // Index on email for fast lookups
 LeadSchema.index({ email: 1 });
 
+// Index on owner and name for quick name lookup
+LeadSchema.index({ owner: 1, name: 1 });
+
+// Index on owner and company for quick company search
+LeadSchema.index({ owner: 1, company: 1 });
+
+// Index on owner and source for filtered sources
+LeadSchema.index({ owner: 1, source: 1 });
+
+// Index on owner and createdAt for date-range pagination and filtering
+LeadSchema.index({ owner: 1, createdAt: -1 });
+
+
 /**
  * Virtual property calculating lead age in days since it was created.
  * @returns {Number} Days elapsed since lead creation

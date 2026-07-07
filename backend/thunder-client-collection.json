@@ -1,0 +1,238 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "Startup CRM API",
+  "dateExported": "2026-07-07T12:00:00.000Z",
+  "version": "1.1",
+  "folders": [],
+  "settings": {
+    "options": {
+      "baseUrl": "http://localhost:5000"
+    }
+  },
+  "requests": [
+    {
+      "name": "1. Health Check",
+      "url": "http://localhost:5000/api/health",
+      "method": "GET",
+      "headers": [],
+      "params": [],
+      "tests": []
+    },
+    {
+      "name": "2. User Registration",
+      "url": "http://localhost:5000/api/auth/register",
+      "method": "POST",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"testuser@crm.com\",\n  \"password\": \"password123\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "name": "3. User Login",
+      "url": "http://localhost:5000/api/auth/login",
+      "method": "POST",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"testuser@crm.com\",\n  \"password\": \"password123\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "name": "4. Get User Profile",
+      "url": "http://localhost:5000/api/auth/profile",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer <paste_token_here>"
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "name": "5. Create Lead",
+      "url": "http://localhost:5000/api/leads",
+      "method": "POST",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer <paste_token_here>"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Jane Doe\",\n  \"company\": \"Acme Corp\",\n  \"email\": \"jane@acme.com\",\n  \"phone\": \"1234567890\",\n  \"value\": 15000,\n  \"status\": \"New\",\n  \"source\": \"Website\",\n  \"notes\": \"Interested in high tier plan\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "name": "6. Get All Leads",
+      "url": "http://localhost:5000/api/leads",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer <paste_token_here>"
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "name": "7. Get Single Lead by ID",
+      "url": "http://localhost:5000/api/leads/<replace_with_lead_id>",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer <paste_token_here>"
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "name": "8. Update Lead Details",
+      "url": "http://localhost:5000/api/leads/<replace_with_lead_id>",
+      "method": "PUT",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer <paste_token_here>"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Jane Smith\",\n  \"company\": \"Acme Corp\",\n  \"email\": \"jane@acme.com\",\n  \"phone\": \"9876543210\",\n  \"value\": 20000,\n  \"status\": \"Contacted\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "name": "9. Update Lead Status (PATCH)",
+      "url": "http://localhost:5000/api/leads/<replace_with_lead_id>/status",
+      "method": "PATCH",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer <paste_token_here>"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"status\": \"Won\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "name": "10. Delete Lead by ID",
+      "url": "http://localhost:5000/api/leads/<replace_with_lead_id>",
+      "method": "DELETE",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer <paste_token_here>"
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "name": "11. Get Dashboard Summary Stats",
+      "url": "http://localhost:5000/api/leads/stats/summary",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer <paste_token_here>"
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "name": "12. Get Leads Filtered by Status",
+      "url": "http://localhost:5000/api/leads?status=Won",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer <paste_token_here>"
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "name": "13. Autocomplete Quick Search",
+      "url": "http://localhost:5000/api/leads/search?q=jane",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer <paste_token_here>"
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "name": "Validation Error Test: Register with invalid email",
+      "url": "http://localhost:5000/api/auth/register",
+      "method": "POST",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Error User\",\n  \"email\": \"bademail\",\n  \"password\": \"password123\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "name": "Validation Error Test: Create lead with empty name",
+      "url": "http://localhost:5000/api/leads",
+      "method": "POST",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer <paste_token_here>"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"\",\n  \"company\": \"Acme Corp\",\n  \"email\": \"jane@acme.com\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "name": "Validation Error Test: Get lead by invalid ID",
+      "url": "http://localhost:5000/api/leads/60e7f7b3df667500155b9e5a",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer <paste_token_here>"
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "name": "Validation Error Test: Missing Authorization header",
+      "url": "http://localhost:5000/api/leads",
+      "method": "GET",
+      "headers": [],
+      "params": [],
+      "tests": []
+    }
+  ]
+}

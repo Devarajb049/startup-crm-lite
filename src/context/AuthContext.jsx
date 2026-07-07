@@ -23,9 +23,10 @@ export const AuthProvider = ({ children }) => {
       if (storedToken) {
         try {
           setToken(storedToken);
-          const userData = await authService.getProfile();
-          // The API response returns { success: true, data: user }
-          setUser(userData.data || userData);
+          // Restore user details from the /profile route
+          const profileData = await authService.getProfile();
+          // API returns response as success: true, data: user
+          setUser(profileData.data || profileData);
         } catch (error) {
           console.error('Failed to restore user session:', error.message);
           // Token is invalid/expired; clear local credentials
@@ -97,18 +98,17 @@ export const AuthProvider = ({ children }) => {
   /**
    * Logs out the current user and clears session states.
    */
-  const logout = async () => {
-    setIsLoading(true);
-    try {
-      await authService.logout();
-    } catch (error) {
-      console.warn('Logout request failed:', error.message);
-    } finally {
-      setToken(null);
-      setUser(null);
-      setIsLoading(false);
-      // Redirect to login screen
+  const logout = () => {
+    authService.logout();
+    setToken(null);
+    setUser(null);
+    setIsLoading(false);
+    
+    // Redirect to login screen
+    if (window.location.hash) {
       window.location.href = '/#/login';
+    } else {
+      window.location.href = '/login';
     }
   };
 
@@ -133,7 +133,7 @@ export const AuthProvider = ({ children }) => {
  * useAuth Custom Hook
  * Consumer hook allowing immediate access to AuthContext states and helpers.
  *
- * @returns {{ user: Object|null, token: string|null, isAuthenticated: boolean, isLoading: boolean, login: (email, password) => Promise<any>, register: (name, email, password) => Promise<any>, logout: () => Promise<void> }}
+ * @returns {{ user: Object|null, token: string|null, isAuthenticated: boolean, isLoading: boolean, login: (email, password) => Promise<any>, register: (name, email, password) => Promise<any>, logout: () => void }}
  */
 export const useAuth = () => {
   const context = useContext(AuthContext);

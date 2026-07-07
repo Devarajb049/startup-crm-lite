@@ -9,6 +9,7 @@ import {
   deleteLead,
   getLeadStats,
   getMonthlyStats,
+  searchLeads,
 } from '../controllers/leadController.js';
 import { protect } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
@@ -69,6 +70,9 @@ router.get('/stats/summary', getLeadStats);
 // 2. GET /api/leads/monthly-stats & /api/leads/stats/monthly - Fetch monthly aggregation counts for the last 6 months
 router.get('/monthly-stats', getMonthlyStats);
 router.get('/stats/monthly', getMonthlyStats);
+
+// 2.5 GET /api/leads/search - Search endpoint for autocomplete (must be before /:id)
+router.get('/search', searchLeads);
 
 /* =========================================================================
    COLLECTION API ENDPOINTS
