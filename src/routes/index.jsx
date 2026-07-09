@@ -25,6 +25,7 @@ const delayedImport = (importFunc) => {
 const Dashboard = delayedImport(() => import('../pages/Dashboard'));
 const Leads = delayedImport(() => import('../pages/Leads'));
 const Analytics = delayedImport(() => import('../pages/Analytics'));
+const Settings = delayedImport(() => import('../pages/Settings'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const Login = lazy(() => import('../pages/Login'));
 const Register = lazy(() => import('../pages/Register'));
@@ -175,6 +176,9 @@ export const AppRoutes = () => {
 
           {/* Route targeting deep graphical charts & stats */}
           <Route path="/analytics" element={<Analytics />} />
+
+          {/* Route targeting user account profile configurations */}
+          <Route path="/settings" element={<Settings />} />
 
           {/* Wildcard route displaying a custom 404 fallback page */}
           <Route path="*" element={<NotFound />} />

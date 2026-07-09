@@ -28,6 +28,8 @@ const Navbar = ({ onOpenAddLead, isCollapsed, toggleCollapse }) => {
         return { parent: 'Workspace', active: 'Leads' };
       case '/analytics':
         return { parent: 'Workspace', active: 'Analytics' };
+      case '/settings':
+        return { parent: 'Workspace', active: 'Settings' };
       default:
         return { parent: 'Pages', active: 'Not Found' };
     }
@@ -69,6 +71,8 @@ const Navbar = ({ onOpenAddLead, isCollapsed, toggleCollapse }) => {
           className="shadow-md shadow-primary/10 border border-blue-400/20"
           title="Create New Lead"
           aria-label="Create New Lead"
+          px="px-2 sm:px-4"
+          py="py-2"
         >
           <Plus size={14} className="stroke-[2.5] shrink-0" />
           <span className="hidden sm:inline text-[11px] tracking-wide">Add Lead</span>

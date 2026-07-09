@@ -96,6 +96,28 @@ export const AuthProvider = ({ children }) => {
   };
 
   /**
+   * Update authenticated user profile details.
+   *
+   * @param {Object} data - Profile updates payload (e.g. name, oldPassword, newPassword)
+   */
+  const updateProfile = async (data) => {
+    setIsLoading(true);
+    try {
+      const response = await authService.updateProfile(data);
+      // The API response contains { success: true, data: user }
+      const updatedUser = response.data || response;
+      
+      localStorage.setItem('startup-crm-auth-user', JSON.stringify(updatedUser));
+      setUser(updatedUser);
+      return response;
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  /**
    * Logs out the current user and clears session states.
    */
   const logout = () => {
@@ -119,6 +141,7 @@ export const AuthProvider = ({ children }) => {
         isLoading,
         login,
         register,
+        updateProfile,
         logout,
       }}
     >

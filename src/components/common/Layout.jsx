@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Users, BarChart3, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, BarChart3, LogOut, Settings as SettingsIcon } from 'lucide-react';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import AddLeadModal from '../leads/AddLeadModal';
@@ -41,7 +40,8 @@ const Layout = ({ children }) => {
   const bottomNavLinks = [
     { name: 'Dashboard', path: '/', icon: LayoutDashboard },
     { name: 'Leads', path: '/leads', icon: Users },
-    { name: 'Analytics', path: '/analytics', icon: BarChart3 }
+    { name: 'Analytics', path: '/analytics', icon: BarChart3 },
+    { name: 'Settings', path: '/settings', icon: SettingsIcon }
   ];
 
   return (
@@ -86,9 +86,9 @@ const Layout = ({ children }) => {
               key={link.path}
               to={link.path}
               className={({ isActive }) =>
-                `w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-150 active:scale-90 ${isActive
-                  ? 'bg-blue-50/80 dark:bg-blue-950/40 text-primary border border-blue-100/30 dark:border-blue-900/30'
-                  : 'text-slate-400 hover:text-slate-650 dark:text-slate-500'
+                `w-11 h-11 flex items-center justify-center transition-all duration-155 active:scale-90 ${isActive
+                  ? 'active text-primary border-b-[3px] border-b-primary rounded-none'
+                  : 'text-slate-400 hover:text-slate-650 dark:text-slate-550'
                 }`
               }
               aria-label={link.name}

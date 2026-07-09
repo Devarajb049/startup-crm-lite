@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Users, BarChart3, LogOut, X } from 'lucide-react';
+import { LayoutDashboard, Users, BarChart3, LogOut, X, Settings as SettingsIcon } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import Logo from './Logo';
 
@@ -27,7 +27,8 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed = false, toggleCollapse })
   const navigationLinks = [
     { name: 'Dashboard', subLabel: 'Overview & KPI Metrics', path: '/', icon: LayoutDashboard },
     { name: 'Leads Management', subLabel: 'Active Opportunities Directory', path: '/leads', icon: Users },
-    { name: 'Analytics', subLabel: 'Conversion & Revenue Charts', path: '/analytics', icon: BarChart3 }
+    { name: 'Analytics', subLabel: 'Conversion & Revenue Charts', path: '/analytics', icon: BarChart3 },
+    { name: 'Settings', subLabel: 'User & System Profiles', path: '/settings', icon: SettingsIcon }
   ];
 
   return (
@@ -90,9 +91,9 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed = false, toggleCollapse })
                   if (window.innerWidth < 768) toggleSidebar();
                 }}
                 className={({ isActive }) =>
-                  `group flex items-center ${isCollapsed ? 'justify-center' : 'justify-center lg:justify-start'} gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 border ${isActive
-                    ? 'bg-active-nav text-primary dark:text-white border-primary/10 dark:border-primary/20'
-                    : 'text-slate-500 dark:text-slate-400 hover:bg-white/40 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white border-transparent'
+                  `group flex items-center ${isCollapsed ? 'justify-center' : 'justify-center lg:justify-start'} gap-3 px-3.5 py-2.5 text-xs font-semibold transition-all duration-150 border ${isActive
+                    ? 'active text-primary dark:text-white border-l-[3px] border-l-primary rounded-r-xl rounded-l-none pl-3 border-y-transparent border-r-transparent bg-transparent'
+                    : 'text-slate-500 dark:text-slate-400 hover:bg-white/40 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white border-transparent rounded-xl'
                   }`
                 }
                 title={link.name}
