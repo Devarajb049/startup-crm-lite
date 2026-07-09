@@ -33,7 +33,7 @@ const LeadCard = ({ lead, onEdit, onDelete }) => {
   const { formatCurrency } = useLeads();
 
   return (
-    <div className="p-5 glass-card border border-slate-200/40 dark:border-white/5 rounded-2xl shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between text-left">
+    <div className="p-6 glass-card border border-border/40 dark:border-border/10 rounded-2xl shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between text-left">
       
       {/* 1. Header Section (Avatar circle + Title Name + Actions) */}
       <div className="flex items-start justify-between gap-3">
@@ -57,7 +57,7 @@ const LeadCard = ({ lead, onEdit, onDelete }) => {
           <button
             type="button"
             onClick={onEdit}
-            className="p-1.5 rounded-xl border border-slate-200 dark:border-border-dark text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-hover-dark transition-colors focus:outline-hidden"
+            className="p-1.5 rounded-xl border border-border text-slate-500 dark:text-slate-400 hover:bg-hover transition-colors focus:outline-hidden"
             title="Edit Lead"
             aria-label={`Edit ${lead.name}`}
           >
@@ -66,7 +66,7 @@ const LeadCard = ({ lead, onEdit, onDelete }) => {
           <button
             type="button"
             onClick={onDelete}
-            className="p-1.5 rounded-xl border border-slate-200 dark:border-border-dark text-danger hover:bg-red-50 dark:hover:bg-red-950/20 hover:border-red-200/50 transition-colors focus:outline-hidden"
+            className="p-1.5 rounded-xl border border-border text-danger hover:bg-red-50 dark:hover:bg-red-950/20 hover:border-red-200/50 transition-colors focus:outline-hidden"
             title="Delete Lead"
             aria-label={`Delete ${lead.name}`}
           >
@@ -85,7 +85,7 @@ const LeadCard = ({ lead, onEdit, onDelete }) => {
       </div>
 
       {/* 3. Contact Info details list */}
-      <div className="mt-3.5 space-y-2 text-xs text-slate-600 dark:text-slate-400">
+      <div className="mt-4 space-y-2 text-xs text-slate-600 dark:text-slate-400">
         <a 
           href={`mailto:${lead.email}`}
           className="flex items-center gap-2 hover:text-primary transition-colors truncate"
@@ -114,7 +114,7 @@ const LeadCard = ({ lead, onEdit, onDelete }) => {
 
       {/* 4. Footer info: source & date */}
       <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[10px] text-slate-400">
-        <span className="font-semibold bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 px-1.5 py-0.5 rounded uppercase tracking-wider">
+        <span className="font-semibold bg-bg dark:bg-slate-950 border border-border dark:border-border/60 px-1.5 py-0.5 rounded uppercase tracking-wider">
           {lead.source}
         </span>
         <span className="flex items-center gap-1 font-medium">

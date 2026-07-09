@@ -53,10 +53,10 @@ const Dashboard = () => {
       
       {/* Page Welcome Intro Block */}
       <div>
-        <h2 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
+        <h2 className="text-xl font-extrabold text-slate-900 dark:text-white sm:text-2xl tracking-tight">
           Dashboard Overview
         </h2>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1.5">
           Monitor your startup sales velocity, leads distribution, and core revenue KPIs.
         </p>
       </div>

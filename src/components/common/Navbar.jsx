@@ -37,8 +37,8 @@ const Navbar = ({ onOpenAddLead, isCollapsed, toggleCollapse }) => {
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-[#F8FAFC]/55 dark:bg-[#07090E]/60 border-b border-slate-200/40 dark:border-white/5 transition-colors duration-200 md:px-6 backdrop-blur-xl">
-
+    <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-bg/55 dark:bg-bg/60 border-b border-border/40 dark:border-border/10 transition-colors duration-200 md:px-6 backdrop-blur-xl">
+ 
       {/* Left Area: Sidebar toggle, Star, Breadcrumbs */}
       <div className="flex items-center gap-1.5 sm:gap-2">
         {/* Toggle Sidebar Button */}
@@ -50,9 +50,9 @@ const Navbar = ({ onOpenAddLead, isCollapsed, toggleCollapse }) => {
         >
           <PanelLeft size={16} />
         </button>
-
+ 
         <div className="h-4 w-px bg-slate-200/80 dark:bg-white/10 mx-1 hidden sm:block" />
-
+ 
         {/* Breadcrumbs */}
         <div className="flex items-center gap-1.5 text-[10px] sm:text-xs select-none">
           <span className="text-slate-450 dark:text-slate-500 font-semibold uppercase tracking-wider">{crumbs.parent}</span>
@@ -60,7 +60,7 @@ const Navbar = ({ onOpenAddLead, isCollapsed, toggleCollapse }) => {
           <span className="font-bold text-slate-850 dark:text-white uppercase tracking-wider">{crumbs.active}</span>
         </div>
       </div>
-
+ 
       {/* Right Area: Controls (Search capsule, Add Lead button, dark mode toggle, alerts notification, Logout) */}
       <div className="flex items-center gap-2 sm:gap-2.5">
         {/* Add Lead Button */}
@@ -73,12 +73,12 @@ const Navbar = ({ onOpenAddLead, isCollapsed, toggleCollapse }) => {
           <Plus size={14} className="stroke-[2.5] shrink-0" />
           <span className="hidden sm:inline text-[11px] tracking-wide">Add Lead</span>
         </ShimmerButton>
-
+ 
         <div className="h-5 w-px bg-slate-200/80 dark:bg-white/10" />
-
+ 
         {/* Theme Toggle Slider Replaced by simple icon switch */}
         <DarkModeToggle />
-
+ 
         {/* Notification Bell Dropdown */}
         <div className="relative">
           <button
@@ -89,7 +89,7 @@ const Navbar = ({ onOpenAddLead, isCollapsed, toggleCollapse }) => {
           >
             <Bell size={16} />
             {unreadCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-[8px] font-extrabold text-white border border-white dark:border-[#0F131C] shadow-sm">
+              <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-[8px] font-extrabold text-white border border-white dark:border-bg shadow-sm">
                 {unreadCount}
               </span>
             )}

@@ -62,10 +62,10 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex bg-gradient-to-tr from-[#EDF2F7] via-[#F8FAFC] to-[#E2E8F0] dark:from-[#05070B] dark:via-[#080C14] dark:to-[#0E1524] relative overflow-x-hidden transition-colors duration-200">
+    <div className="min-h-screen w-full flex bg-gradient-to-tr from-border/50 via-bg to-border dark:from-bg dark:via-surface dark:to-card relative overflow-x-hidden transition-colors duration-200">
 
       {/* 1. BRANDING COLUMN (Left Panel) - Visible on large screens */}
-      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 bg-gradient-to-br from-[#080C16] via-[#0D1224] to-[#060910] border-r border-white/5 relative overflow-hidden select-none">
+      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 bg-gradient-to-br from-sidebar via-surface to-bg border-r border-border/10 relative overflow-hidden select-none">
 
         {/* Subtle grid pattern overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
@@ -77,28 +77,28 @@ const Login = () => {
         {/* Top: Brand Header */}
         <div className="flex items-center gap-3 relative z-10">
           <Logo className="w-9 h-9 text-primary" />
-          <span className="text-base font-extrabold tracking-tight text-white uppercase">
+          <span className="text-base font-extrabold tracking-tight text-slate-900 dark:text-white uppercase">
             AURA<span className="text-primary">CRM</span>
           </span>
-          <span className="text-[9px] bg-white/50  text-slate-405 px-1.5 py-0.2 rounded font-mono font-semibold uppercase tracking-wider">
+          <span className="text-[9px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 px-1.5 py-0.2 rounded font-mono font-semibold uppercase tracking-wider">
             Lite
           </span>
         </div>
-
+ 
         {/* Center: Pitch Value Propositions */}
         <div className="space-y-6 my-auto relative z-10 max-w-md">
-          <h1 className="text-4xl font-extrabold text-white tracking-tight leading-tight">
+          <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
             Qualify leads. <br />
             Track performance. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-650 to-purple-650 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400">
               Close deals faster.
             </span>
           </h1>
-          <p className="text-sm text-slate-400 leading-relaxed">
+          <p className="text-sm text-slate-650 dark:text-slate-400 leading-relaxed">
             Manage your startup leads, track pipeline stages, and visualize CRM performance with our sleek, high-performance portal.
           </p>
-
-          <div className="space-y-3.5 pt-4 text-xs font-semibold text-slate-300">
+ 
+          <div className="space-y-3.5 pt-4 text-xs font-semibold text-slate-700 dark:text-slate-300">
             <div className="flex items-center gap-3">
               <CheckCircle2 size={16} className="text-success shrink-0" />
               <span>Real-time Sales Conversion Funnels</span>
@@ -113,11 +113,11 @@ const Login = () => {
             </div>
           </div>
         </div>
-
+ 
         {/* Bottom: Footnote */}
         <div className="text-[10px] text-slate-500 font-mono relative z-10 flex flex-col gap-1">
           <span>&copy; 2026 AuraCRM Systems, Inc. All rights reserved.</span>
-          <span className="text-slate-650">
+          <span className="text-slate-500 dark:text-slate-400">
             Developed by{' '}
             <a
               href="https://bhojanapudevaraj.dev"
@@ -144,7 +144,7 @@ const Login = () => {
         <div className="absolute bottom-1/6 left-1/6 w-96 h-96 rounded-full bg-purple-300/20 dark:bg-purple-600/12 blur-[120px] pointer-events-none animate-float-reverse" />
 
         {/* Floating frosted glass login card */}
-        <div className="w-full max-w-md bg-white/45 dark:bg-[#0F131C]/65 backdrop-blur-2xl border border-slate-200/40 dark:border-white/5 p-6 sm:p-8 rounded-3xl shadow-2xl relative z-10 animate-fade-in transition-all duration-200 my-auto">
+        <div className="w-full max-w-md bg-surface/45 dark:bg-card/65 backdrop-blur-2xl border border-border/40 dark:border-border/10 p-6 sm:p-8 rounded-3xl shadow-2xl relative z-10 animate-fade-in transition-all duration-200 my-auto">
 
           {/* Header Mobile Brand details */}
           <div className="flex flex-col items-center text-center mb-8 select-none">
@@ -253,7 +253,7 @@ const Login = () => {
           </div>
 
           {/* Credits footer */}
-          <div className="mt-6 pt-6 border-t border-slate-200/40 dark:border-white/5 text-center">
+          <div className="mt-6 pt-6 border-t border-border/40 dark:border-border/10 text-center">
             <p className="text-[10px] text-slate-400 dark:text-slate-500">
               Developed by{' '}
               <a

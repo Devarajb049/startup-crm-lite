@@ -80,8 +80,8 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
   return (
     <form onSubmit={handleSubmit} className="flex-1 flex flex-col min-h-0 overflow-hidden text-left">
       {/* Scrollable form body */}
-      <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3.5">
+      <div className="flex-1 overflow-y-auto p-6 space-y-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4">
           
           {/* 1. Name Input */}
           <div>
@@ -101,7 +101,7 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
             />
             {errors.name && <p className="mt-1 text-[10px] font-bold text-danger">{errors.name}</p>}
           </div>
-
+ 
           {/* 2. Company Input */}
           <div>
             <label htmlFor="form-company" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
@@ -120,7 +120,7 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
             />
             {errors.company && <p className="mt-1 text-[10px] font-bold text-danger">{errors.company}</p>}
           </div>
-
+ 
           {/* 3. Email Input */}
           <div>
             <label htmlFor="form-email" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
@@ -139,7 +139,7 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
             />
             {errors.email && <p className="mt-1 text-[10px] font-bold text-danger">{errors.email}</p>}
           </div>
-
+ 
           {/* 4. Phone Input */}
           <div>
             <label htmlFor="form-phone" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
@@ -155,7 +155,7 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
               className="w-full px-3.5 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
             />
           </div>
-
+ 
           {/* 5. Est Value Input */}
           <div>
             <label htmlFor="form-value" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
@@ -171,7 +171,7 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
               className="w-full px-3.5 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
             />
           </div>
-
+ 
           {/* 6. Status Stage */}
           <div>
             <label htmlFor="form-status" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
@@ -189,7 +189,7 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
               ))}
             </select>
           </div>
-
+ 
           {/* 7. Source Channel (full-width on desktop) */}
           <div className="sm:col-span-2">
             <label htmlFor="form-source" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
@@ -207,16 +207,16 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
               ))}
             </select>
           </div>
-
+ 
         </div>
       </div>
-
+ 
       {/* Fixed footer CTA */}
-      <div className="flex justify-end gap-3 p-4 border-t border-slate-200/40 dark:border-white/5 bg-slate-50/20 dark:bg-slate-950/20 shrink-0">
+      <div className="flex justify-end gap-3 p-6 border-t border-border/40 dark:border-border/10 bg-bg/20 dark:bg-surface/20 shrink-0">
         <button
           type="button"
           onClick={onCancel}
-          className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-650 dark:text-slate-350 border border-slate-200/60 dark:border-white/5 hover:bg-white/40 dark:hover:bg-white/5 rounded-xl cursor-pointer transition-all active:scale-97"
+          className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-body dark:text-muted border border-border/60 dark:border-border/10 hover:bg-hover dark:hover:bg-hover rounded-xl cursor-pointer transition-all active:scale-97"
         >
           Cancel
         </button>

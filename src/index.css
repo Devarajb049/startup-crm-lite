@@ -1,20 +1,76 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #3B82F6; /* Premium Indigo/Blue */
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-danger: #EF4444;
-  --color-bg: #F8FAFC;
-  --color-card-white: #FFFFFF;
-  --color-text-dark: #0F172A;
-  --color-text-grey: #64748B;
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-sidebar: var(--sidebar);
+  --color-heading: var(--heading);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-hover: var(--hover);
+  --color-active-nav: var(--active-navigation);
   
-  /* AuraCRM Premium Dark Palette */
-  --color-brand-dark: #07090E;
-  --color-card-dark: #0F131C;
-  --color-border-dark: rgba(255, 255, 255, 0.08);
-  --color-hover-dark: rgba(255, 255, 255, 0.05);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--error);
+  --color-info: var(--info);
+
+  /* Legacy & Compatibility Mappings to ensure robustness */
+  --color-card-white: var(--card);
+  --color-card-dark: var(--card);
+  --color-brand-dark: var(--bg);
+  --color-border-dark: var(--border);
+  --color-hover-dark: var(--hover);
+  --color-text-dark: var(--heading);
+  --color-text-grey: var(--body);
+}
+
+:root {
+  --primary: #2563EB;
+  --primary-hover: #1D4ED8;
+  --secondary: #06B6D4;
+  --accent: #8B5CF6;
+  --bg: #F8FAFC;
+  --surface: #FFFFFF;
+  --card: #FFFFFF;
+  --sidebar: #FFFFFF;
+  --heading: #0F172A;
+  --body: #475569;
+  --muted: #94A3B8;
+  --border: #E2E8F0;
+  --hover: #F1F5F9;
+  --active-navigation: #DBEAFE;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #3B82F6;
+}
+
+.dark {
+  --primary: #2563EB;
+  --primary-hover: #1D4ED8;
+  --secondary: #06B6D4;
+  --accent: #8B5CF6;
+  --bg: #020617;
+  --surface: #0F172A;
+  --card: #1E293B;
+  --sidebar: #111827;
+  --heading: #F8FAFC;
+  --body: #CBD5E1;
+  --muted: #94A3B8;
+  --border: #334155;
+  --hover: #1E293B;
+  --active-navigation: #2563EB;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #3B82F6;
 }
 
 /* Enable class-based dark mode variant in Tailwind v4 */
@@ -31,7 +87,7 @@
   }
 
   .dark .glass-card {
-    background: rgba(15, 19, 28, 0.65);
+    background: rgba(30, 41, 59, 0.65); /* Matches new dark card color #1E293B */
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -43,15 +99,15 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.06), 0 0 1px 1px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(37, 99, 235, 0.06), 0 0 1px 1px rgba(37, 99, 235, 0.1);
   }
 
   .dark .glass-card-glow {
-    background: rgba(15, 19, 28, 0.7);
+    background: rgba(30, 41, 59, 0.7); /* Matches new dark card color #1E293B */
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35), 0 0 15px 1px rgba(59, 130, 246, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35), 0 0 15px 1px rgba(37, 99, 235, 0.15);
   }
 
   .glass-input {
@@ -63,7 +119,7 @@
   }
 
   .dark .glass-input {
-    background: rgba(7, 9, 14, 0.45);
+    background: rgba(2, 6, 23, 0.45); /* Matches new dark background #020617 */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.07);
@@ -72,14 +128,14 @@
 
   .glass-input:focus {
     background: rgba(255, 255, 255, 0.95);
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+    border-color: #2563EB; /* primary #2563EB */
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
   }
 
   .dark .glass-input:focus {
-    background: rgba(7, 9, 14, 0.8);
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+    background: rgba(2, 6, 23, 0.8); /* Matches new dark background #020617 */
+    border-color: #2563EB; /* primary #2563EB */
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
   }
 
   /* Custom scrollbar for modern premium feel */

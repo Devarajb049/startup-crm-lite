@@ -25,7 +25,7 @@ const Logo = ({ className = "w-8 h-8" }) => {
         
         .logo-char-a {
           animation: logo-write 2.8s infinite ease-in-out;
-          stroke: #3B82F6; /* Vibrant Brand Blue */
+          stroke: currentColor;
           stroke-dasharray: 100;
           stroke-dashoffset: 100;
         }

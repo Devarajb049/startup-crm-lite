@@ -64,11 +64,11 @@ const PipelineOverview = ({ leads }) => {
   };
 
   return (
-    <div className="p-5 rounded-2xl glass-card border border-slate-200/40 dark:border-white/5 shadow-xs">
+    <div className="p-6 rounded-2xl glass-card border border-border/40 dark:border-border/10 shadow-xs">
       <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
         Pipeline Segment Summary
       </h3>
-      <p className="text-[11px] text-slate-450 dark:text-slate-500 mt-1 mb-5 leading-relaxed">
+      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1.5 mb-6 leading-relaxed">
         Visual representation of active opportunities across pipeline stages.
       </p>
 

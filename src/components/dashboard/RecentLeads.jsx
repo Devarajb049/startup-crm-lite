@@ -31,50 +31,50 @@ const RecentLeads = ({ leads }) => {
   }, [leads]);
 
   return (
-    <div className="p-5 rounded-2xl glass-card border border-slate-200/40 dark:border-white/5 shadow-xs">
+    <div className="p-6 rounded-2xl glass-card border border-border/40 dark:border-border/10 shadow-xs">
       <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
         Recent Leads
       </h3>
-      <p className="text-[11px] text-slate-450 dark:text-slate-500 mt-1 mb-4 leading-relaxed">
+      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1.5 mb-6 leading-relaxed">
         Overview of the latest opportunities in the acquisition funnel.
       </p>
-
+ 
       {/* Table grid wrapper */}
-      <div className="overflow-x-auto -mx-5">
-        <div className="inline-block min-w-full align-middle px-5">
+      <div className="overflow-x-auto -mx-6">
+        <div className="inline-block min-w-full align-middle px-6">
           {recentLeads.length > 0 ? (
-            <table className="min-w-full divide-y divide-slate-200/30 dark:divide-white/5 text-left">
+            <table className="min-w-full divide-y divide-border/30 dark:divide-border/10 text-left">
               <thead>
-                <tr className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                  <th className="pb-3">Contact</th>
-                  <th className="pb-3">Company</th>
-                  <th className="pb-3">Status</th>
-                  <th className="pb-3 text-right">Date Added</th>
+                <tr className="text-[10px] font-bold text-slate-500 dark:text-slate-450 uppercase tracking-wider">
+                  <th className="pb-3 font-bold">Contact</th>
+                  <th className="pb-3 font-bold">Company</th>
+                  <th className="pb-3 font-bold">Status</th>
+                  <th className="pb-3 text-right font-bold">Date Added</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200/20 dark:divide-white/5 text-xs text-slate-700 dark:text-slate-300">
+              <tbody className="divide-y divide-border/20 dark:divide-border/10 text-xs text-slate-700 dark:text-slate-300">
                 {recentLeads.map((lead) => (
                   <tr 
                     key={lead.id} 
-                    className="hover:bg-white/40 dark:hover:bg-white/5 transition-colors duration-100"
+                    className="hover:bg-hover/40 dark:hover:bg-hover/10 transition-colors duration-100"
                   >
                     {/* Contact Name */}
-                    <td className="py-3 font-semibold text-slate-900 dark:text-white">
+                    <td className="py-3.5 font-semibold text-slate-900 dark:text-white">
                       {lead.name}
                     </td>
                     
                     {/* Organization Company */}
-                    <td className="py-3 text-slate-500 dark:text-slate-400">
+                    <td className="py-3.5 text-slate-500 dark:text-slate-400">
                       {lead.company}
                     </td>
                     
                     {/* Status Badge */}
-                    <td className="py-3">
+                    <td className="py-3.5">
                       <StatusBadge status={lead.status} />
                     </td>
                     
                     {/* Calendar Registration Date */}
-                    <td className="py-3 text-right text-slate-400 dark:text-slate-500 font-semibold whitespace-nowrap">
+                    <td className="py-3.5 text-right text-slate-400 dark:text-slate-500 font-semibold whitespace-nowrap">
                       {lead.date || (lead.createdAt ? lead.createdAt.split('T')[0] : '')}
                     </td>
                   </tr>

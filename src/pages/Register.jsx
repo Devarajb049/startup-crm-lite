@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import DarkModeToggle from '../components/common/DarkModeToggle';
+import Logo from '../components/common/Logo';
 import { Mail, Lock, User, LogIn, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 
@@ -67,7 +68,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 dark:bg-[#090D16] relative overflow-hidden px-4 py-12 transition-colors duration-200">
+    <div className="min-h-screen w-full flex items-center justify-center bg-bg dark:bg-bg relative overflow-hidden px-4 py-12 transition-colors duration-200">
       {/* Theme Toggle Positioned in Top Right Corner */}
       <div className="absolute top-4 right-4 z-20">
         <DarkModeToggle />
@@ -79,23 +80,17 @@ const Register = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-pink-500/5 blur-3xl animate-float-alternate" />
 
       {/* Register Card */}
-      <div className="w-full max-w-md bg-white/85 dark:bg-[#1C1C1C]/90 backdrop-blur-xl border border-slate-100 dark:border-slate-800/40 p-8 rounded-3xl shadow-xl dark:shadow-2xl relative z-10 animate-fade-in transition-all">
+      <div className="w-full max-w-md bg-card/85 dark:bg-card/90 backdrop-blur-xl border border-border dark:border-border/40 p-8 rounded-3xl shadow-xl dark:shadow-2xl relative z-10 animate-fade-in transition-all">
         
         {/* Brand/Logo Header */}
         <div className="flex flex-col items-center text-center mb-6 select-none">
           <div className="w-10 h-10 mb-3 flex items-center justify-center">
             {/* Brand Logo - Styled as futuristic A geometry */}
-            <svg viewBox="0 0 32 32" fill="none" className="w-10 h-10 text-primary">
-              <g stroke="currentColor" strokeWidth="2.8" strokeLinejoin="round" strokeLinecap="round">
-                <path d="M 6 26 L 18 5 L 21 11" />
-                <path d="M 22.5 14.5 L 27 26" />
-                <path d="M 8 20 L 29 11 M 29 11 L 23 8 M 29 11 L 26 17" />
-              </g>
-            </svg>
+            <Logo className="w-10 h-10 text-primary" />
           </div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5 justify-center">
             Join AURA<span className="text-primary">CRM</span>
-            <span className="text-[9px] bg-slate-100 dark:bg-slate-800 text-slate-650 dark:text-slate-400 px-1.5 py-0.2 rounded font-mono font-semibold uppercase tracking-wider select-none">
+            <span className="text-[9px] bg-bg dark:bg-surface text-body dark:text-muted px-1.5 py-0.2 rounded font-mono font-semibold uppercase tracking-wider select-none">
               Lite
             </span>
           </h2>
@@ -130,7 +125,7 @@ const Register = () => {
                 placeholder="Enter your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="block w-full pl-10.5 pr-4 py-2.5 text-xs bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-white dark:focus:bg-slate-950/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
+                className="block w-full pl-10.5 pr-4 py-2.5 text-xs bg-bg dark:bg-surface/40 border border-border dark:border-border rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-surface dark:focus:bg-surface/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
               />
             </div>
           </div>
@@ -151,7 +146,7 @@ const Register = () => {
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="block w-full pl-10.5 pr-4 py-2.5 text-xs bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-white dark:focus:bg-slate-950/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
+                className="block w-full pl-10.5 pr-4 py-2.5 text-xs bg-bg dark:bg-surface/40 border border-border dark:border-border rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-surface dark:focus:bg-surface/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
               />
             </div>
           </div>
@@ -172,7 +167,7 @@ const Register = () => {
                 placeholder="Minimum 6 characters"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="block w-full pl-10.5 pr-10 py-2.5 text-xs bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-white dark:focus:bg-slate-950/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
+                className="block w-full pl-10.5 pr-10 py-2.5 text-xs bg-bg dark:bg-surface/40 border border-border dark:border-border rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-surface dark:focus:bg-surface/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
               />
               <button
                 type="button"
@@ -202,7 +197,7 @@ const Register = () => {
                 placeholder="Repeat password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="block w-full pl-10.5 pr-10 py-2.5 text-xs bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-white dark:focus:bg-slate-950/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
+                className="block w-full pl-10.5 pr-10 py-2.5 text-xs bg-bg dark:bg-surface/40 border border-border dark:border-border rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden focus:bg-surface dark:focus:bg-surface/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-150"
               />
             </div>
           </div>
@@ -211,7 +206,7 @@ const Register = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-2 py-3 bg-primary hover:bg-blue-600 active:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md cursor-pointer transition-all duration-150 active:scale-98 focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none mt-2"
+            className="w-full flex items-center justify-center gap-2 py-3 bg-primary hover:bg-primary-hover active:bg-primary-hover/90 text-white font-bold text-xs rounded-xl shadow-md cursor-pointer transition-all duration-150 active:scale-98 focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none mt-2"
           >
             {isLoading ? (
               <div className="w-4.5 h-4.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -225,7 +220,7 @@ const Register = () => {
         </form>
 
         {/* Link back to Login */}
-        <div className="text-center mt-5 border-t border-slate-100 dark:border-slate-800/40 pt-3">
+        <div className="text-center mt-5 border-t border-border dark:border-border/40 pt-3">
           <p className="text-xs text-slate-500 dark:text-slate-400">
             Already have an account?{' '}
             <Link to="/login" className="text-primary hover:underline font-semibold ml-1">
