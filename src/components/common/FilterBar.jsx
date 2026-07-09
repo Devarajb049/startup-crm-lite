@@ -41,7 +41,7 @@ const FilterBar = ({ activeFilter, onFilterChange, leads }) => {
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-150 active:scale-95 cursor-pointer focus:outline-hidden border ${
               isActive
                 ? 'bg-primary text-white border-blue-400/20 shadow-md shadow-primary/10'
-                : 'glass-card border-slate-200/40 dark:border-white/5 text-slate-600 dark:text-slate-400 hover:bg-white/40 dark:hover:bg-white/5'
+                : 'glass-card border-border/40 dark:border-border/10 text-slate-600 dark:text-slate-400 hover:bg-white/40 dark:hover:bg-white/5'
             }`}
           >
             <span>{filter}</span>

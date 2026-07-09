@@ -1,11 +1,12 @@
 @import "tailwindcss";
-
+ 
 @theme {
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
   --color-bg: var(--bg);
+  --color-bg-secondary: var(--bg-secondary);
   --color-surface: var(--surface);
   --color-card: var(--card);
   --color-sidebar: var(--sidebar);
@@ -13,14 +14,21 @@
   --color-body: var(--body);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-divider: var(--divider);
+  --color-icons: var(--icons);
   --color-hover: var(--hover);
   --color-active-nav: var(--active-navigation);
-  
+  --color-input-bg: var(--input-bg);
+  --color-input-border: var(--input-border);
+  --color-table-header: var(--table-header);
+  --color-table-row-hover: var(--table-row-hover);
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-danger: var(--error);
   --color-info: var(--info);
-
+  --color-purple: var(--purple);
+  --color-pink: var(--pink);
+ 
   /* Legacy & Compatibility Mappings to ensure robustness */
   --color-card-white: var(--card);
   --color-card-dark: var(--card);
@@ -30,13 +38,18 @@
   --color-text-dark: var(--heading);
   --color-text-grey: var(--body);
 }
-
+ 
 :root {
   --primary: #2563EB;
-  --primary-hover: #1D4ED8;
-  --secondary: #06B6D4;
-  --accent: #8B5CF6;
+  --primary-hover: #1d4ed8;
+  --secondary: #0EA5E9;
+  --accent: #14B8A6;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #0EA5E9;
   --bg: #F8FAFC;
+  --bg-secondary: #F1F5F9;
   --surface: #FFFFFF;
   --card: #FFFFFF;
   --sidebar: #FFFFFF;
@@ -44,38 +57,53 @@
   --body: #475569;
   --muted: #94A3B8;
   --border: #E2E8F0;
-  --hover: #F1F5F9;
+  --divider: #CBD5E1;
+  --icons: #334155;
+  --hover: #EEF4FF;
   --active-navigation: #DBEAFE;
-  --success: #22C55E;
-  --warning: #F59E0B;
-  --error: #EF4444;
-  --info: #3B82F6;
+  --input-bg: #FFFFFF;
+  --input-border: #CBD5E1;
+  --table-header: #F8FAFC;
+  --table-row-hover: #F1F5F9;
+  --scrollbar-thumb: #94A3B8;
+  --purple: #8B5CF6;
+  --pink: #EC4899;
 }
-
+ 
 .dark {
-  --primary: #2563EB;
-  --primary-hover: #1D4ED8;
+  --primary: #3B82F6;
+  --primary-hover: #2563eb;
   --secondary: #06B6D4;
-  --accent: #8B5CF6;
+  --accent: #2DD4BF;
+  --success: #22C55E;
+  --warning: #FBBF24;
+  --error: #F87171;
+  --info: #06B6D4;
   --bg: #020617;
+  --bg-secondary: #0F172A;
   --surface: #0F172A;
-  --card: #1E293B;
+  --card: #111827;
   --sidebar: #111827;
   --heading: #F8FAFC;
   --body: #CBD5E1;
   --muted: #94A3B8;
   --border: #334155;
+  --divider: #475569;
+  --icons: #E2E8F0;
   --hover: #1E293B;
-  --active-navigation: #2563EB;
-  --success: #22C55E;
-  --warning: #F59E0B;
-  --error: #EF4444;
-  --info: #3B82F6;
+  --active-navigation: #1D4ED8;
+  --input-bg: #1E293B;
+  --input-border: #334155;
+  --table-header: #0F172A;
+  --table-row-hover: #1E293B;
+  --scrollbar-thumb: #64748B;
+  --purple: #A855F7;
+  --pink: #FB7185;
 }
-
+ 
 /* Enable class-based dark mode variant in Tailwind v4 */
 @custom-variant dark (&:where(.dark, .dark *));
-
+ 
 /* Glassmorphism Design System Utilities */
 @layer utilities {
   .glass-card {
@@ -85,15 +113,15 @@
     border: 1px solid rgba(255, 255, 255, 0.4);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
   }
-
+ 
   .dark .glass-card {
-    background: rgba(30, 41, 59, 0.65); /* Matches new dark card color #1E293B */
+    background: rgba(17, 24, 39, 0.65); /* Matches new dark card color #111827 */
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.06);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
   }
-
+ 
   .glass-card-glow {
     background: rgba(255, 255, 255, 0.55);
     backdrop-filter: blur(20px);
@@ -101,15 +129,15 @@
     border: 1px solid rgba(255, 255, 255, 0.5);
     box-shadow: 0 8px 32px 0 rgba(37, 99, 235, 0.06), 0 0 1px 1px rgba(37, 99, 235, 0.1);
   }
-
+ 
   .dark .glass-card-glow {
-    background: rgba(30, 41, 59, 0.7); /* Matches new dark card color #1E293B */
+    background: rgba(17, 24, 39, 0.7); /* Matches new dark card color #111827 */
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35), 0 0 15px 1px rgba(37, 99, 235, 0.15);
   }
-
+ 
   .glass-input {
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
@@ -117,7 +145,7 @@
     border: 1px solid rgba(226, 232, 240, 0.8);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
-
+ 
   .dark .glass-input {
     background: rgba(2, 6, 23, 0.45); /* Matches new dark background #020617 */
     backdrop-filter: blur(10px);
@@ -125,19 +153,19 @@
     border: 1px solid rgba(255, 255, 255, 0.07);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
-
+ 
   .glass-input:focus {
     background: rgba(255, 255, 255, 0.95);
     border-color: #2563EB; /* primary #2563EB */
     box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
   }
-
+ 
   .dark .glass-input:focus {
     background: rgba(2, 6, 23, 0.8); /* Matches new dark background #020617 */
     border-color: #2563EB; /* primary #2563EB */
     box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
   }
-
+ 
   /* Custom scrollbar for modern premium feel */
   ::-webkit-scrollbar {
     width: 6px;
@@ -147,19 +175,11 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(203, 213, 225, 0.6);
+    background: var(--scrollbar-thumb);
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(148, 163, 184, 0.8);
-  }
-  
-  /* Dark mode scrollbars */
-  .dark ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-  }
-  .dark ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
+    opacity: 0.8;
   }
 }
 

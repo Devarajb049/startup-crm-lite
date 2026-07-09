@@ -71,10 +71,10 @@ const AddLeadModal = ({ isOpen, onClose, leadToEdit = null }) => {
       />
 
       {/* Modal Card content wrapper */}
-      <div className="relative w-full sm:max-w-2xl bg-white/80 dark:bg-[#0F131C]/80 backdrop-blur-2xl border border-slate-200/40 dark:border-white/5 rounded-2xl shadow-2xl z-10 overflow-hidden max-h-[90vh] sm:max-h-[85vh] flex flex-col animate-fade-in">
+      <div className="relative w-full sm:max-w-2xl bg-card/85 dark:bg-card/85 backdrop-blur-2xl border border-border/40 dark:border-border/10 rounded-2xl shadow-2xl z-10 overflow-hidden max-h-[90vh] sm:max-h-[85vh] flex flex-col animate-fade-in">
 
         {/* Title Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/40 dark:border-white/5 bg-slate-50/20 dark:bg-slate-950/20 shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border/40 dark:border-border/10 bg-bg/20 dark:bg-surface/20 shrink-0">
           <h2 className="text-xs sm:text-sm font-extrabold tracking-wider uppercase text-slate-900 dark:text-white">
             {leadToEdit ? 'Modify Lead Details' : 'Register New Lead'}
           </h2>

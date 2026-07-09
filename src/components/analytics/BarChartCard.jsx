@@ -11,7 +11,7 @@ const BarChartCard = ({ leads }) => {
   const chartData = useMemo(() => getMonthlyLeads(leads), [leads]);
 
   return (
-    <div className="p-6 bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+    <div className="p-6 glass-card border border-border/40 dark:border-border/10 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
 
       {/* Card Header */}
       <div>

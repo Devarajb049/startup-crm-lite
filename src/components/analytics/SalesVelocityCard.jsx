@@ -51,7 +51,7 @@ const SalesVelocityCard = ({ leads: filteredLeads, filterRange }) => {
   }, [allLeads, filterRange, current.velocity]);
 
   return (
-    <div className="p-6 glass-card border border-slate-200/40 dark:border-white/5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+    <div className="p-6 glass-card border border-border/40 dark:border-border/10 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
       
       {/* Card Header */}
       <div>
@@ -110,19 +110,19 @@ const SalesVelocityCard = ({ leads: filteredLeads, filterRange }) => {
         </p>
 
         <div className="grid grid-cols-2 gap-2 text-[10px]">
-          <div className="p-2 bg-slate-100/50 dark:bg-slate-950/20 border border-slate-200/40 dark:border-white/5 rounded-lg">
+          <div className="p-2 bg-slate-100/50 dark:bg-slate-950/20 border border-border/40 dark:border-border/10 rounded-lg">
             <span className="text-slate-400 dark:text-slate-500 block">Opportunities</span>
             <span className="font-extrabold text-slate-900 dark:text-white">{current.opportunities} Deals</span>
           </div>
-          <div className="p-2 bg-slate-100/50 dark:bg-slate-950/20 border border-slate-200/40 dark:border-white/5 rounded-lg">
+          <div className="p-2 bg-slate-100/50 dark:bg-slate-950/20 border border-border/40 dark:border-border/10 rounded-lg">
             <span className="text-slate-400 dark:text-slate-500 block">Conversion Win Rate</span>
             <span className="font-extrabold text-slate-900 dark:text-white">{current.winRate}%</span>
           </div>
-          <div className="p-2 bg-slate-100/50 dark:bg-slate-950/20 border border-slate-200/40 dark:border-white/5 rounded-lg">
+          <div className="p-2 bg-slate-100/50 dark:bg-slate-950/20 border border-border/40 dark:border-border/10 rounded-lg">
             <span className="text-slate-400 dark:text-slate-500 block">Avg Deal Size</span>
             <span className="font-extrabold text-slate-900 dark:text-white">{formatCurrency(current.avgDealSize)}</span>
           </div>
-          <div className="p-2 bg-slate-100/50 dark:bg-slate-950/20 border border-slate-200/40 dark:border-white/5 rounded-lg">
+          <div className="p-2 bg-slate-100/50 dark:bg-slate-950/20 border border-border/40 dark:border-border/10 rounded-lg">
             <span className="text-slate-400 dark:text-slate-500 block">Avg Sales Cycle</span>
             <span className="font-extrabold text-slate-900 dark:text-white">{current.cycleLength} Days</span>
           </div>
