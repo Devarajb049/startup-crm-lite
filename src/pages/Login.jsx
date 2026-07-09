@@ -144,7 +144,7 @@ const Login = () => {
         <div className="absolute bottom-1/6 left-1/6 w-96 h-96 rounded-full bg-purple-300/20 dark:bg-purple-600/12 blur-[120px] pointer-events-none animate-float-reverse" />
 
         {/* Floating frosted glass login card */}
-        <div className="w-full max-w-md bg-surface/45 dark:bg-card/65 backdrop-blur-2xl border border-border/40 dark:border-border/10 p-6 sm:p-8 rounded-3xl shadow-2xl relative z-10 animate-fade-in transition-all duration-200 my-auto">
+        <div className="w-full max-w-md glass-card p-6 sm:p-8 rounded-3xl shadow-2xl relative z-10 animate-fade-in transition-all duration-200 my-auto">
 
           {/* Header Mobile Brand details */}
           <div className="flex flex-col items-center text-center mb-8 select-none">
@@ -155,14 +155,14 @@ const Login = () => {
             <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5 justify-center">
               Welcome back
             </h2>
-            <p className="text-xs text-slate-550 dark:text-slate-400 mt-1 max-w-xs">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-xs">
               Sign in to manage your startup CRM and track daily sales touchpoints.
             </p>
           </div>
 
           {/* Inline Error alert */}
           {error && (
-            <div className="flex items-start gap-2.5 p-3.5 bg-red-50/50 dark:bg-red-950/20 border border-red-200/40 dark:border-red-900/30 text-red-650 dark:text-red-400 rounded-xl text-xs mb-6 animate-fade-in">
+            <div className="flex items-start gap-2.5 p-3.5 bg-red-50/50 dark:bg-red-950/20 border border-red-200/40 dark:border-red-900/30 text-red-600 dark:text-red-400 rounded-xl text-xs mb-6 animate-fade-in">
               <AlertCircle size={15} className="shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
@@ -176,7 +176,7 @@ const Login = () => {
                 Email Address
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-450 dark:text-slate-550">
+                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 dark:text-slate-500 z-10 pointer-events-none">
                   <Mail size={15} />
                 </span>
                 <input
@@ -193,11 +193,11 @@ const Login = () => {
 
             {/* Password Input */}
             <div className="space-y-1.5">
-              <label htmlFor="password" className="block text-[10px] font-bold uppercase tracking-wider text-slate-550 dark:text-slate-400">
+              <label htmlFor="password" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Password
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-450 dark:text-slate-550">
+                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 dark:text-slate-500 z-10 pointer-events-none">
                   <Lock size={15} />
                 </span>
                 <input
@@ -212,7 +212,7 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-650 dark:text-slate-500 dark:hover:text-slate-350 focus:outline-hidden cursor-pointer"
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 focus:outline-hidden cursor-pointer z-10"
                   title={showPassword ? 'Hide password' : 'Show password'}
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >

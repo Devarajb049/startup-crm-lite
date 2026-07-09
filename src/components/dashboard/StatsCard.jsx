@@ -36,7 +36,7 @@ const StatsCard = ({ index = 0, title, value, icon: Icon, change }) => {
   const theme = colorSchemes[index % colorSchemes.length];
 
   return (
-    <div className={`p-6 rounded-2xl glass-card border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between ${theme.glow}`}>
+    <div className={`p-6 rounded-2xl glass-card border transition-all duration-300 hover:shadow-lg flex flex-col justify-between ${theme.glow}`}>
       {/* Top row: metric title & accent icon container */}
       <div className="flex items-center justify-between">
         <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 select-none">

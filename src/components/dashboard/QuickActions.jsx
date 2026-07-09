@@ -99,10 +99,10 @@ const QuickActions = ({ onAddLeadClick }) => {
         <button
           type="button"
           onClick={onAddLeadClick}
-          className="flex items-center justify-between p-4 bg-blue-500/5 dark:bg-blue-500/10 hover:bg-blue-500/10 dark:hover:bg-blue-500/15 text-blue-600 dark:text-blue-400 rounded-xl cursor-pointer transition-all duration-155 border border-blue-500/10 dark:border-blue-500/15 focus:outline-hidden hover:translate-x-0.5 group w-full text-left"
+          className="flex items-center justify-between p-4 bg-blue-500/5 dark:bg-blue-500/10 hover:bg-blue-500/10 dark:hover:bg-blue-500/15 text-blue-600 dark:text-blue-400 rounded-xl cursor-pointer transition-all duration-155 border border-blue-500/10 dark:border-blue-500/15 focus:outline-hidden group w-full text-left"
         >
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-primary text-white shadow-xs group-hover:scale-105 transition-transform duration-200">
+            <div className="p-2.5 rounded-xl bg-primary text-white shadow-xs transition-transform duration-200">
               <Plus size={16} />
             </div>
             <div>
@@ -114,17 +114,17 @@ const QuickActions = ({ onAddLeadClick }) => {
               </p>
             </div>
           </div>
-          <ChevronRight size={14} className="text-slate-400 group-hover:translate-x-0.5 transition-transform duration-155 shrink-0" />
+          <ChevronRight size={14} className="text-slate-400 transition-transform duration-155 shrink-0" />
         </button>
 
         {/* Action 2: View Leads list */}
         <button
           type="button"
           onClick={() => navigate('/leads')}
-          className="flex items-center justify-between p-4 bg-emerald-500/5 dark:bg-emerald-500/10 hover:bg-emerald-500/10 dark:hover:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 rounded-xl cursor-pointer transition-all duration-155 border border-emerald-500/10 dark:border-emerald-500/15 focus:outline-hidden hover:translate-x-0.5 group w-full text-left"
+          className="flex items-center justify-between p-4 bg-emerald-500/5 dark:bg-emerald-500/10 hover:bg-emerald-500/10 dark:hover:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 rounded-xl cursor-pointer transition-all duration-155 border border-emerald-500/10 dark:border-emerald-500/15 focus:outline-hidden group w-full text-left"
         >
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-success text-white shadow-xs group-hover:scale-105 transition-transform duration-200">
+            <div className="p-2.5 rounded-xl bg-success text-white shadow-xs transition-transform duration-200">
               <Users size={16} />
             </div>
             <div>
@@ -136,17 +136,17 @@ const QuickActions = ({ onAddLeadClick }) => {
               </p>
             </div>
           </div>
-          <ChevronRight size={14} className="text-slate-400 group-hover:translate-x-0.5 transition-transform duration-155 shrink-0" />
+          <ChevronRight size={14} className="text-slate-400 transition-transform duration-155 shrink-0" />
         </button>
 
         {/* Action 3: Export CSV spreadsheet */}
         <button
           type="button"
           onClick={handleExportCSV}
-          className="flex items-center justify-between p-4 bg-amber-500/5 dark:bg-amber-500/10 hover:bg-amber-500/10 dark:hover:bg-amber-500/15 text-amber-600 dark:text-amber-400 rounded-xl cursor-pointer transition-all duration-155 border border-amber-500/10 dark:border-amber-500/15 focus:outline-hidden hover:translate-x-0.5 group w-full text-left"
+          className="flex items-center justify-between p-4 bg-amber-500/5 dark:bg-amber-500/10 hover:bg-amber-500/10 dark:hover:bg-amber-500/15 text-amber-600 dark:text-amber-400 rounded-xl cursor-pointer transition-all duration-155 border border-amber-500/10 dark:border-amber-500/15 focus:outline-hidden group w-full text-left"
         >
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-warning text-white shadow-xs group-hover:scale-105 transition-transform duration-200">
+            <div className="p-2.5 rounded-xl bg-warning text-white shadow-xs transition-transform duration-200">
               <Download size={16} />
             </div>
             <div>
@@ -158,7 +158,7 @@ const QuickActions = ({ onAddLeadClick }) => {
               </p>
             </div>
           </div>
-          <ChevronRight size={14} className="text-slate-400 group-hover:translate-x-0.5 transition-transform duration-155 shrink-0" />
+          <ChevronRight size={14} className="text-slate-400 transition-transform duration-155 shrink-0" />
         </button>
 
       </div>

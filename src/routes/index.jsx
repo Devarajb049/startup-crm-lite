@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Layout from '../components/common/Layout';
 import { useAuth } from '../context/AuthContext';
@@ -16,7 +16,7 @@ const delayedImport = (importFunc) => {
     hasLoaderRun = true;
     return Promise.all([
       importFunc(),
-      new Promise((resolve) => setTimeout(resolve, 2800))
+      new Promise((resolve) => setTimeout(resolve, 2000))
     ]).then(([moduleExports]) => moduleExports);
   });
 };
@@ -29,161 +29,55 @@ const NotFound = lazy(() => import('../pages/NotFound'));
 const Login = lazy(() => import('../pages/Login'));
 const Register = lazy(() => import('../pages/Register'));
 
+const loadingMessages = [
+  "Loading Startup CRM...",
+  "Preparing your workspace...",
+  "Initializing dashboard...",
+  "Please wait..."
+];
+
 // Premium visual page loader rendered in place of the page chunk until lazy imports resolve
-const PageLoader = () => (
-  <div className="flex items-center justify-center min-h-screen bg-transparent select-none">
-    <style>{`
-      :root {
-        --dot-neutral: #cbd5e1;
-      }
-      .dark :root {
-        --dot-neutral: #334155;
-      }
-      .loader-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 1.5rem;
-      }
-      .loader-svg {
-        width: 148px;
-        height: 40px;
-        animation: svg-glow-scale 2s forwards ease-in-out;
-      }
-      .path-a1 {
-        stroke-dasharray: 65;
-        stroke-dashoffset: 65;
-        animation: write-a1 2s forwards ease-in-out;
-      }
-      .path-u {
-        stroke-dasharray: 65;
-        stroke-dashoffset: 65;
-        animation: write-u 2s forwards ease-in-out;
-      }
-      .path-r {
-        stroke-dasharray: 85;
-        stroke-dashoffset: 85;
-        animation: write-r 2s forwards ease-in-out;
-      }
-      .path-a2 {
-        stroke-dasharray: 65;
-        stroke-dashoffset: 65;
-        animation: write-a2 2s forwards ease-in-out;
-      }
-      @keyframes write-a1 {
-        0% { stroke-dashoffset: 65; opacity: 0; stroke: currentColor; }
-        15%, 60% { stroke-dashoffset: 0; opacity: 1; stroke: currentColor; }
-        68%, 80% { stroke-dashoffset: 0; opacity: 1; stroke: #3B82F6; filter: drop-shadow(0 0 6px rgba(59,130,246,0.6)); }
-        85%, 100% { opacity: 0; }
-      }
-      @keyframes write-u {
-        0%, 15% { stroke-dashoffset: 65; opacity: 0; stroke: currentColor; }
-        30%, 60% { stroke-dashoffset: 0; opacity: 1; stroke: currentColor; }
-        68%, 80% { stroke-dashoffset: 0; opacity: 1; stroke: #6366F1; filter: drop-shadow(0 0 6px rgba(99,102,241,0.6)); }
-        85%, 100% { opacity: 0; }
-      }
-      @keyframes write-r {
-        0%, 30% { stroke-dashoffset: 85; opacity: 0; stroke: currentColor; }
-        45%, 60% { stroke-dashoffset: 0; opacity: 1; stroke: currentColor; }
-        68%, 80% { stroke-dashoffset: 0; opacity: 1; stroke: #8B5CF6; filter: drop-shadow(0 0 6px rgba(139,92,246,0.6)); }
-        85%, 100% { opacity: 0; }
-      }
-      @keyframes write-a2 {
-        0%, 45% { stroke-dashoffset: 65; opacity: 0; stroke: currentColor; }
-        60% { stroke-dashoffset: 0; opacity: 1; stroke: currentColor; }
-        68%, 80% { stroke-dashoffset: 0; opacity: 1; stroke: #EC4899; filter: drop-shadow(0 0 6px rgba(236,72,153,0.6)); }
-        85%, 100% { opacity: 0; }
-      }
-      @keyframes svg-glow-scale {
-        0%, 60% { transform: scale(1); }
-        68%, 80% { transform: scale(1.05); }
-        85%, 100% { transform: scale(1); }
-      }
-      .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 9999px;
-        background-color: var(--dot-neutral);
-        opacity: 0.5;
-        position: absolute;
-        transition: background-color 0.2s ease, opacity 0.2s ease;
-      }
-      .dot-1 { left: 16px; animation: dot-light-1 2.8s infinite ease-in-out; }
-      .dot-2 { left: 52px; animation: dot-light-2 2.8s infinite ease-in-out; }
-      .dot-3 { left: 88px; animation: dot-light-3 2.8s infinite ease-in-out; }
-      .dot-4 { left: 124px; animation: dot-light-4 2.8s infinite ease-in-out; }
-      @keyframes dot-light-1 {
-        0%, 14.9% { background-color: var(--dot-neutral); opacity: 0.5; box-shadow: none; }
-        15%, 80% { background-color: #3B82F6; opacity: 1; box-shadow: 0 0 8px rgba(59,130,246,0.6); }
-        85%, 100% { background-color: var(--dot-neutral); opacity: 0.5; box-shadow: none; }
-      }
-      @keyframes dot-light-2 {
-        0%, 29.9% { background-color: var(--dot-neutral); opacity: 0.5; box-shadow: none; }
-        30%, 80% { background-color: #6366F1; opacity: 1; box-shadow: 0 0 8px rgba(99,102,241,0.6); }
-        85%, 100% { background-color: var(--dot-neutral); opacity: 0.5; box-shadow: none; }
-      }
-      @keyframes dot-light-3 {
-        0%, 44.9% { background-color: var(--dot-neutral); opacity: 0.5; box-shadow: none; }
-        45%, 80% { background-color: #8B5CF6; opacity: 1; box-shadow: 0 0 8px rgba(139,92,246,0.6); }
-        85%, 100% { background-color: var(--dot-neutral); opacity: 0.5; box-shadow: none; }
-      }
-      @keyframes dot-light-4 {
-        0%, 59.9% { background-color: var(--dot-neutral); opacity: 0.5; box-shadow: none; }
-        60%, 80% { background-color: #EC4899; opacity: 1; box-shadow: 0 0 8px rgba(236,72,153,0.6); }
-        85%, 100% { background-color: var(--dot-neutral); opacity: 0.5; box-shadow: none; }
-      }
-    `}</style>
+const PageLoader = () => {
+  const [msgIndex, setMsgIndex] = useState(0);
+  const [fade, setFade] = useState(true);
 
-    <div className="loader-container">
-      <svg viewBox="0 0 148 40" className="loader-svg text-slate-800 dark:text-white" fill="none" xmlns="http://www.w3.org/2000/svg">
-        {/* Character A1 Path */}
-        <path
-          className="path-a1"
-          d="M 12 32 L 20 8 L 28 32 M 16.5 23 L 23.5 23"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+  useEffect(() => {
+    const textTimer = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        setMsgIndex((prev) => (prev + 1) % loadingMessages.length);
+        setFade(true);
+      }, 150);
+    }, 600);
 
-        {/* Character U Path */}
-        <path
-          className="path-u"
-          d="M 48 8 L 48 24 C 48 30, 64 30, 64 24 L 64 8"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+    return () => clearInterval(textTimer);
+  }, []);
 
-        {/* Character R Path */}
-        <path
-          className="path-r"
-          d="M 84 32 L 84 8 L 96 8 C 102 8, 102 18, 96 18 L 84 18 M 93 18 L 102 32"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg/75 dark:bg-bg/85 backdrop-blur-2xl transition-all duration-300">
+      <div className="flex flex-col items-center gap-6 max-w-sm px-6 text-center select-none">
+        
+        {/* Centered logo with soft glow, scaling and floating animation */}
+        <div className="relative flex items-center justify-center animate-premium-float">
+          <div className="absolute w-24 h-24 bg-blue-500/10 dark:bg-blue-500/15 blur-2xl rounded-full -z-10 animate-pulse-glow" />
+          <Logo className="w-20 h-20 text-primary" />
+        </div>
 
-        {/* Character A2 Path */}
-        <path
-          className="path-a2"
-          d="M 120 32 L 128 8 L 136 32 M 124.5 23 L 131.5 23"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+        {/* 3 jumping dots */}
+        <div className="flex items-center gap-2 mt-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-primary/80 animate-[bounce_1s_infinite_0ms]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-primary/60 animate-[bounce_1s_infinite_200ms]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-primary/40 animate-[bounce_1s_infinite_400ms]" />
+        </div>
 
-      {/* Spaced dots matching letter centers */}
-      <div className="relative w-[148px] h-2">
-        <div className="dot dot-1" />
-        <div className="dot dot-2" />
-        <div className="dot dot-3" />
-        <div className="dot dot-4" />
+        {/* Message with fade transitions */}
+        <p className={`text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 min-h-[16px] transition-opacity duration-200 ${fade ? 'opacity-100' : 'opacity-0'}`}>
+          {loadingMessages[msgIndex]}
+        </p>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 /**
  * Guard Component: ProtectedRoute

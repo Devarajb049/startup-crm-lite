@@ -146,7 +146,7 @@ const StatsCards = ({ stats, filterRange }) => {
         return (
           <div
             key={idx}
-            className={`p-5 glass-card border ${card.borderColor} rounded-2xl shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-350 flex flex-col justify-between`}
+            className={`p-5 glass-card border ${card.borderColor} rounded-2xl shadow-xs hover:shadow-md transition-all duration-350 flex flex-col justify-between`}
           >
             <div className="flex items-center justify-between gap-2.5">
               <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider select-none">

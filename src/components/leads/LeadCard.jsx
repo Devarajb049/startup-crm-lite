@@ -33,7 +33,7 @@ const LeadCard = ({ lead, onEdit, onDelete }) => {
   const { formatCurrency } = useLeads();
 
   return (
-    <div className="p-6 glass-card border border-border/40 dark:border-border/10 rounded-2xl shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between text-left">
+    <div className="p-6 glass-card border border-border/40 dark:border-border/10 rounded-2xl shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between text-left">
       
       {/* 1. Header Section (Avatar circle + Title Name + Actions) */}
       <div className="flex items-start justify-between gap-3">

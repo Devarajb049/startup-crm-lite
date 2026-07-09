@@ -127,9 +127,9 @@ const NotFound = () => {
               key={opt.path}
               type="button"
               onClick={() => navigate(opt.path)}
-              className="group p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-primary dark:hover:border-primary/50 hover:shadow-md rounded-2xl text-left cursor-pointer transition-all duration-200 hover:-translate-y-0.5 focus:outline-hidden"
+              className="group p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-primary dark:hover:border-primary/50 hover:shadow-md rounded-2xl text-left cursor-pointer transition-all duration-200 focus:outline-hidden"
             >
-              <div className={`p-2.5 w-fit rounded-xl border ${opt.color} group-hover:scale-105 transition-transform duration-200`}>
+              <div className={`p-2.5 w-fit rounded-xl border ${opt.color} transition-transform duration-200`}>
                 <Icon size={16} />
               </div>
               <h4 className="text-xs sm:text-sm font-bold text-slate-905 dark:text-white mt-4 group-hover:text-primary transition-colors">

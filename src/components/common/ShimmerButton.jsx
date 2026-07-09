@@ -23,7 +23,7 @@ const ShimmerButton = ({
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={`relative overflow-hidden p-[1px] group active:scale-95 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/15 cursor-pointer disabled:opacity-50 disabled:pointer-events-none disabled:active:scale-100 ${className}`}
+      className={`relative overflow-hidden p-[1px] group active:scale-95 transition-all duration-300 hover:shadow-lg hover:shadow-primary/15 cursor-pointer disabled:opacity-50 disabled:pointer-events-none disabled:active:scale-100 ${className}`}
       style={{
         borderRadius,
         '--shimmer-color': shimmerColor,

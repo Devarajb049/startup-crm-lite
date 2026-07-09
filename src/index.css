@@ -107,63 +107,147 @@
 /* Glassmorphism Design System Utilities */
 @layer utilities {
   .glass-card {
-    background: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.72) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+    border-top: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 
+      0 2px 6px rgba(0,0,0,.03),
+      0 8px 24px rgba(0,0,0,.04),
+      0 20px 40px rgba(0,0,0,.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease !important;
   }
  
   .dark .glass-card {
-    background: rgba(17, 24, 39, 0.65); /* Matches new dark card color #111827 */
+    background: rgba(17, 24, 39, 0.72) !important; /* Matches new dark card color #111827 */
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-top: 1.5px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.35),
+      0 16px 40px rgba(0, 0, 0, 0.45),
+      0 40px 80px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
   }
  
   .glass-card-glow {
-    background: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.75) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 8px 32px 0 rgba(37, 99, 235, 0.06), 0 0 1px 1px rgba(37, 99, 235, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    border-top: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 
+      0 2px 6px rgba(37, 99, 235, 0.05),
+      0 8px 24px rgba(37, 99, 235, 0.08),
+      0 20px 40px rgba(37, 99, 235, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease !important;
   }
  
   .dark .glass-card-glow {
-    background: rgba(17, 24, 39, 0.7); /* Matches new dark card color #111827 */
+    background: rgba(17, 24, 39, 0.75) !important; /* Matches new dark card color #111827 */
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35), 0 0 15px 1px rgba(37, 99, 235, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+    border-top: 1.5px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.35),
+      0 16px 40px rgba(0, 0, 0, 0.45),
+      0 40px 80px rgba(0, 0, 0, 0.55),
+      0 0 15px 1px rgba(37, 99, 235, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  }
+  
+  /* Floating card interaction */
+  .glass-card:hover,
+  .glass-card-glow:hover {
+    border-color: rgba(37, 99, 235, 0.3) !important;
+  }
+  
+  .glass-card:hover {
+    box-shadow: 
+      0 4px 10px rgba(0,0,0,.04),
+      0 16px 36px rgba(0,0,0,.06),
+      0 32px 64px rgba(0,0,0,.09),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  }
+  
+  .dark .glass-card:hover {
+    border-color: rgba(59, 130, 246, 0.4) !important;
+    box-shadow: 
+      0 6px 16px rgba(0,0,0,.40),
+      0 24px 56px rgba(0,0,0,.50),
+      0 56px 100px rgba(0,0,0,.65),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  .glass-card-glow:hover {
+    box-shadow: 
+      0 4px 10px rgba(37, 99, 235, 0.06),
+      0 16px 36px rgba(37, 99, 235, 0.1),
+      0 32px 64px rgba(37, 99, 235, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  }
+  
+  .dark .glass-card-glow:hover {
+    border-color: rgba(59, 130, 246, 0.45) !important;
+    box-shadow: 
+      0 6px 16px rgba(0,0,0,.40),
+      0 24px 56px rgba(0,0,0,.50),
+      0 56px 100px rgba(0,0,0,.65),
+      0 0 20px 2px rgba(37, 99, 235, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
   }
  
   .glass-input {
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.85) !important;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(226, 232, 240, 0.8);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(226, 232, 240, 0.9) !important;
+    box-shadow: 
+      inset 0 1.5px 3px rgba(0, 0, 0, 0.04),
+      0 1px 2px rgba(0, 0, 0, 0.02) !important;
+    border-radius: 12px !important;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
  
   .dark .glass-input {
-    background: rgba(2, 6, 23, 0.45); /* Matches new dark background #020617 */
+    background: rgba(15, 23, 42, 0.6) !important; /* Matches dark input bg */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 
+      inset 0 1.5px 3px rgba(0, 0, 0, 0.25),
+      0 1px 2px rgba(0, 0, 0, 0.1) !important;
   }
  
   .glass-input:focus {
-    background: rgba(255, 255, 255, 0.95);
-    border-color: #2563EB; /* primary #2563EB */
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+    background: rgba(255, 255, 255, 1) !important;
+    border-color: #2563EB !important; /* primary #2563EB */
+    box-shadow: 
+      inset 0 1.5px 3px rgba(0, 0, 0, 0.02),
+      0 0 0 3px rgba(37, 99, 235, 0.18),
+      0 4px 12px rgba(37, 99, 235, 0.08) !important;
   }
  
   .dark .glass-input:focus {
-    background: rgba(2, 6, 23, 0.8); /* Matches new dark background #020617 */
-    border-color: #2563EB; /* primary #2563EB */
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+    background: rgba(15, 23, 42, 0.9) !important;
+    border-color: #3B82F6 !important; /* primary #3b82f6 */
+    box-shadow: 
+      inset 0 1.5px 3px rgba(0, 0, 0, 0.15),
+      0 0 0 3px rgba(59, 130, 246, 0.25),
+      0 4px 12px rgba(59, 130, 246, 0.15) !important;
+  }
+  
+  /* Validation error styling */
+  .border-danger {
+    border-color: var(--error) !important;
+    box-shadow: 
+      inset 0 1.5px 3px rgba(239, 68, 68, 0.05),
+      0 0 0 3px rgba(239, 68, 68, 0.15) !important;
   }
  
   /* Custom scrollbar for modern premium feel */
@@ -244,4 +328,466 @@ body {
 
 .animate-float-alternate {
   animation: float-alternate 12s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   Premium 3D Design System: Raised Buttons & Interactive States
+   ========================================================================== */
+
+/* General Button Base transitions */
+button:not(.absolute),
+a.btn,
+.shimmer-button {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative;
+}
+
+/* Raised Primary Buttons & ShimmerButton Content Surface */
+button.bg-primary,
+button[type="submit"]:not(.border-border):not([class*="bg-transparent"]),
+.bg-primary {
+  box-shadow: 
+    0 1px 3px rgba(37, 99, 235, 0.18),
+    0 4px 12px rgba(37, 99, 235, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
+  border: 1px solid rgba(37, 99, 235, 0.45) !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+button.bg-primary:hover,
+button[type="submit"]:not(.border-border):not([class*="bg-transparent"]):hover {
+  box-shadow: 
+    0 2px 6px rgba(37, 99, 235, 0.22),
+    0 8px 20px rgba(37, 99, 235, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38) !important;
+  filter: brightness(1.03);
+}
+
+button.bg-primary:active,
+button[type="submit"]:not(.border-border):not([class*="bg-transparent"]):active {
+  transform: translateY(1px) scale(0.975);
+  box-shadow: 
+    0 1px 2px rgba(37, 99, 235, 0.1),
+    inset 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Raised Secondary / Outline Buttons */
+button.border-border,
+button.border,
+button[class*="border-border"] {
+  background-color: var(--surface) !important;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.03),
+    0 4px 10px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+.dark button.border-border,
+.dark button.border,
+.dark button[class*="border-border"] {
+  background-color: var(--surface) !important;
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.22),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+button.border-border:hover,
+button.border:hover,
+button[class*="border-border"]:hover {
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 8px 16px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+.dark button.border-border:hover,
+.dark button.border:hover,
+.dark button[class*="border-border"]:hover {
+  box-shadow: 
+    0 2px 5px rgba(0, 0, 0, 0.28),
+    0 8px 20px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+button.border-border:active,
+button.border:active,
+button[class*="border-border"]:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 
+    0 1px 1px rgba(0, 0, 0, 0.01),
+    inset 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.dark button.border-border:active,
+.dark button.border:active,
+.dark button[class*="border-border"]:active {
+  box-shadow: 
+    0 1px 1px rgba(0, 0, 0, 0.15),
+    inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ShimmerButton Raised Container Style */
+button[class*="overflow-hidden"][class*="p-\[1px\]"] {
+  box-shadow: 
+    0 2px 6px rgba(37, 99, 235, 0.18),
+    0 8px 24px rgba(37, 99, 235, 0.15) !important;
+}
+button[class*="overflow-hidden"][class*="p-\[1px\]"]:hover {
+  box-shadow: 
+    0 4px 12px rgba(37, 99, 235, 0.22),
+    0 16px 36px rgba(37, 99, 235, 0.2) !important;
+}
+button[class*="overflow-hidden"][class*="p-\[1px\]"]:active {
+  transform: translateY(1px) scale(0.975);
+}
+
+/* ==========================================================================
+   Premium 3D Design System: Top Header Navigation & Action Elements
+   ========================================================================== */
+
+/* Elevated Top Bar Navigation panel */
+header.sticky {
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.02),
+    0 4px 12px rgba(0, 0, 0, 0.03) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+.dark header.sticky {
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Header Action Buttons (Panel Toggle, Notification, Theme Switch, Logout) */
+header button.p-2,
+header button.p-1\.5 {
+  background: rgba(255, 255, 255, 0.45) !important;
+  border: 1px solid rgba(226, 232, 240, 0.75) !important;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.02),
+    0 4px 10px rgba(0, 0, 0, 0.03) !important;
+  border-radius: 12px !important;
+}
+
+.dark header button.p-2,
+.dark header button.p-1\.5 {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+header button.p-2:hover,
+header button.p-1\.5:hover {
+  background: rgba(255, 255, 255, 0.75) !important;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 8px 16px rgba(0, 0, 0, 0.06) !important;
+}
+
+.dark header button.p-2:hover,
+.dark header button.p-1\.5:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 8px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+header button.p-2:active,
+header button.p-1\.5:active {
+  transform: translateY(0.5px) scale(0.97) !important;
+}
+
+/* Notification badge glow override */
+header span.bg-danger {
+  box-shadow: 
+    0 1px 3px rgba(239, 68, 68, 0.3),
+    0 4px 10px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* ==========================================================================
+   Premium 3D Design System: Left Sidebar Navigation
+   ========================================================================== */
+
+/* Sidebar Container Floating Surface Look */
+aside {
+  box-shadow: 
+    4px 0 15px rgba(0, 0, 0, 0.01),
+    12px 0 40px rgba(0, 0, 0, 0.03) !important;
+  border-right: 1px solid var(--border) !important;
+}
+
+.dark aside {
+  box-shadow: 
+    4px 0 20px rgba(0, 0, 0, 0.2),
+    12px 0 50px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Sidebar NavLinks items structure */
+aside nav a {
+  position: relative;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Hover for non-active nav links */
+aside nav a:hover:not([class*="bg-active-nav"]) {
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.02),
+    0 4px 12px rgba(0, 0, 0, 0.03) !important;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dark aside nav a:hover:not([class*="bg-active-nav"]) {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Active navigation item floating indicator */
+aside nav a[class*="bg-active-nav"] {
+  box-shadow: 
+    0 2px 6px rgba(37, 99, 235, 0.12),
+    0 8px 20px rgba(37, 99, 235, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+  border: 1px solid rgba(37, 99, 235, 0.2) !important;
+}
+
+.dark aside nav a[class*="bg-active-nav"] {
+  box-shadow: 
+    0 4px 12px rgba(37, 99, 235, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(59, 130, 246, 0.45) !important;
+}
+
+/* Layered icon containers inside nav items */
+aside nav a svg {
+  padding: 6px;
+  box-sizing: content-box;
+  background: rgba(255, 255, 255, 0.6) !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.dark aside nav a svg {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Layered active icon containers */
+aside nav a[class*="bg-active-nav"] svg {
+  background: var(--surface) !important;
+  border-color: rgba(37, 99, 235, 0.25) !important;
+  box-shadow: 
+    0 2px 6px rgba(37, 99, 235, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark aside nav a[class*="bg-active-nav"] svg {
+  background: rgba(37, 99, 235, 0.15) !important;
+  border-color: rgba(59, 130, 246, 0.35) !important;
+}
+
+/* ==========================================================================
+   Premium 3D Design System: Enterprise Tables
+   ========================================================================== */
+
+/* Floating table container */
+.bg-card\/80.border-border\/40,
+.dark .bg-card\/80.dark\:border-border\/10 {
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.03),
+    0 8px 24px rgba(0, 0, 0, 0.05),
+    0 20px 40px rgba(0, 0, 0, 0.07) !important;
+  border: 1px solid var(--border) !important;
+}
+
+.dark .bg-card\/80.border-border\/40,
+.dark .dark\:bg-card\/80.dark\:border-border\/10 {
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.25),
+    0 16px 40px rgba(0, 0, 0, 0.35),
+    0 40px 80px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Raised Header sticky overlay */
+thead.sticky,
+thead.sticky tr {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+  border-bottom: 2px solid var(--border) !important;
+}
+.dark thead.sticky,
+.dark thead.sticky tr {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Clean Row Hover Elevation and translate-y */
+tbody.divide-y tr {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.2s ease !important;
+  position: relative;
+}
+tbody.divide-y tr:hover {
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.02),
+    0 8px 16px rgba(0, 0, 0, 0.04) !important;
+  background-color: var(--table-row-hover) !important;
+  z-index: 2;
+}
+
+.dark tbody.divide-y tr:hover {
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.2),
+    0 12px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ==========================================================================
+   Premium 3D Design System: Dialog Modals
+   ========================================================================== */
+
+/* Backdrop overlay with blur */
+.fixed.inset-0.z-50 {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  transition: backdrop-filter 0.3s ease !important;
+}
+
+.fixed.inset-0.z-50 .bg-slate-950\/40 {
+  background-color: rgba(2, 6, 23, 0.38) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* Framer-style modal spring entrance */
+.fixed.inset-0.z-50 .animate-fade-in {
+  animation: modalEntrance 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 16px 48px rgba(0, 0, 0, 0.12),
+    0 48px 96px rgba(0, 0, 0, 0.16) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-top: 2px solid rgba(255, 255, 255, 0.35) !important;
+}
+
+.dark .fixed.inset-0.z-50 .animate-fade-in {
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    0 24px 64px rgba(0, 0, 0, 0.5),
+    0 64px 128px rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-top: 2px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+@keyframes modalEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.93) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Premium 3D Page Loader Animations & Accessibility Media Queries
+   ========================================================================== */
+
+@keyframes premiumFloat {
+  0% {
+    transform: translateY(0px) scale(0.96);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.02);
+  }
+  100% {
+    transform: translateY(0px) scale(0.96);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.65;
+    filter: blur(20px);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(28px);
+  }
+}
+
+.animate-premium-float {
+  animation: premiumFloat 2.2s infinite ease-in-out;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.2s infinite ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-premium-float {
+    animation: none !important;
+    transform: none !important;
+  }
+  .animate-pulse-glow {
+    animation: none !important;
+    opacity: 0.8 !important;
+  }
+  .animate-float-slow,
+  .animate-float-reverse,
+  .animate-float-alternate,
+  .animate-fade-in,
+  .glass-card:hover,
+  .glass-card-glow:hover,
+  button:hover,
+  button:active,
+  aside nav a:hover {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   Premium Custom Scrollbars
+   ========================================================================== */
+
+/* Modern scrollbar styling for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3) !important;
+  border-radius: 9999px !important;
+  border: 2px solid transparent !important;
+  background-clip: padding-box !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.5) !important;
+  border: 2px solid transparent !important;
+  background-clip: padding-box !important;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2) !important;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4) !important;
+}
+
+/* For Firefox compatibility */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.3) transparent;
+}
+
+.dark * {
+  scrollbar-color: rgba(148, 163, 184, 0.2) transparent;
 }

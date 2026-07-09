@@ -50,7 +50,7 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed = false, toggleCollapse })
         {/* Brand Header */}
         <div className={`flex ${isCollapsed ? 'flex-col justify-center py-3 gap-2.5' : 'items-center justify-between'} h-auto min-h-[64px] px-4 border-b border-border/50 dark:border-border/10 shrink-0`}>
           <div className="flex items-center gap-2.5 mx-auto lg:mx-0">
-            <Logo className="w-8 h-8 text-primary shrink-0 transition-transform duration-300 hover:scale-105" />
+            <Logo className="w-8 h-8 text-primary shrink-0 transition-transform duration-300" />
  
             {/* Brand details */}
             <div className={`hidden ${isCollapsed ? 'md:hidden' : 'lg:flex'} items-center gap-1.5`}>
