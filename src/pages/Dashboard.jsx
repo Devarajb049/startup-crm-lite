@@ -7,6 +7,7 @@ import RecentLeads from '../components/dashboard/RecentLeads';
 import QuickActions from '../components/dashboard/QuickActions';
 import AddLeadModal from '../components/leads/AddLeadModal';
 import ShimmerButton from '../components/common/ShimmerButton';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 
 /**
  * Dashboard Page Component
@@ -18,6 +19,11 @@ import ShimmerButton from '../components/common/ShimmerButton';
  */
 const Dashboard = () => {
   const { leads, formatCurrency, currency, loadDemoLeads } = useLeads();
+
+  useDocumentMetadata(
+    'Dashboard | AuraCRM',
+    'AuraCRM dashboard showing total leads, sales pipeline stages, conversion rates, and revenue performance.'
+  );
 
   // State to manage opening of local AddLeadModal for quick action buttons
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);

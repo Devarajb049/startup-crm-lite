@@ -33,10 +33,16 @@ import {
   X
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 
 const Landing = () => {
   const navigate = useNavigate();
   const { token } = useAuth();
+
+  useDocumentMetadata(
+    'AuraCRM | Premium Lead Management Platform',
+    'AuraCRM is a premium customer relationship management workspace for modern startup teams to track leads, contacts, pipelines, and revenue analytics.'
+  );
 
   // Navigation active link highlights & mobile menu controls
   const [activeTab, setActiveTab] = useState('Home');
@@ -1054,7 +1060,7 @@ const Landing = () => {
             <ul className="space-y-2 text-[10px] font-semibold text-slate-500 dark:text-slate-450">
               <li><Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
               <li><Link to="/terms" className="hover:text-primary transition-colors">Terms of Service</Link></li>
-              <li><a href="#/security" className="hover:text-primary transition-colors">Security Details</a></li>
+              <li><Link to="/security" className="hover:text-primary transition-colors">Security Details</Link></li>
             </ul>
           </div>
 

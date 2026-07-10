@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Shield, Eye, Database, Lock } from 'lucide-react';
 import DarkModeToggle from '../components/common/DarkModeToggle';
 import Logo from '../components/common/Logo';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 
 const Privacy = () => {
   const navigate = useNavigate();
+
+  useDocumentMetadata(
+    'Privacy Policy | AuraCRM',
+    'Understand how AuraCRM collects, secures, and handles user account credentials and workspace databases.'
+  );
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -112,18 +118,24 @@ const Privacy = () => {
               &copy; 2026 AuraCRM Systems, Inc.
             </span>
             <div className="flex gap-4">
-              <button
-                onClick={() => navigate('/terms')}
+              <Link
+                to="/terms"
                 className="text-[10px] font-bold text-primary hover:underline cursor-pointer"
               >
                 Terms of Service
-              </button>
-              <button
-                onClick={() => navigate('/login')}
+              </Link>
+              <Link
+                to="/security"
+                className="text-[10px] font-bold text-primary hover:underline cursor-pointer"
+              >
+                Security Details
+              </Link>
+              <Link
+                to="/login"
                 className="text-[10px] font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 cursor-pointer"
               >
                 Sign In Page
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,24 +1,18 @@
 import React, { useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, ShieldCheck, Scale, FileText, Globe } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Shield, Lock, Server, Key, EyeOff } from 'lucide-react';
 import DarkModeToggle from '../components/common/DarkModeToggle';
 import Logo from '../components/common/Logo';
-import useDocumentMetadata from '../hooks/useDocumentMetadata';
 
-const Terms = () => {
+const Security = () => {
   const navigate = useNavigate();
-
-  useDocumentMetadata(
-    'Terms of Service | AuraCRM',
-    'Review the terms of service, subscription limits, data protection layers, and usage policies for the AuraCRM platform.'
-  );
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-bg text-slate-900 dark:text-white flex flex-col transition-colors duration-200">
+    <div className="relative min-h-screen bg-bg text-slate-905 dark:text-white flex flex-col transition-colors duration-200">
       {/* Floating background glowing mesh elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden select-none -z-10">
         <div className="absolute -top-20 -left-20 w-[450px] h-[450px] rounded-full bg-primary/6 dark:bg-primary/4 blur-3xl animate-float-slow" />
@@ -50,16 +44,16 @@ const Terms = () => {
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-12 text-left">
         <div className="glass-card border border-border/40 dark:border-border/10 rounded-3xl p-6 sm:p-10 bg-surface/40 dark:bg-card/25 shadow-xl relative overflow-hidden backdrop-blur-xl">
           {/* Accent light indicator */}
-          <div className="absolute -top-24 -left-24 w-48 h-48 rounded-full bg-primary/10 blur-2xl pointer-events-none" />
+          <div className="absolute -top-24 -left-24 w-48 h-48 rounded-full bg-blue-500/10 blur-2xl pointer-events-none" />
 
           {/* Heading */}
           <div className="flex items-center gap-3 mb-6 relative z-10">
             <div className="w-10 h-10 rounded-2xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center">
-              <Scale size={20} />
+              <Shield size={20} />
             </div>
             <div>
               <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-                Terms of Service
+                Security Details
               </h1>
               <p className="text-[10px] text-slate-450 dark:text-slate-500 font-mono mt-0.5">
                 Last updated: July 10, 2026
@@ -68,64 +62,52 @@ const Terms = () => {
           </div>
 
           <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-            Welcome to AuraCRM. Please read these Terms of Service carefully before subscribing, signing up, or creating dynamic workspaces. By accessing or using the platform services, you agree to be bound by these provisions.
+            At AuraCRM, we employ industry-standard, enterprise-grade security protocols to protect your client details, lead metrics, and account credentials. Your trust is our commitment.
           </p>
 
-          {/* Terms sections */}
+          {/* Security sections */}
           <div className="space-y-8 text-xs leading-relaxed text-slate-650 dark:text-slate-355">
             {/* Section 1 */}
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-sm">
-                <Globe size={14} className="text-primary shrink-0" />
-                <span>1. Use of Our Services</span>
+                <Key size={14} className="text-primary shrink-0" />
+                <span>1. Session & Authentication Security</span>
               </div>
               <p>
-                AuraCRM grants you a limited, non-exclusive, non-transferable, revocable license to access lead qualifying, performance monitoring, and source channel statistics management workspaces according to your subscription tier plan limits.
+                We use secure, cryptographically signed JSON Web Tokens (JWT) for all session states. This ensures that:
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-[11px] text-slate-500 dark:text-slate-400">
-                <li>You must be at least 18 years of age to register an active administrative user profile account.</li>
-                <li>You are solely responsible for all actions taken and leads records data uploaded under your JWT session credentials.</li>
-                <li>You may not use our services for spamming, automated cold phishing, or illegal lead harvesting.</li>
+                <li>Credentials are transmitted via encrypted HTTPS requests and verified using modern hashing algorithms.</li>
+                <li>Session tokens are stored securely in browser local storage and expire automatically to prevent unauthorized access.</li>
+                <li>Cross-Origin Resource Sharing (CORS) policies are strictly configured to block unauthorized domains.</li>
               </ul>
             </div>
 
             {/* Section 2 */}
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-sm">
-                <FileText size={14} className="text-primary shrink-0" />
-                <span>2. Account Registration & Data Protection</span>
+                <Lock size={14} className="text-primary shrink-0" />
+                <span>2. Owner Workspace Isolation</span>
               </div>
               <p>
-                To utilize workspace instances, users must sign up using verified email addresses or Google Sign-In identity tokens. All customer data, leads attributes, database schemas, and session telemetry records are isolated securely under our encryption protocol layers.
-              </p>
-              <p>
-                We do not sell, trade, or distribute lead database configurations. We preserve workspace records only to output standard reports and graphs.
+                AuraCRM implements strict user workspace isolation rules. Every lead record, contact details entry, pipeline stage configuration, and attribution report is securely partition-mapped to your authenticated account ID. This guarantees that your business intelligence remains entirely private and inaccessible to other organizations.
               </p>
             </div>
 
             {/* Section 3 */}
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-sm">
-                <ShieldCheck size={14} className="text-primary shrink-0" />
-                <span>3. Billing, Fees & Account Upgrades</span>
+                <Server size={14} className="text-primary shrink-0" />
+                <span>3. Infrastructure & Backups</span>
               </div>
               <p>
-                AuraCRM provides Starter, Professional, and custom Enterprise subscription workspace plans. Subscriptions auto-renew monthly on the respective billing date. Fees are non-refundable once processed.
+                Our server operations and database clusters are hosted on enterprise cloud networks matching strict compliance parameters:
               </p>
-              <p>
-                Starter accounts that exceed the 100 leads storage capacity boundary guidelines may be prompted to upgrade to prevent data ingestion pauses.
-              </p>
-            </div>
-
-            {/* Section 4 */}
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-sm">
-                <Scale size={14} className="text-primary shrink-0" />
-                <span>4. Limitation of Liabilities</span>
-              </div>
-              <p>
-                AuraCRM is provided on an "as is" and "as available" basis without warranties of any kind. Under no circumstances shall AuraCRM Systems, Inc. be liable for any direct, indirect, or incidental loss of lead deals, workspace availability, or database records.
-              </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-[11px] text-slate-500 dark:text-slate-400">
+                <li><strong>Encryption in Transit:</strong> All data transferred between your browser and our servers is protected using TLS 1.3 encryption.</li>
+                <li><strong>Continuous Monitoring:</strong> Real-time firewall checks, DDOS protection layers, and server health scanners.</li>
+                <li><strong>Automated Backups:</strong> Redundant database backup snapshots taken daily to guarantee disaster recovery readiness.</li>
+              </ul>
             </div>
           </div>
 
@@ -135,24 +117,24 @@ const Terms = () => {
               &copy; 2026 AuraCRM Systems, Inc.
             </span>
             <div className="flex gap-4">
-              <Link
-                to="/privacy"
+              <button
+                onClick={() => navigate('/privacy')}
                 className="text-[10px] font-bold text-primary hover:underline cursor-pointer"
               >
                 Privacy Policy
-              </Link>
-              <Link
-                to="/security"
+              </button>
+              <button
+                onClick={() => navigate('/terms')}
                 className="text-[10px] font-bold text-primary hover:underline cursor-pointer"
               >
-                Security Details
-              </Link>
-              <Link
-                to="/login"
+                Terms of Service
+              </button>
+              <button
+                onClick={() => navigate('/login')}
                 className="text-[10px] font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 cursor-pointer"
               >
                 Sign In Page
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -161,4 +143,4 @@ const Terms = () => {
   );
 };
 
-export default Terms;
+export default Security;

@@ -9,6 +9,7 @@ import EmptyAnalyticsState from '../components/analytics/EmptyAnalyticsState';
 import LoadingSkeleton from '../components/analytics/LoadingSkeleton';
 import { RefreshCw } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 
 /**
  * Analytics Component
@@ -16,6 +17,11 @@ import { toast } from 'react-hot-toast';
  */
 const Analytics = () => {
   const navigate = useNavigate();
+
+  useDocumentMetadata(
+    'Analytics Engine | AuraCRM',
+    'Evaluate leads distribution, customer conversion ratios, source ROI performance charts, and team pipeline statistics.'
+  );
   const {
     filterRange,
     setFilterRange,

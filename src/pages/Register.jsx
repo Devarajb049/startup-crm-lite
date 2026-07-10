@@ -20,9 +20,15 @@ import {
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import Logo from '../components/common/Logo';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 
 const Register = () => {
   const navigate = useNavigate();
+
+  useDocumentMetadata(
+    'Create Free Account | AuraCRM',
+    'Get started with AuraCRM to qualify opportunity leads, manage contacts, track pipelines, and evaluate conversion statistics.'
+  );
   const { register, loginWithGoogle } = useAuth();
   
   const [name, setName] = useState('');
@@ -388,7 +394,7 @@ const Register = () => {
 
           {/* Notice footer */}
           <p className="mt-5 text-[9px] text-slate-455 dark:text-slate-500 text-center leading-relaxed">
-            By creating an account, you agree to our <a href="#/terms" className="hover:underline">Terms of Service</a> and <a href="#/privacy" className="hover:underline">Privacy Policy</a>.
+            By creating an account, you agree to our <Link to="/terms" className="hover:underline">Terms of Service</Link>, <Link to="/privacy" className="hover:underline">Privacy Policy</Link>, and <Link to="/security" className="hover:underline">Security Details</Link>.
           </p>
 
         </div>

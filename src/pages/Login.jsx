@@ -19,10 +19,16 @@ import {
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import Logo from '../components/common/Logo';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 
 const Login = () => {
   const navigate = useNavigate();
   const { login, loginWithGoogle } = useAuth();
+
+  useDocumentMetadata(
+    'Sign In | AuraCRM',
+    'Sign in to your AuraCRM workspace to manage your sales funnel, contact database, and team activity.'
+  );
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -351,7 +357,7 @@ const Login = () => {
 
           {/* Notice footer */}
           <p className="mt-5 text-[9px] text-slate-450 dark:text-slate-500 text-center leading-relaxed">
-            By signing in, you agree to our <a href="#/terms" className="hover:underline">Terms of Service</a> and <a href="#/privacy" className="hover:underline">Privacy Policy</a>.
+            By signing in, you agree to our <Link to="/terms" className="hover:underline">Terms of Service</Link>, <Link to="/privacy" className="hover:underline">Privacy Policy</Link>, and <Link to="/security" className="hover:underline">Security Details</Link>.
           </p>
 
         </div>

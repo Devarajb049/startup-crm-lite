@@ -31,6 +31,7 @@ const Login = lazy(() => import('../pages/Login'));
 const Register = lazy(() => import('../pages/Register'));
 const Terms = lazy(() => import('../pages/Terms'));
 const Privacy = lazy(() => import('../pages/Privacy'));
+const Security = lazy(() => import('../pages/Security'));
 
 const loadingMessages = [
   "Loading CRM Workspace...",
@@ -38,6 +39,7 @@ const loadingMessages = [
   "Initializing dashboard...",
   "Please wait..."
 ];
+
 
 // Premium visual page loader rendered in place of the page chunk until lazy imports resolve
 const PageLoader = () => {
@@ -170,6 +172,11 @@ export const AppRoutes = () => {
             </PublicOnly>
           }
         />
+
+        {/* Public Policy & Legal Routes */}
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/security" element={<Security />} />
 
         {/* Private Dashboard Shell Routes */}
         <Route element={<ProtectedRoute />}>

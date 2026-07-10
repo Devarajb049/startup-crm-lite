@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-hot-toast';
 import { User, Mail, Lock, Shield, Save, KeyRound } from 'lucide-react';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 
 /**
  * Settings Page Component
@@ -11,6 +12,11 @@ import { User, Mail, Lock, Shield, Save, KeyRound } from 'lucide-react';
  */
 const Settings = () => {
   const { user, updateProfile } = useAuth();
+
+  useDocumentMetadata(
+    'Settings | AuraCRM',
+    'Manage your AuraCRM user profile, configure account passwords, workspace options, and currency settings.'
+  );
 
   // Form states
   const [name, setName] = useState(user?.name || '');

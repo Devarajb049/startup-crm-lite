@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Users, BarChart3, ArrowLeft, HelpCircle } from 'lucide-react';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 
 /**
  * NotFound Component
@@ -9,6 +10,11 @@ import { LayoutDashboard, Users, BarChart3, ArrowLeft, HelpCircle } from 'lucide
  */
 const NotFound = () => {
   const navigate = useNavigate();
+
+  useDocumentMetadata(
+    'Page Not Found | AuraCRM',
+    'The page you are looking for does not exist on AuraCRM.'
+  );
 
   const navOptions = [
     {

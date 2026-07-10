@@ -8,6 +8,7 @@ import LeadForm from '../components/leads/LeadForm';
 import ShimmerButton from '../components/common/ShimmerButton';
 import { toast } from 'react-hot-toast';
 import { Plus, X, Download, Settings, Check, Info, FileSpreadsheet, AlertCircle, RefreshCw } from 'lucide-react';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 
 /**
  * Leads Page Component
@@ -22,6 +23,11 @@ import { Plus, X, Download, Settings, Check, Info, FileSpreadsheet, AlertCircle,
 const Leads = () => {
   // Pull database elements from Lead context
   const { leads, addLead, updateLead, deleteLead, loadDemoLeads, searchQuery, setSearchQuery, fetchLeads } = useLeads();
+
+  useDocumentMetadata(
+    'Lead Directory | AuraCRM',
+    'Search, filter, and manage your lead database, edit lead profiles, initiate contacts, and export to CSV.'
+  );
 
   // Search and Filter states
   const [activeFilter, setActiveFilter] = useState('All');
