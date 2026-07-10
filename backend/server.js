@@ -113,6 +113,11 @@ app.use(
     origin: (origin, callback) => {
       if (!origin) return callback(null, true);
 
+      // In local development, bypass origin checking so other devices in the local network can connect
+      if (process.env.NODE_ENV !== 'production') {
+        return callback(null, true);
+      }
+
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }

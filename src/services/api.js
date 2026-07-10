@@ -1,9 +1,32 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
-// Create an Axios instance pointing to the VITE_API_URL env variable or fallback
+// Helper to resolve the correct API base URL.
+// When accessing the app from another device on the local network (e.g. via computer's IP),
+// any hardcoded 'localhost' or '127.0.0.1' API endpoints would fail.
+// This function dynamically swaps localhost/127.0.0.1 with the current network hostname.
+const getBaseURL = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  const { hostname, protocol } = window.location;
+
+  if (envUrl) {
+    if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
+      if (envUrl.includes('localhost')) {
+        return envUrl.replace('localhost', hostname);
+      }
+      if (envUrl.includes('127.0.0.1')) {
+        return envUrl.replace('127.0.0.1', hostname);
+      }
+    }
+    return envUrl;
+  }
+  
+  return `${protocol}//${hostname}:5000`;
+};
+
+// Create an Axios instance pointing to the dynamic API base URL
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000',
+  baseURL: getBaseURL(),
 });
 
 // Request Interceptor: Automatically inject the Authorization header if JWT token exists in localStorage
