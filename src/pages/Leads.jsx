@@ -21,7 +21,7 @@ import { Plus, X, Download, Settings, Check, Info, FileSpreadsheet, AlertCircle,
  */
 const Leads = () => {
   // Pull database elements from Lead context
-  const { leads, addLead, updateLead, deleteLead, loadDemoLeads, searchQuery, setSearchQuery } = useLeads();
+  const { leads, addLead, updateLead, deleteLead, loadDemoLeads, searchQuery, setSearchQuery, fetchLeads } = useLeads();
 
   // Search and Filter states
   const [activeFilter, setActiveFilter] = useState('All');
