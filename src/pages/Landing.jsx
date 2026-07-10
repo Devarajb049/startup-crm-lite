@@ -332,7 +332,7 @@ const Landing = () => {
           <div className="absolute w-[80%] h-[80%] rounded-full bg-blue-500/10 dark:bg-blue-550/15 blur-3xl -z-10" />
 
           {/* Mockup Card Container */}
-          <div className="w-full max-w-lg relative p-4 space-y-4 animate-premium-float">
+          <div className="w-full max-w-lg relative p-4 space-y-4">
 
             {/* Widget 1: Revenue stats (frosted glass) */}
             <div className="hidden sm:block absolute top-[-5%] left-[5%] glass-card border border-white/40 dark:border-white/5 rounded-2xl p-4 shadow-xl z-20 w-44 text-left">
