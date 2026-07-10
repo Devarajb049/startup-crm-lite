@@ -25,7 +25,6 @@ const Landing = lazy(() => import('../pages/Landing'));
 const Dashboard = delayedImport(() => import('../pages/Dashboard'));
 const Leads = delayedImport(() => import('../pages/Leads'));
 const Analytics = delayedImport(() => import('../pages/Analytics'));
-const SourceAnalytics = delayedImport(() => import('../pages/SourceAnalytics'));
 const Settings = delayedImport(() => import('../pages/Settings'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const Login = lazy(() => import('../pages/Login'));
@@ -182,9 +181,6 @@ export const AppRoutes = () => {
 
           {/* Route targeting deep graphical charts & stats */}
           <Route path="/analytics" element={<Analytics />} />
-
-          {/* Route targeting source channel metrics charts */}
-          <Route path="/source-analytics" element={<SourceAnalytics />} />
 
           {/* Route targeting user account profile configurations */}
           <Route path="/settings" element={<Settings />} />

@@ -335,7 +335,7 @@ const Landing = () => {
           <div className="w-full max-w-lg relative p-4 space-y-4 animate-premium-float">
 
             {/* Widget 1: Revenue stats (frosted glass) */}
-            <div className="absolute top-[-5%] left-[5%] glass-card border border-white/40 dark:border-white/5 rounded-2xl p-4 shadow-xl z-20 w-44 text-left">
+            <div className="hidden sm:block absolute top-[-5%] left-[5%] glass-card border border-white/40 dark:border-white/5 rounded-2xl p-4 shadow-xl z-20 w-44 text-left">
               <span className="text-[9px] font-extrabold uppercase text-slate-400 tracking-wider">Revenue Won</span>
               <p className="text-lg font-black text-success tracking-tight mt-1">₹4,85,200</p>
               <div className="w-full bg-slate-200 dark:bg-white/10 h-1.5 rounded-full overflow-hidden mt-2.5">
@@ -344,7 +344,7 @@ const Landing = () => {
             </div>
 
             {/* Widget 2: Active leads (frosted glass) */}
-            <div className="absolute bottom-[8%] right-[-5%] glass-card border border-white/40 dark:border-white/5 rounded-2xl p-4 shadow-xl z-20 w-48 text-left">
+            <div className="hidden sm:block absolute bottom-[8%] right-[-5%] glass-card border border-white/40 dark:border-white/5 rounded-2xl p-4 shadow-xl z-20 w-48 text-left">
               <div className="flex items-center justify-between text-slate-400">
                 <span className="text-[9px] font-extrabold uppercase tracking-wider">Acquisition Leader</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
@@ -354,7 +354,7 @@ const Landing = () => {
             </div>
 
             {/* Widget 3: Mobile WhatsApp message mock */}
-            <div className="absolute bottom-[-10%] left-[15%] glass-card border border-white/40 dark:border-white/5 rounded-xl p-3 shadow-xl z-20 flex items-center gap-3 w-56 text-left">
+            <div className="hidden sm:block absolute bottom-[-10%] left-[15%] glass-card border border-white/40 dark:border-white/5 rounded-xl p-3 shadow-xl z-20 flex items-center gap-3 w-56 text-left">
               <div className="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center shrink-0">
                 <MessageCircle size={15} className="text-success fill-success" />
               </div>
@@ -497,9 +497,14 @@ const Landing = () => {
               >
                 {/* Connecting Line pointer arrow (only for desktop md screens, omit for last item) */}
                 {idx < 5 && (
-                  <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10 pointer-events-none">
-                    <span className={`text-sm font-black transition-colors duration-500 ${isActive ? 'text-primary' : 'text-slate-300 dark:text-slate-800'}`}>➔</span>
-                  </div>
+                  <>
+                    <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10 pointer-events-none">
+                      <span className={`text-sm font-black transition-colors duration-500 ${isActive ? 'text-primary' : 'text-slate-300 dark:text-slate-800'}`}>➔</span>
+                    </div>
+                    <div className="block md:hidden absolute -bottom-4 left-1/2 transform -translate-x-1/2 z-10 pointer-events-none">
+                      <span className={`text-sm font-black transition-colors duration-500 ${isActive ? 'text-primary' : 'text-slate-300 dark:text-slate-800'}`}>↓</span>
+                    </div>
+                  </>
                 )}
                 <span className={`text-[10px] font-black w-6 h-6 rounded-full flex items-center justify-center mb-3.5 select-none transition-all duration-550 border ${isActive
                   ? 'bg-primary border-primary text-white scale-110 shadow-sm shadow-primary/20'

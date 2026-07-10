@@ -28,7 +28,6 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed = false, toggleCollapse })
     { name: 'Dashboard', subLabel: 'Overview & KPI Metrics', path: '/dashboard', icon: LayoutDashboard },
     { name: 'Leads Management', subLabel: 'Active Opportunities Directory', path: '/leads', icon: Users },
     { name: 'Analytics', subLabel: 'Conversion & Revenue Charts', path: '/analytics', icon: BarChart3 },
-    { name: 'Source Analytics', subLabel: 'Source Channel Charts', path: '/source-analytics', icon: PieChart },
     { name: 'Settings', subLabel: 'User & System Profiles', path: '/settings', icon: SettingsIcon }
   ];
 

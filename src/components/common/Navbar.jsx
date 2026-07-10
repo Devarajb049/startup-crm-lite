@@ -28,8 +28,6 @@ const Navbar = ({ onOpenAddLead, isCollapsed, toggleCollapse }) => {
         return { parent: 'Workspace', active: 'Leads' };
       case '/analytics':
         return { parent: 'Workspace', active: 'Analytics' };
-      case '/source-analytics':
-        return { parent: 'Workspace', active: 'Source Channel Analytics' };
       case '/settings':
         return { parent: 'Workspace', active: 'Settings' };
       default:

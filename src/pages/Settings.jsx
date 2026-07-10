@@ -102,7 +102,7 @@ const Settings = () => {
             <div className="w-full border-t border-border/40 dark:border-border/10 mt-5 pt-4 text-left space-y-3.5">
               <div className="flex items-center gap-2.5 text-xs text-slate-500 dark:text-slate-400">
                 <Shield size={14} className="text-primary shrink-0" />
-                <span className="truncate">Access Level: Superadmin</span>
+                <span className="truncate">Access Level: Admin</span>
               </div>
               <div className="flex items-center gap-2.5 text-xs text-slate-500 dark:text-slate-400">
                 <Mail size={14} className="text-primary shrink-0" />
@@ -171,80 +171,88 @@ const Settings = () => {
               </div>
             </div>
 
-            {/* Password Section */}
-            <div>
-              <h3 className="text-xs font-extrabold text-slate-900 dark:text-white uppercase tracking-wider mb-4 pb-2 border-b border-border/40 dark:border-border/10 flex items-center gap-2">
-                <KeyRound size={14} className="text-primary" />
-                Change Password
-              </h3>
-              
-              <div className="space-y-4">
-                {/* Current Password */}
-                <div className="space-y-1.5">
-                  <label htmlFor="oldPassword" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Current Password
-                  </label>
-                  <div className="relative">
-                    <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 dark:text-slate-500 z-10 pointer-events-none">
-                      <Lock size={15} />
-                    </span>
-                    <input
-                      id="oldPassword"
-                      type="password"
-                      placeholder="Required to set new password"
-                      value={oldPassword}
-                      onChange={(e) => setOldPassword(e.target.value)}
-                      className="block w-full pl-10.5 pr-4 py-3 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden"
-                      autoComplete="current-password"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* New Password */}
+            {!user?.googleId ? (
+              <div>
+                <h3 className="text-xs font-extrabold text-slate-900 dark:text-white uppercase tracking-wider mb-4 pb-2 border-b border-border/40 dark:border-border/10 flex items-center gap-2">
+                  <KeyRound size={14} className="text-primary" />
+                  Change Password
+                </h3>
+                
+                <div className="space-y-4">
+                  {/* Current Password */}
                   <div className="space-y-1.5">
-                    <label htmlFor="newPassword" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      New Password
+                    <label htmlFor="oldPassword" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      Current Password
                     </label>
                     <div className="relative">
                       <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 dark:text-slate-500 z-10 pointer-events-none">
                         <Lock size={15} />
                       </span>
                       <input
-                        id="newPassword"
+                        id="oldPassword"
                         type="password"
-                        placeholder="Minimum 6 characters"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
+                        placeholder="Required to set new password"
+                        value={oldPassword}
+                        onChange={(e) => setOldPassword(e.target.value)}
                         className="block w-full pl-10.5 pr-4 py-3 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden"
-                        autoComplete="new-password"
+                        autoComplete="current-password"
                       />
                     </div>
                   </div>
 
-                  {/* Confirm New Password */}
-                  <div className="space-y-1.5">
-                    <label htmlFor="confirmPassword" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      Confirm New Password
-                    </label>
-                    <div className="relative">
-                      <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 dark:text-slate-500 z-10 pointer-events-none">
-                        <Lock size={15} />
-                      </span>
-                      <input
-                        id="confirmPassword"
-                        type="password"
-                        placeholder="Confirm new password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="block w-full pl-10.5 pr-4 py-3 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden"
-                        autoComplete="new-password"
-                      />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* New Password */}
+                    <div className="space-y-1.5">
+                      <label htmlFor="newPassword" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                        New Password
+                      </label>
+                      <div className="relative">
+                        <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 dark:text-slate-500 z-10 pointer-events-none">
+                          <Lock size={15} />
+                        </span>
+                        <input
+                          id="newPassword"
+                          type="password"
+                          placeholder="Minimum 6 characters"
+                          value={newPassword}
+                          onChange={(e) => setNewPassword(e.target.value)}
+                          className="block w-full pl-10.5 pr-4 py-3 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden"
+                          autoComplete="new-password"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Confirm New Password */}
+                    <div className="space-y-1.5">
+                      <label htmlFor="confirmPassword" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                        Confirm New Password
+                      </label>
+                      <div className="relative">
+                        <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 dark:text-slate-500 z-10 pointer-events-none">
+                          <Lock size={15} />
+                        </span>
+                        <input
+                          id="confirmPassword"
+                          type="password"
+                          placeholder="Confirm new password"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          className="block w-full pl-10.5 pr-4 py-3 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden"
+                          autoComplete="new-password"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="p-4 bg-primary/10 border border-primary/20 dark:border-primary/10 rounded-2xl flex items-center gap-3">
+                <Shield size={16} className="text-primary shrink-0 animate-pulse" />
+                <span className="text-[11px] font-semibold text-slate-650 dark:text-slate-350">
+                  Your account is authenticated via Google. Password settings are managed directly by Google.
+                </span>
+              </div>
+            )}
 
             {/* Form Footer Action */}
             <div className="flex justify-end pt-4 border-t border-border/40 dark:border-border/10 shrink-0">
