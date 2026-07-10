@@ -313,7 +313,7 @@ const Login = () => {
               <div className="w-full border-t border-border/40 dark:border-border/10"></div>
             </div>
             <div className="relative flex justify-center text-[9px] font-extrabold uppercase tracking-wider">
-              <span className="px-3 bg-card/90 dark:bg-card/90 text-slate-450 dark:text-slate-500">or continue with</span>
+              <span className="px-3 bg-card/90 dark:bg-card/90 text-slate-500 dark:text-slate-500">or continue with</span>
             </div>
           </div>
 
@@ -323,7 +323,7 @@ const Login = () => {
               type="button"
               onClick={handleGoogleSignIn}
               disabled={isLoading}
-              className="w-full py-2.5 border border-border/80 dark:border-border/10 rounded-xl text-[10px] font-bold bg-surface dark:bg-card hover:bg-hover active:scale-97 transition-all cursor-pointer text-slate-805 dark:text-white flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none"
+              className="w-full py-2.5 border border-border/80 dark:border-border/30 rounded-xl text-[10px] font-bold bg-surface dark:bg-card hover:bg-hover dark:hover:bg-hover active:scale-97 transition-all cursor-pointer text-slate-700 dark:text-slate-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none"
             >
               {isLoading ? (
                 <div className="w-3.5 h-3.5 border-2 border-slate-500 border-t-transparent rounded-full animate-spin"></div>
