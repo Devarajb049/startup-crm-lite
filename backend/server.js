@@ -118,7 +118,10 @@ app.use(
         return callback(null, true);
       }
 
-      if (allowedOrigins.includes(origin)) {
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.vercel.app')
+      ) {
         return callback(null, true);
       }
 

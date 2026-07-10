@@ -133,7 +133,12 @@ export const LeadProvider = ({ children }) => {
 
       return newLead;
     } catch (error) {
-      const errorMsg = error.response?.data?.message || 'Failed to create lead';
+      let errorMsg = 'Failed to create lead';
+      if (error.response?.data?.errors && Array.isArray(error.response.data.errors)) {
+        errorMsg = error.response.data.errors.map((err) => err.message).join(', ');
+      } else if (error.response?.data?.message) {
+        errorMsg = error.response.data.message;
+      }
       toast.error(errorMsg);
       throw error;
     } finally {
@@ -193,7 +198,12 @@ export const LeadProvider = ({ children }) => {
 
       return updated;
     } catch (error) {
-      const errorMsg = error.response?.data?.message || 'Failed to update lead';
+      let errorMsg = 'Failed to update lead';
+      if (error.response?.data?.errors && Array.isArray(error.response.data.errors)) {
+        errorMsg = error.response.data.errors.map((err) => err.message).join(', ');
+      } else if (error.response?.data?.message) {
+        errorMsg = error.response.data.message;
+      }
       toast.error(errorMsg);
       throw error;
     } finally {

@@ -36,15 +36,15 @@ const leadValidation = [
     .withMessage('Please enter a valid email address')
     .normalizeEmail(),
   body('status')
-    .optional()
+    .optional({ checkFalsy: true })
     .isIn(['New', 'Contacted', 'Qualified', 'Meeting Scheduled', 'Proposal Sent', 'Negotiation', 'Won', 'Lost'])
     .withMessage('Invalid lead status'),
   body('source')
-    .optional()
+    .optional({ checkFalsy: true })
     .isIn(['Website', 'Referral', 'LinkedIn', 'Cold Call', 'Email Campaign', 'Facebook', 'Instagram', 'Google Ads', 'Other'])
     .withMessage('Invalid lead source'),
   body('value')
-    .optional()
+    .optional({ checkFalsy: true })
     .isNumeric()
     .withMessage('Estimated value must be a number'),
 ];
