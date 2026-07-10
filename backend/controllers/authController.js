@@ -1,6 +1,9 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
+import Otp from '../models/Otp.js';
 import { successResponse, errorResponse } from '../utils/apiResponse.js';
+import { sendOtpEmail } from '../utils/email.js';
 
 /**
  * Helper function to generate a JSON Web Token (JWT) for a user.
@@ -16,16 +19,9 @@ export const generateToken = (userId) => {
 
 /**
  * Register a new user account.
- * Checks for existing emails, creates user document, generates authentication JWT,
- * and returns success code 201 with signed payload (excluding password).
+ * Validates email availability, generates a 6-digit OTP, sends it via Gmail SMTP,
+ * and stores pending details in the Otp collection without creating the active User.
  * 
- * PRODUCTION NOTE:
- * In a production environment, you should add `express-rate-limit` middleware
- * to this endpoint to prevent denial-of-service (DoS) or automated registration spam.
- * Example registration rate limiter:
- *   const registerLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 5 });
- *   router.post('/register', registerLimiter, ...);
- *
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
@@ -40,21 +36,42 @@ export const register = async (req, res, next) => {
       return errorResponse(res, 'Email already exists', 409);
     }
 
-    // Create user
-    const user = await User.create({
-      name,
-      email,
-      password,
-    });
+    // Generate 6-digit OTP
+    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiryMinutes = parseInt(process.env.OTP_EXPIRY_MINUTES) || 5;
+    const otpExpires = new Date(Date.now() + expiryMinutes * 60 * 1000);
 
-    // Generate token
-    const token = generateToken(user._id);
+    // Hash OTP & Password
+    const salt = await bcrypt.genSalt(10);
+    const hashedOtp = await bcrypt.hash(otpCode, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Upsert the OTP document
+    await Otp.findOneAndUpdate(
+      { email, purpose: 'register' },
+      {
+        otp: hashedOtp,
+        otpExpires,
+        attempts: 0,
+        registrationData: { name, password: hashedPassword },
+        lastResendTime: new Date(),
+      },
+      { upsert: true, new: true }
+    );
+
+    // Send email
+    try {
+      await sendOtpEmail(email, otpCode, 'register', name);
+    } catch (err) {
+      console.error('Failed to send OTP email:', err);
+      return errorResponse(res, 'Failed to send verification email. Please check your email credentials.', 500);
+    }
 
     return successResponse(
       res,
-      { token, user },
-      'Registration successful',
-      201
+      { email },
+      'Verification code sent successfully. Please check your inbox.',
+      200
     );
   } catch (error) {
     next(error);
