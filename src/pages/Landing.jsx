@@ -884,7 +884,7 @@ const Landing = () => {
               <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
                 <Phone size={14} />
               </div>
-              <span>+91 73961 06066</span>
+              <span>+91 9876543210</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
