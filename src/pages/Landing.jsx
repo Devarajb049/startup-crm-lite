@@ -58,7 +58,7 @@ const Landing = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveWorkflowStep((prev) => (prev + 1) % 6);
+      setActiveWorkflowStep((prev) => (prev + 1) % 7);
     }, 1800);
     return () => clearInterval(interval);
   }, []);
@@ -117,24 +117,21 @@ const Landing = () => {
     }
   };
 
-  // Feature cards data (16 cards)
+  // Core CRM modules data (13 modules)
   const features = [
-    { icon: Users, title: 'Lead Management', desc: 'Capture, qualify, and track your opportunities dynamically.' },
-    { icon: Globe, title: 'Contact Management', desc: 'Store rich stakeholder and customer contact directories.' },
-    { icon: Layers, title: 'Customer Database', desc: 'Centralize history, interactions, and details of clients.' },
-    { icon: TrendingUp, title: 'Sales Pipeline', desc: 'Visualize deal flow progress through structured stages.' },
-    { icon: MessageSquare, title: 'WhatsApp CRM', desc: 'Initiate and manage chats directly linked with lead details.' },
-    { icon: Mail, title: 'Email Integration', desc: 'Sync emails to monitor and log communications history.' },
-    { icon: Users, title: 'Team Collaboration', desc: 'Coordinate ownership, notes, and task logs with colleagues.' },
-    { icon: Calendar, title: 'Task Management', desc: 'Log tasks, set due dates, and keep workflow execution on track.' },
-    { icon: Calendar, title: 'Calendar Sync', desc: 'Schedule appointments and structure follow-up timelines.' },
-    { icon: BarChart3, title: 'Attribution Reports', desc: 'Evaluate monthly statistics, pipeline metrics, and conversion rates.' },
-    { icon: BarChart3, title: 'Deep Analytics', desc: 'Visualize sales velocity, funnel statistics, and monthly revenue.' },
-    { icon: Target, title: 'Source Tracking', desc: 'Map client acquisition channel performance to focus budget.' },
-    { icon: FileSpreadsheet, title: 'CSV Exports', desc: 'Download filtered opportunities lists locally with one click.' },
-    { icon: Bell, title: 'Local Notifications', desc: 'Monitor status change alerts and team alerts.' },
-    { icon: FolderLock, title: 'Role Isolation', desc: 'Secure database views by partitioning user workspaces.' },
-    { icon: Shield, title: 'Secure Authentication', desc: 'Ensure data security with encrypted JWT authentication sessions.' }
+    { icon: BarChart3,      title: 'KPI Dashboard',           desc: 'Real-time overview of leads, revenue, win rates, and team activity in one place.' },
+    { icon: Users,          title: 'Lead Management',          desc: 'Capture, qualify, assign, and track every sales opportunity through the pipeline.' },
+    { icon: Globe,          title: 'Contact Management',       desc: 'Maintain a rich, searchable directory of prospects, customers, and stakeholders.' },
+    { icon: Layers,         title: 'Customer Database',        desc: 'Centralize interaction history, deal values, and relationship context per client.' },
+    { icon: TrendingUp,     title: 'Sales Pipeline',           desc: 'Visualize deal progression across stages with real-time funnel conversion metrics.' },
+    { icon: MessageSquare,  title: 'WhatsApp CRM',             desc: 'Initiate WhatsApp conversations directly from a lead record with one click.' },
+    { icon: Target,         title: 'Source Channel Analytics', desc: 'Measure which acquisition channels — Ads, Referral, Website — drive the most ROI.' },
+    { icon: BarChart3,      title: 'Reports & Analytics',      desc: 'Deep pipeline reports, monthly revenue trends, and conversion velocity analytics.' },
+    { icon: Users,          title: 'Team Management',          desc: 'Assign leads by owner, coordinate follow-ups, and track team performance metrics.' },
+    { icon: Calendar,       title: 'Task Management',          desc: 'Create tasks, set deadlines, and ensure no follow-up or meeting gets missed.' },
+    { icon: FileSpreadsheet,title: 'CSV Export',               desc: 'Export filtered lead lists to CSV in one click for offline reporting or migration.' },
+    { icon: FolderLock,     title: 'Role-Based Access',        desc: 'Restrict data views by user role to maintain security and workspace isolation.' },
+    { icon: Shield,         title: 'Secure Authentication',    desc: 'JWT-secured sessions with encrypted credentials and automatic session management.' },
   ];
 
   return (
@@ -263,15 +260,15 @@ const Landing = () => {
         <div className="lg:w-1/2 space-y-6 text-left">
           <div className="inline-flex items-center gap-2 px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-primary bg-primary/10 border border-primary/20 rounded-full select-none">
             <Zap size={10} className="fill-primary" />
-            <span>Introducing AURA CRM 2.0</span>
+            <span>The CRM Built for Modern Sales Teams</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-905 dark:text-white leading-none tracking-tight">
-            Manage Your Business Smarter with <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-300">AURA CRM</span>
+            Close More Deals.<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-300">Grow Faster.</span>
           </h1>
 
           <p className="text-sm sm:text-base text-slate-550 dark:text-slate-400 leading-relaxed max-w-xl">
-            A complete CRM platform to manage leads, customers, sales, analytics, WhatsApp conversations, and business growth from one modern dashboard.
+            AURA CRM is a full-featured customer relationship management platform — manage leads, contacts, sales pipelines, WhatsApp conversations, and revenue analytics from one powerful workspace.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -301,7 +298,7 @@ const Landing = () => {
               className="px-5 py-3 text-xs font-bold rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 cursor-pointer"
             >
               <Play size={14} className="fill-slate-500" />
-              <span>Watch Live Demo</span>
+              <span>Request Demo</span>
             </button>
           </div>
 
@@ -309,29 +306,29 @@ const Landing = () => {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-6 text-[11px] font-bold text-slate-500 dark:text-slate-450 uppercase tracking-wide border-t border-border/40 dark:border-border/10 select-none">
             <div className="flex items-center gap-1.5">
               <Check size={14} className="text-success" />
-              <span>✓ Secure Session</span>
+              <span>JWT Secured</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Check size={14} className="text-success" />
-              <span>✓ Cloud Based</span>
+              <span>Cloud Hosted</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Check size={14} className="text-success" />
-              <span>✓ Real-time Stats</span>
+              <span>Real-time Data</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Check size={14} className="text-success" />
-              <span>✓ Owner Isolation</span>
+              <span>99.9% Uptime</span>
             </div>
           </div>
         </div>
 
-        {/* RHS: Clean Dashboard Preview Card */}
+        {/* RHS: Dashboard Preview Card */}
         <div className="lg:w-1/2 mt-12 lg:mt-0 relative flex items-center justify-center select-none">
           {/* Soft glow behind card */}
           <div className="absolute w-[70%] h-[70%] rounded-full bg-blue-500/10 dark:bg-blue-550/15 blur-3xl -z-10" />
 
-          {/* Single Clean Dashboard Card */}
+          {/* Dashboard Preview Card */}
           <div className="w-full max-w-lg glass-card border border-border/40 dark:border-border/10 rounded-2xl shadow-2xl text-left bg-white/80 dark:bg-card/80 overflow-hidden">
 
             {/* Window title bar */}
@@ -341,7 +338,7 @@ const Landing = () => {
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
                 <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
               </div>
-              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-mono">AURA CRM — Workspace Dashboard</span>
+              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-mono">AURA CRM — Live Dashboard</span>
               <span className="w-2 h-2 rounded-full bg-success" />
             </div>
 
@@ -376,10 +373,10 @@ const Landing = () => {
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <div>
-                    <h3 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Active Funnel Conversion</h3>
-                    <p className="text-[10px] text-slate-450 dark:text-slate-500">Pipeline progression analytics</p>
+                    <h3 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Sales Pipeline Funnel</h3>
+                    <p className="text-[10px] text-slate-450 dark:text-slate-500">Live conversion stages</p>
                   </div>
-                  <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-lg border border-primary/15">+14.2%</span>
+                  <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-lg border border-primary/15">+14.2% MoM</span>
                 </div>
                 <div className="space-y-2.5">
                   {[
@@ -400,7 +397,7 @@ const Landing = () => {
                 </div>
               </div>
 
-              {/* Bottom row: Source leader + recent activity */}
+              {/* Bottom row: Source leader + WhatsApp activity */}
               <div className="grid grid-cols-2 gap-3 pt-1">
                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-border/30 dark:border-white/5">
                   <div className="flex items-center justify-between mb-1">
@@ -408,7 +405,7 @@ const Landing = () => {
                     <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                   </div>
                   <p className="text-xs font-extrabold text-slate-900 dark:text-white">LinkedIn Ads</p>
-                  <p className="text-[10px] text-slate-450 dark:text-slate-500 mt-0.5">Efficiency: <span className="text-accent font-bold">87%</span></p>
+                  <p className="text-[10px] text-slate-450 dark:text-slate-500 mt-0.5">ROI: <span className="text-accent font-bold">87%</span></p>
                 </div>
                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-border/30 dark:border-white/5 flex items-start gap-2">
                   <div className="w-6 h-6 rounded-full bg-success/10 flex items-center justify-center shrink-0 mt-0.5">
@@ -427,27 +424,27 @@ const Landing = () => {
       </section >
 
       {/* 3. TRUSTED BY SECTION */}
-      < section className="bg-bg/40 dark:bg-surface/20 border-y border-border/40 dark:border-border/10 py-10 select-none" >
+      <section className="bg-bg/40 dark:bg-surface/20 border-y border-border/40 dark:border-border/10 py-10 select-none" >
         <div className="max-w-[1400px] mx-auto px-4 text-center">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-6">Trusted by High-Performance Teams globally</p>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-6">Trusted by Sales Teams at Fast-Growing Companies</p>
           <div className="flex flex-wrap items-center justify-center gap-10 sm:gap-16 text-sm font-black text-slate-400 dark:text-slate-650 tracking-widest uppercase">
-            <span>Startup Teams</span>
+            <span>Startups</span>
             <span>Agencies</span>
             <span>SaaS Companies</span>
-            <span>Small Businesses</span>
+            <span>E-Commerce</span>
             <span>Enterprises</span>
           </div>
         </div>
       </section >
 
-      {/* 4. FEATURES SECTION */}
-      < section id="features" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20" >
+      {/* 4. FEATURES / CORE CRM MODULES SECTION */}
+      <section id="features" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20" >
         <div className="text-center max-w-2xl mx-auto mb-14">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
-            Comprehensive CRM Feature Suite
+            Core CRM Modules
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2.5">
-            Everything your business needs to register opportunity leads, manage relationships, and track conversion KPIs.
+            Every tool your sales team needs — from lead capture to revenue analytics — in one unified platform.
           </p>
         </div>
 
@@ -473,25 +470,26 @@ const Landing = () => {
       </section >
 
       {/* 5. WORKFLOW SECTION */}
-      < section id="workflow" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
+      <section id="workflow" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
         <div className="text-center max-w-2xl mx-auto mb-14">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
-            How AURA CRM Drives Growth
+            Your CRM Workflow, Automated
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2.5">
-            Streamline your customer acquisition pipelines with our high-velocity workflow lifecycle.
+            From the first lead touch to customer conversion — AURA CRM manages every step of your sales process.
           </p>
         </div>
 
         {/* Workflow steps grid */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-5 relative select-none">
+        <div className="grid grid-cols-1 md:grid-cols-7 gap-5 relative select-none">
           {[
-            { step: '1', title: 'Capture Leads', desc: 'Acquire leads via Web, Referrals, Ads, or Socials.' },
-            { step: '2', title: 'Assign Owner', desc: 'Secure workspace access with automated ownership logs.' },
-            { step: '3', title: 'Follow Up', desc: 'Initiate WhatsApp and email touchpoints cleanly.' },
-            { step: '4', title: 'Convert Deal', desc: 'Track meetings, proposals, and close deals successfully.' },
-            { step: '5', title: 'Analyze Flow', desc: 'Review conversion charts and monthly trends.' },
-            { step: '6', title: 'Scale Business', desc: 'Attribute budgets to high-performance channels.' }
+            { step: '1', title: 'Lead Capture',        desc: 'Collect leads from Web, Ads, Referrals, WhatsApp, or manual entry.' },
+            { step: '2', title: 'Lead Qualification',  desc: 'Score and qualify leads by value, source, and conversion potential.' },
+            { step: '3', title: 'Team Assignment',     desc: 'Assign qualified leads to the right sales rep automatically.' },
+            { step: '4', title: 'Follow-up Mgmt',      desc: 'Schedule and log calls, messages, and meetings with every lead.' },
+            { step: '5', title: 'Sales Pipeline',      desc: 'Track deal stages: New → Contacted → Proposal → Negotiation.' },
+            { step: '6', title: 'Conversion',          desc: 'Mark deals as Won or Lost and update your revenue dashboard.' },
+            { step: '7', title: 'Analytics',           desc: 'Analyze performance, source ROI, and team productivity reports.' },
           ].map((item, idx) => {
             const isActive = activeWorkflowStep === idx;
             return (
@@ -502,8 +500,8 @@ const Landing = () => {
                   : 'border-border/40 dark:border-border/10 bg-surface/50 dark:bg-surface/5 opacity-75'
                   }`}
               >
-                {/* Connecting Line pointer arrow (only for desktop md screens, omit for last item) */}
-                {idx < 5 && (
+                {/* Connecting arrow (only for desktop, omit for last item) */}
+                {idx < 6 && (
                   <>
                     <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10 pointer-events-none">
                       <span className={`text-sm font-black transition-colors duration-500 ${isActive ? 'text-primary' : 'text-slate-300 dark:text-slate-800'}`}>➔</span>
@@ -528,19 +526,19 @@ const Landing = () => {
       </section >
 
       {/* 6. SHOWCASE SECTION */}
-      < section id="showcase" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
+      <section id="showcase" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
         <div className="text-center max-w-2xl mx-auto mb-10">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
-            Explore the CRM Workspace
+            Explore the AURA CRM Workspace
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2.5">
-            Preview the premium, frosted glass interface options before committing.
+            Tour each module of the platform before you sign up — no commitment required.
           </p>
         </div>
 
         {/* Showcase Tabs */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-          {['Dashboard', 'Leads Directory', 'Analytics Engine', 'Source Channel Analytics', 'System Settings'].map((tab) => (
+          {['Dashboard', 'Lead Management', 'Customer Management', 'WhatsApp Chat', 'Analytics', 'System Settings'].map((tab) => (
             <button
               key={tab}
               onClick={() => setShowcaseTab(tab)}
@@ -557,7 +555,7 @@ const Landing = () => {
         {/* Tab Preview Box */}
         <div className="w-full glass-card border border-border/40 dark:border-border/10 rounded-3xl p-6 shadow-2xl relative overflow-hidden bg-surface/50 dark:bg-slate-900/40 text-left min-h-[320px] flex flex-col justify-between">
           <div className="flex items-center justify-between border-b border-border/20 dark:border-border/10 pb-4 mb-4 select-none">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Active Screen: {showcaseTab}</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Module Preview: {showcaseTab}</span>
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-slate-200 dark:bg-white/10" />
               <span className="w-2.5 h-2.5 rounded-full bg-slate-200 dark:bg-white/10" />
@@ -566,71 +564,96 @@ const Landing = () => {
 
           {showcaseTab === 'Dashboard' && (
             <div className="space-y-4 flex-1 flex flex-col justify-between">
-              <h3 className="text-base font-extrabold text-slate-900 dark:text-white">Workspace Overview KPI Dashboard</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Presents total leads, conversion funnels, monthly revenue, and responsive quick action controls. Integrates automatic calculations from the active CRM database.</p>
+              <h3 className="text-base font-extrabold text-slate-900 dark:text-white">Main KPI Dashboard</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Get a real-time overview of your entire CRM — active leads, revenue won, win rates, unread alerts, team tasks, and WhatsApp activity — all on one screen.</p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-2">
                 <div className="p-4 bg-bg/80 dark:bg-surface/30 border border-border/40 dark:border-border/10 rounded-xl">
                   <span className="text-[9px] font-bold text-slate-400 block mb-1">Active Leads</span>
                   <span className="text-lg font-black text-slate-900 dark:text-white">128</span>
                 </div>
                 <div className="p-4 bg-bg/80 dark:bg-surface/30 border border-border/40 dark:border-border/10 rounded-xl">
-                  <span className="text-[9px] font-bold text-slate-400 block mb-1">Win Rate %</span>
+                  <span className="text-[9px] font-bold text-slate-400 block mb-1">Win Rate</span>
                   <span className="text-lg font-black text-slate-900 dark:text-white">32.4%</span>
                 </div>
                 <div className="p-4 bg-bg/80 dark:bg-surface/30 border border-border/40 dark:border-border/10 rounded-xl">
-                  <span className="text-[9px] font-bold text-slate-400 block mb-1">Unread Alerts</span>
-                  <span className="text-lg font-black text-slate-900 dark:text-white">4</span>
+                  <span className="text-[9px] font-bold text-slate-400 block mb-1">Revenue Won</span>
+                  <span className="text-lg font-black text-success">₹4.85L</span>
                 </div>
                 <div className="p-4 bg-bg/80 dark:bg-surface/30 border border-border/40 dark:border-border/10 rounded-xl">
-                  <span className="text-[9px] font-bold text-slate-400 block mb-1">Currency Setting</span>
-                  <span className="text-lg font-black text-slate-900 dark:text-white">INR (₹)</span>
+                  <span className="text-[9px] font-bold text-slate-400 block mb-1">Open Tasks</span>
+                  <span className="text-lg font-black text-slate-900 dark:text-white">14</span>
                 </div>
               </div>
             </div>
           )}
 
-          {showcaseTab === 'Leads Directory' && (
+          {showcaseTab === 'Lead Management' && (
             <div className="space-y-4 flex-1 flex flex-col justify-between">
               <h3 className="text-base font-extrabold text-slate-900 dark:text-white">Lead Management Control Center</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Renders lead lists in a clean table or card grid. Supports fast searching, status categories filtering, single-click additions, inline updates, and raw CSV exports.</p>
-              <div className="p-4 bg-bg/80 dark:bg-surface/30 border border-border/40 dark:border-border/10 rounded-xl flex items-center justify-between text-xs mt-2">
-                <span className="font-semibold text-slate-900 dark:text-white">Actions Available:</span>
-                <div className="flex gap-2">
-                  <span className="px-2 py-1 bg-primary/10 text-primary border border-primary/20 rounded-md font-bold text-[10px]">Add New Lead</span>
-                  <span className="px-2 py-1 bg-surface/50 text-body border border-border dark:border-border/10 rounded-md font-bold text-[10px]">Download CSV</span>
-                  <span className="px-2 py-1 bg-surface/50 text-body border border-border dark:border-border/10 rounded-md font-bold text-[10px]">Inline Edit</span>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Add, search, filter, and update leads in a clean table or card grid. Assign owners, set statuses, log notes, initiate WhatsApp chats, and export to CSV — all in one view.</p>
+              <div className="p-4 bg-bg/80 dark:bg-surface/30 border border-border/40 dark:border-border/10 rounded-xl flex flex-wrap items-center gap-2 text-xs mt-2">
+                <span className="font-semibold text-slate-900 dark:text-white">Quick Actions:</span>
+                <span className="px-2 py-1 bg-primary/10 text-primary border border-primary/20 rounded-md font-bold text-[10px]">+ Add Lead</span>
+                <span className="px-2 py-1 bg-surface/50 text-body border border-border dark:border-border/10 rounded-md font-bold text-[10px]">Download CSV</span>
+                <span className="px-2 py-1 bg-surface/50 text-body border border-border dark:border-border/10 rounded-md font-bold text-[10px]">Filter by Status</span>
+                <span className="px-2 py-1 bg-surface/50 text-body border border-border dark:border-border/10 rounded-md font-bold text-[10px]">WhatsApp Chat</span>
+              </div>
+            </div>
+          )}
+
+          {showcaseTab === 'Customer Management' && (
+            <div className="space-y-4 flex-1 flex flex-col justify-between">
+              <h3 className="text-base font-extrabold text-slate-900 dark:text-white">Customer & Contact Database</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Maintain a rich customer directory with full contact details, deal history, source attribution, and interaction logs. Segment by industry, status, or value to target the right accounts.</p>
+              <div className="grid grid-cols-3 gap-3 text-[10px] mt-2">
+                <div className="p-3 bg-bg/85 dark:bg-surface/20 border border-border/30 dark:border-border/10 rounded-xl">
+                  <span className="block text-slate-400">Total Contacts</span>
+                  <span className="font-bold text-slate-900 dark:text-white mt-1 block">1,248</span>
+                </div>
+                <div className="p-3 bg-bg/85 dark:bg-surface/20 border border-border/30 dark:border-border/10 rounded-xl">
+                  <span className="block text-slate-400">Active Customers</span>
+                  <span className="font-bold text-slate-900 dark:text-white mt-1 block">342</span>
+                </div>
+                <div className="p-3 bg-bg/85 dark:bg-surface/20 border border-border/30 dark:border-border/10 rounded-xl">
+                  <span className="block text-slate-400">Avg. Deal Value</span>
+                  <span className="font-bold text-slate-900 dark:text-white mt-1 block">₹15,200</span>
                 </div>
               </div>
             </div>
           )}
 
-          {showcaseTab === 'Analytics Engine' && (
+          {showcaseTab === 'WhatsApp Chat' && (
             <div className="space-y-4 flex-1 flex flex-col justify-between">
-              <h3 className="text-base font-extrabold text-slate-900 dark:text-white">Visual Performance & Pipeline Analytics</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Deep graphic dashboards featuring pipeline funnels, monthly conversion stats, revenue projections, sales velocity trackers, and customer response trends.</p>
-              <div className="w-full bg-primary/10 border border-primary/15 p-3.5 rounded-xl text-primary font-bold text-[11px] flex items-center gap-2">
-                <TrendingUp size={14} />
-                <span>Renders rich interactive SVG graphs using Recharts with absolute theme mappings.</span>
+              <h3 className="text-base font-extrabold text-slate-900 dark:text-white">WhatsApp CRM Integration</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Click any lead's phone number to launch a pre-filled WhatsApp conversation. Log chat outcomes directly on the lead record and track response timelines in the activity feed.</p>
+              <div className="p-4 bg-bg/80 dark:bg-surface/30 border border-border/40 dark:border-border/10 rounded-xl flex items-center gap-3 text-xs mt-2">
+                <div className="w-8 h-8 rounded-full bg-success/10 border border-success/20 text-success flex items-center justify-center shrink-0">
+                  <MessageCircle size={14} />
+                </div>
+                <div>
+                  <p className="font-bold text-slate-900 dark:text-white text-[11px]">One-click WhatsApp from any lead</p>
+                  <p className="text-[10px] text-slate-500 mt-0.5">Links contact numbers to wa.me for instant outreach.</p>
+                </div>
               </div>
             </div>
           )}
 
-          {showcaseTab === 'Source Channel Analytics' && (
+          {showcaseTab === 'Analytics' && (
             <div className="space-y-4 flex-1 flex flex-col justify-between">
-              <h3 className="text-base font-extrabold text-slate-900 dark:text-white">Attribution Tracking & Marketing Analytics</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Evaluates performance, conversions, and growth metrics for acquisition channels including Website, WhatsApp, Ads, Referrals, and Organic Search points.</p>
+              <h3 className="text-base font-extrabold text-slate-900 dark:text-white">Reports & Business Analytics</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Deep analytics dashboards with pipeline funnels, monthly revenue trends, source channel ROI, conversion rate breakdowns, and team performance reports rendered with interactive charts.</p>
               <div className="grid grid-cols-3 gap-3 text-[10px] mt-2">
                 <div className="p-3 bg-bg/85 dark:bg-surface/20 border border-border/30 dark:border-border/10 rounded-xl">
-                  <span className="block text-slate-400">Attribution Champion</span>
+                  <span className="block text-slate-400">Top Channel</span>
                   <span className="font-bold text-slate-900 dark:text-white mt-1 block">LinkedIn Ads</span>
                 </div>
                 <div className="p-3 bg-bg/85 dark:bg-surface/20 border border-border/30 dark:border-border/10 rounded-xl">
-                  <span className="block text-slate-400">Conversion Efficiency</span>
-                  <span className="font-bold text-slate-900 dark:text-white mt-1 block">Website (12.4%)</span>
+                  <span className="block text-slate-400">Conversion Rate</span>
+                  <span className="font-bold text-success mt-1 block">12.4%</span>
                 </div>
                 <div className="p-3 bg-bg/85 dark:bg-surface/20 border border-border/30 dark:border-border/10 rounded-xl">
-                  <span className="block text-slate-400">MoM Growth Leader</span>
-                  <span className="font-bold text-slate-900 dark:text-white mt-1 block">WhatsApp (+24%)</span>
+                  <span className="block text-slate-400">MoM Growth</span>
+                  <span className="font-bold text-primary mt-1 block">+24%</span>
                 </div>
               </div>
             </div>
@@ -638,10 +661,10 @@ const Landing = () => {
 
           {showcaseTab === 'System Settings' && (
             <div className="space-y-4 flex-1 flex flex-col justify-between">
-              <h3 className="text-base font-extrabold text-slate-900 dark:text-white">Profile & Workspace Settings Desk</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Manage user profiles, edit details, adjust preferred currencies, and delete demo database states safely with modal guards.</p>
+              <h3 className="text-base font-extrabold text-slate-900 dark:text-white">Profile & Workspace Settings</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Manage your profile, update business details, configure preferred currency, set notification preferences, and control workspace data — all protected by confirmation modals.</p>
               <div className="p-4 bg-bg/80 dark:bg-surface/30 border border-border/40 dark:border-border/10 rounded-xl flex items-center justify-between text-xs mt-2">
-                <span className="font-semibold">Selected Currency:</span>
+                <span className="font-semibold">Active Currency:</span>
                 <span className="font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-lg border border-primary/25">INR (₹)</span>
               </div>
             </div>
@@ -650,27 +673,27 @@ const Landing = () => {
         </div>
       </section >
 
-      {/* 7. WHY CHOOSE SECTION */}
-      < section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
+      {/* 7. BUSINESS INSIGHTS / WHY CHOOSE SECTION */}
+      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
         <div className="text-center max-w-2xl mx-auto mb-14">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
-            Why Choose AURA CRM
+            Why Sales Teams Choose AURA CRM
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2.5">
-            Designed for high performance, ease of use, and visual distinction.
+            Built for speed, built for scale — everything a modern sales team needs to close more deals.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { title: 'Faster Lead Capture', desc: 'Add new records with our streamlined inputs form in under 10 seconds.' },
-            { title: 'Automated Follow-ups', desc: 'Sync acquisition channels to build client communication maps.' },
-            { title: 'Better Relationships', desc: 'Keep rich logs of client conversations, history records, and values.' },
-            { title: 'Real-time Reporting', desc: 'Aggregate data on the fly, calculating conversion metrics instantly.' },
-            { title: 'Team Collaboration', desc: 'Partition ownership cleanly while coordinating pipeline tasks.' },
-            { title: 'Secure Cloud Storage', desc: 'Hosted on enterprise servers with isolated user workspaces.' },
-            { title: 'Mobile Friendly', desc: 'Fully responsive views that fit mobile screens perfectly.' },
-            { title: 'Zero Setup Needed', desc: 'Access your database instantly from any browser in the network.' }
+            { title: 'Faster Lead Management',    desc: 'Add and qualify new leads in under 10 seconds with our streamlined input forms.' },
+            { title: 'Centralized Customer Data', desc: 'Every contact, deal, note, and conversation in one searchable workspace.' },
+            { title: 'Automated Follow-ups',      desc: 'Never miss a follow-up — schedule tasks, log calls, and set reminders per lead.' },
+            { title: 'Secure Authentication',     desc: 'JWT-based sessions with encrypted credentials and per-user workspace isolation.' },
+            { title: 'Team Collaboration',        desc: 'Assign leads, share notes, and coordinate pipeline tasks across your sales team.' },
+            { title: 'Mobile Responsive',         desc: 'Fully responsive UI — access your CRM from any device, anywhere, anytime.' },
+            { title: 'Powerful Analytics',        desc: 'Real-time reports on pipeline health, revenue, source ROI, and team activity.' },
+            { title: 'Enterprise Performance',    desc: '99.9% uptime, cloud-hosted infrastructure, and sub-second page load times.' },
           ].map((item, idx) => (
             <div key={idx} className="p-5 glass-card border border-border/40 dark:border-border/10 rounded-2xl text-left bg-surface/40 dark:bg-card/30 flex items-start gap-4">
               <span className="w-5 h-5 rounded-full bg-success/10 border border-success/20 text-success flex items-center justify-center shrink-0 mt-0.5 select-none font-bold text-[10px]">✓</span>
@@ -684,47 +707,69 @@ const Landing = () => {
       </section >
 
       {/* 8. STATISTICS SECTION */}
-      < section className="bg-gradient-to-r from-primary via-indigo-650 to-purple-650 text-white py-14 select-none" >
-        <div className="max-w-[1400px] mx-auto px-4 grid grid-cols-2 lg:grid-cols-5 gap-8 text-center">
-          <div>
-            <span className="text-2xl sm:text-3xl font-black block">10,000+</span>
-            <span className="text-[9px] font-bold uppercase tracking-wider text-white/70 block mt-1.5">Leads Managed</span>
-          </div>
+      <section className="bg-gradient-to-r from-primary via-indigo-650 to-purple-650 text-white py-14 select-none" >
+        <div className="max-w-[1400px] mx-auto px-4 grid grid-cols-2 lg:grid-cols-6 gap-8 text-center">
           <div>
             <span className="text-2xl sm:text-3xl font-black block">500+</span>
             <span className="text-[9px] font-bold uppercase tracking-wider text-white/70 block mt-1.5">Active Businesses</span>
           </div>
           <div>
-            <span className="text-2xl sm:text-3xl font-black block">1 Million+</span>
+            <span className="text-2xl sm:text-3xl font-black block">10,000+</span>
+            <span className="text-[9px] font-bold uppercase tracking-wider text-white/70 block mt-1.5">Leads Managed</span>
+          </div>
+          <div>
+            <span className="text-2xl sm:text-3xl font-black block">1M+</span>
             <span className="text-[9px] font-bold uppercase tracking-wider text-white/70 block mt-1.5">Messages Processed</span>
           </div>
           <div>
-            <span className="text-2xl sm:text-3xl font-black block">99.9%</span>
-            <span className="text-[9px] font-bold uppercase tracking-wider text-white/70 block mt-1.5">Server Uptime</span>
+            <span className="text-2xl sm:text-3xl font-black block">32.4%</span>
+            <span className="text-[9px] font-bold uppercase tracking-wider text-white/70 block mt-1.5">Avg. Conversion Rate</span>
+          </div>
+          <div>
+            <span className="text-2xl sm:text-3xl font-black block">98%</span>
+            <span className="text-[9px] font-bold uppercase tracking-wider text-white/70 block mt-1.5">Customer Satisfaction</span>
           </div>
           <div className="col-span-2 lg:col-span-1">
-            <span className="text-2xl sm:text-3xl font-black block">24/7</span>
-            <span className="text-[9px] font-bold uppercase tracking-wider text-white/70 block mt-1.5">Attentive Support</span>
+            <span className="text-2xl sm:text-3xl font-black block">99.9%</span>
+            <span className="text-[9px] font-bold uppercase tracking-wider text-white/70 block mt-1.5">Platform Uptime</span>
           </div>
         </div>
       </section >
 
       {/* 9. TESTIMONIALS */}
-      < section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20" >
+      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20" >
         <div className="text-center max-w-2xl mx-auto mb-14">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
-            What Our Customers Say
+            Trusted by Sales Leaders
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2.5">
-            Hear from startup leaders who scaled their operations using our CRM.
+            See how startup founders and sales managers use AURA CRM to scale their revenue.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            { name: 'Sarah Connor', company: 'Cyberdyne Systems', rating: 5, review: 'AURA CRM has completely restructured how we coordinate lead touchpoints. The WhatsApp integration is extremely clean and responsive.' },
-            { name: 'Bruce Wayne', company: 'Wayne Enterprises', rating: 5, review: 'The dynamic dashboard and source analytics reports are perfect. Allows us to evaluate acquisition budgets efficiently.' },
-            { name: 'Clark Kent', company: 'Daily Planet', rating: 5, review: 'Zero setup complexity, beautiful frosted glass theme, and isolated workspaces. Highly recommended for modern tech teams.' }
+            {
+              name: 'Arjun Mehta',
+              role: 'Head of Sales',
+              company: 'NovaTech Solutions',
+              rating: 5,
+              review: 'AURA CRM completely transformed how we manage our pipeline. The WhatsApp integration saves our team 2 hours daily, and the source analytics help us double down on channels that actually convert.'
+            },
+            {
+              name: 'Riya Sharma',
+              role: 'Founder & CEO',
+              company: 'GrowthBridge Agency',
+              rating: 5,
+              review: 'We evaluated HubSpot and Zoho, but AURA CRM\'s interface is faster and easier for our team. The lead qualification workflow and CSV export are exactly what a growing agency needs.'
+            },
+            {
+              name: 'Daniel Okafor',
+              role: 'Sales Manager',
+              company: 'Velocity Retail',
+              rating: 5,
+              review: 'The pipeline funnel analytics are outstanding. I can see exactly where deals are stalling, who is following up, and which channels drive the best ROI — all in real time.'
+            }
           ].map((test, idx) => (
             <div key={idx} className="p-6 glass-card border border-border/40 dark:border-border/10 rounded-3xl text-left bg-surface/50 dark:bg-card/40 flex flex-col justify-between min-h-[190px]">
               <div>
@@ -739,7 +784,7 @@ const Landing = () => {
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center font-bold text-xs text-primary select-none shrink-0">{test.name.charAt(0)}</div>
                 <div className="min-w-0">
                   <p className="text-[10px] font-bold text-slate-900 dark:text-white truncate">{test.name}</p>
-                  <p className="text-[8px] text-slate-450 dark:text-slate-500 truncate">{test.company}</p>
+                  <p className="text-[8px] text-slate-450 dark:text-slate-500 truncate">{test.role} · {test.company}</p>
                 </div>
               </div>
             </div>
@@ -748,13 +793,13 @@ const Landing = () => {
       </section >
 
       {/* 10. PRICING SECTION */}
-      < section id="pricing" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
+      <section id="pricing" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
         <div className="text-center max-w-2xl mx-auto mb-14">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
             Simple, Transparent Pricing
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2.5">
-            Choose the workspace capacity that matches your startup growth cycle.
+            Start free and scale as your sales team grows. No hidden fees, no long-term contracts.
           </p>
         </div>
 
@@ -764,35 +809,39 @@ const Landing = () => {
             <div className="space-y-4">
               <span className="text-[9px] font-black text-slate-450 uppercase tracking-widest block">Starter Plan</span>
               <p className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Free <span className="text-xs text-slate-450 font-semibold font-mono">/ Month</span></p>
-              <p className="text-[11px] text-slate-500">Perfect for initial validations and sole proprietors.</p>
+              <p className="text-[11px] text-slate-500">Perfect for solo founders and small sales teams getting started.</p>
               <div className="h-px bg-border/40 dark:bg-white/10 my-4" />
               <ul className="space-y-2.5 text-[10px] font-medium text-slate-600 dark:text-slate-400">
-                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Up to 100 leads database</span></li>
-                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Access to main KPI Dashboard</span></li>
-                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Standard CSV export actions</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Up to 100 leads</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>KPI Dashboard access</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>WhatsApp CRM integration</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>CSV export</span></li>
                 <li className="flex items-center gap-2 text-slate-400"><X size={12} className="text-error" /><span>Source Channel Analytics</span></li>
+                <li className="flex items-center gap-2 text-slate-400"><X size={12} className="text-error" /><span>Team collaboration tools</span></li>
               </ul>
             </div>
             <Link to="/register" className="mt-8 block">
               <button className="w-full py-2.5 text-xs font-bold rounded-xl border border-border dark:border-border/20 text-slate-800 dark:text-white hover:bg-hover transition-all cursor-pointer">
-                Get Started
+                Get Started Free
               </button>
             </Link>
           </div>
 
           {/* Plan 2: Professional */}
           <div className="p-8 glass-card border-2 border-primary rounded-3xl text-left bg-surface/90 dark:bg-card/45 flex flex-col justify-between relative shadow-xl">
-            <span className="absolute top-4 right-4 bg-primary text-white text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md">Popular</span>
+            <span className="absolute top-4 right-4 bg-primary text-white text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md">Most Popular</span>
             <div className="space-y-4">
               <span className="text-[9px] font-black text-primary uppercase tracking-widest block">Professional</span>
               <p className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">₹1,499 <span className="text-xs text-slate-450 font-semibold font-mono">/ Month</span></p>
-              <p className="text-[11px] text-slate-500">For fast growing agencies and SaaS teams.</p>
+              <p className="text-[11px] text-slate-500">For growing sales teams and agencies scaling their pipeline.</p>
               <div className="h-px bg-border/40 dark:bg-white/10 my-4" />
               <ul className="space-y-2.5 text-[10px] font-medium text-slate-650 dark:text-slate-350">
-                <li className="flex items-center gap-2"><Check size={12} className="text-success animate-pulse" /><span>Unlimited leads database</span></li>
-                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>KPI Dashboard & Deep Analytics</span></li>
-                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Source Channel Analytics reports</span></li>
-                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Standard CSV export actions</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success animate-pulse" /><span>Unlimited leads</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Full Analytics & Reports</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Source Channel Analytics</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Team collaboration tools</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Priority email support</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Advanced CSV exports</span></li>
               </ul>
             </div>
             <Link to="/register" className="mt-8 block">
@@ -807,13 +856,15 @@ const Landing = () => {
             <div className="space-y-4">
               <span className="text-[9px] font-black text-slate-450 uppercase tracking-widest block">Enterprise</span>
               <p className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">₹4,999 <span className="text-xs text-slate-450 font-semibold font-mono">/ Month</span></p>
-              <p className="text-[11px] text-slate-500">Custom capabilities and premium volume access.</p>
+              <p className="text-[11px] text-slate-500">Custom capabilities for large sales organizations and enterprises.</p>
               <div className="h-px bg-border/40 dark:bg-white/10 my-4" />
               <ul className="space-y-2.5 text-[10px] font-medium text-slate-600 dark:text-slate-400">
-                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Unlimited workspaces</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Unlimited workspaces & users</span></li>
                 <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Full Analytics Suite</span></li>
-                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Attentive 24/7 priority support</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Role-based access control</span></li>
                 <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Dedicated account manager</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>24/7 priority support</span></li>
+                <li className="flex items-center gap-2"><Check size={12} className="text-success" /><span>Custom onboarding & training</span></li>
               </ul>
             </div>
             <Link to="/register" className="mt-8 block">
@@ -826,23 +877,24 @@ const Landing = () => {
       </section >
 
       {/* 11. FAQ ACCORDION SECTION */}
-      < section id="faq" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
+      <section id="faq" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
         <div className="text-center max-w-2xl mx-auto mb-14">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
             Frequently Asked Questions
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2.5">
-            Got questions? We have answers to help you navigate our workspace setup.
+            Common questions from sales teams evaluating AURA CRM.
           </p>
         </div>
 
         <div className="max-w-3xl mx-auto space-y-4 text-left">
           {[
-            { q: 'What is AURA CRM Lite?', a: 'AURA CRM Lite is a premium, frosted glassmorphism portal designed to help startup teams qualify opportunity leads, attribute budget resources, and evaluate conversion statistics.' },
-            { q: 'How secure is my CRM data?', a: 'All data is secured using JSON Web Token authentication sessions and stored safely on cloud databases with strict owner workspace isolation.' },
-            { q: 'Can I download lead lists as CSV?', a: 'Yes! You can instantly download currently filtered and searched lead lists directly from the Lead Management dashboard desk.' },
-            { q: 'Is there a free workspace tier?', a: 'Yes. Our Starter plan is completely free and allows sole proprietors to register and qualify up to 100 leads.' },
-            { q: 'How does the WhatsApp connection work?', a: 'It maps contact phone numbers to let owners initiate and log conversations directly from the CRM portal.' }
+            { q: 'What is AURA CRM?', a: 'AURA CRM is a full-featured customer relationship management platform designed for startup sales teams. It helps you manage leads, contacts, sales pipelines, WhatsApp conversations, source analytics, and revenue reporting from a single, modern workspace.' },
+            { q: 'How secure is my CRM data?', a: 'All data is protected with JSON Web Token (JWT) authentication, encrypted credentials, and per-user workspace isolation. Your data is stored on cloud infrastructure with strict access controls — no other user can access your records.' },
+            { q: 'Can I export my leads and contacts?', a: 'Yes. You can instantly export your currently filtered lead list to CSV directly from the Lead Management dashboard with a single click — no setup or additional tools required.' },
+            { q: 'Does AURA CRM support WhatsApp?', a: 'Yes. AURA CRM includes a WhatsApp CRM integration that lets you initiate a WhatsApp conversation with any lead directly from their record. It links the contact\'s phone number to wa.me for instant, one-click outreach.' },
+            { q: 'Can multiple team members collaborate?', a: 'Yes. The Professional and Enterprise plans include team collaboration tools — assign leads to specific sales reps, coordinate follow-up tasks, share notes, and monitor individual team performance from the analytics dashboard.' },
+            { q: 'Is my data backed up automatically?', a: 'Yes. Your CRM data is hosted on cloud infrastructure with automated daily backups, 99.9% uptime SLA, and redundant storage to protect against data loss.' },
           ].map((item, idx) => (
             <div key={idx} className="glass-card border border-border/40 dark:border-border/10 rounded-2xl overflow-hidden bg-surface/50 dark:bg-card/25">
               <button
@@ -850,27 +902,32 @@ const Landing = () => {
                 className="w-full flex items-center justify-between p-5 text-left text-xs font-bold text-slate-909 dark:text-white focus:outline-hidden cursor-pointer"
               >
                 <span>{item.q}</span>
-                <ChevronDown size={14} className={`text-slate-400 transition-transform duration-200 ${openFaq === idx ? 'rotate-180 text-primary' : ''}`} />
+                <ChevronDown
+                  size={14}
+                  className={`text-slate-400 transition-all duration-300 shrink-0 ${openFaq === idx ? 'rotate-180 text-primary' : ''}`}
+                />
               </button>
-              {openFaq === idx && (
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${openFaq === idx ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+              >
                 <div className="px-5 pb-5 pt-1 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed border-t border-border/20 dark:border-border/5">
                   {item.a}
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
       </section >
 
       {/* 12. CONTACT SECTION */}
-      < section id="contact" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10 lg:flex lg:gap-12" >
+      <section id="contact" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10 lg:flex lg:gap-12" >
         {/* LHS contacts */}
-        < div className="lg:w-1/2 text-left space-y-6" >
+        <div className="lg:w-1/2 text-left space-y-6" >
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
             Get in Touch
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-md">
-            Have questions about integrations or enterprise setups? Drop us a message, and our product team will connect within 12 hours.
+            Have questions about AURA CRM features, pricing, or enterprise integrations? Our product team will respond within 12 hours.
           </p>
 
           <div className="space-y-4 pt-4 text-xs font-medium text-slate-650 dark:text-slate-350 select-none">
@@ -896,9 +953,9 @@ const Landing = () => {
         </div >
 
         {/* RHS form */}
-        < div className="lg:w-1/2 mt-10 lg:mt-0" >
+        <div className="lg:w-1/2 mt-10 lg:mt-0" >
           <div className="glass-card border border-border/40 dark:border-border/10 rounded-3xl p-6 sm:p-8 bg-surface/75 dark:bg-card/75 shadow-xl text-left">
-            <h4 className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider mb-5">Send Message</h4>
+            <h4 className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider mb-5">Send a Message</h4>
 
             <form onSubmit={handleContactSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -908,7 +965,7 @@ const Landing = () => {
                     id="contact-name"
                     type="text"
                     required
-                    placeholder="Enter your name"
+                    placeholder="Your full name"
                     value={contactForm.name}
                     onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
                     className="block w-full px-3 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
@@ -920,7 +977,7 @@ const Landing = () => {
                     id="contact-email"
                     type="email"
                     required
-                    placeholder="you@example.com"
+                    placeholder="you@company.com"
                     value={contactForm.email}
                     onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
                     className="block w-full px-3 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
@@ -933,7 +990,7 @@ const Landing = () => {
                 <input
                   id="contact-company"
                   type="text"
-                  placeholder="e.g. Cyberdyne"
+                  placeholder="Your company or startup name"
                   value={contactForm.company}
                   onChange={(e) => setContactForm({ ...contactForm, company: e.target.value })}
                   className="block w-full px-3 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
@@ -946,7 +1003,7 @@ const Landing = () => {
                   id="contact-message"
                   required
                   rows={4}
-                  placeholder="Tell us what you are looking for..."
+                  placeholder="Tell us about your sales team size, current CRM challenges, or questions..."
                   value={contactForm.message}
                   onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                   className="block w-full px-3 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden"
@@ -957,7 +1014,7 @@ const Landing = () => {
                 type="submit"
                 className="w-full flex items-center justify-center py-3 bg-primary hover:bg-primary-hover text-white text-xs font-bold rounded-xl shadow-md cursor-pointer transition-all mt-2"
               >
-                {formSubmitted ? 'Message Sent! ✓' : 'Submit Message'}
+                {formSubmitted ? 'Message Sent! ✓' : 'Send Message'}
               </button>
             </form>
           </div>
@@ -965,7 +1022,7 @@ const Landing = () => {
       </section >
 
       {/* 13. FINAL CTA */}
-      < section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-20" >
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-20" >
         <div className="glass-card border-2 border-primary/20 dark:border-primary/10 rounded-3xl p-8 sm:p-12 text-center bg-gradient-to-br from-indigo-500/5 via-primary/5 to-purple-500/5 dark:bg-slate-900/30 relative overflow-hidden shadow-2xl">
 
           <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] rounded-full bg-blue-500/10 blur-[100px] pointer-events-none" />
@@ -973,10 +1030,10 @@ const Landing = () => {
 
           <div className="max-w-2xl mx-auto space-y-6 relative z-10">
             <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
-              Ready to Grow Your Business?
+              Ready to Grow Your Sales Pipeline?
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-              Create an account now to start qualifying opportunities, analyzing source channel performance, and winning customer conversion funnels.
+              Join 500+ businesses already using AURA CRM to manage leads, close deals, and grow revenue. Start free — no credit card required.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
@@ -1006,7 +1063,7 @@ const Landing = () => {
       </section >
 
       {/* 14. FOOTER */}
-      < footer className="border-t border-border/40 dark:border-border/10 bg-bg/60 dark:bg-slate-950/40 py-12 relative select-none" >
+      <footer className="border-t border-border/40 dark:border-border/10 bg-bg/60 dark:bg-slate-950/40 py-12 relative select-none" >
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-left">
 
           <div className="space-y-4">
@@ -1015,7 +1072,7 @@ const Landing = () => {
               <span className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-tight">AURA<span className="text-primary">CRM</span></span>
             </div>
             <p className="text-[10px] text-slate-500 dark:text-slate-450 leading-relaxed max-w-xs">
-              A premium, high-performance customer relationship management workspace for modern startup teams.
+              A premium CRM platform for modern sales teams — manage leads, contacts, pipelines, and analytics from one powerful workspace.
             </p>
           </div>
 
