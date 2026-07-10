@@ -1052,8 +1052,8 @@ const Landing = () => {
           <div>
             <h5 className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-wider mb-3">Legal</h5>
             <ul className="space-y-2 text-[10px] font-semibold text-slate-500 dark:text-slate-450">
-              <li><a href="#/privacy" className="hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#/terms" className="hover:text-primary transition-colors">Terms of Service</a></li>
+              <li><Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="hover:text-primary transition-colors">Terms of Service</Link></li>
               <li><a href="#/security" className="hover:text-primary transition-colors">Security Details</a></li>
             </ul>
           </div>
