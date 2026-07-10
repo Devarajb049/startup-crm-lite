@@ -538,7 +538,7 @@ const Landing = () => {
 
         {/* Showcase Tabs */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-          {['Dashboard', 'Lead Management', 'Customer Management', 'WhatsApp Chat', 'Analytics', 'System Settings'].map((tab) => (
+          {['Dashboard', 'Lead Management', 'Analytics', 'System Settings'].map((tab) => (
             <button
               key={tab}
               onClick={() => setShowcaseTab(tab)}
@@ -601,42 +601,6 @@ const Landing = () => {
             </div>
           )}
 
-          {showcaseTab === 'Customer Management' && (
-            <div className="space-y-4 flex-1 flex flex-col justify-between">
-              <h3 className="text-base font-extrabold text-slate-900 dark:text-white">Customer & Contact Database</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Maintain a rich customer directory with full contact details, deal history, source attribution, and interaction logs. Segment by industry, status, or value to target the right accounts.</p>
-              <div className="grid grid-cols-3 gap-3 text-[10px] mt-2">
-                <div className="p-3 bg-bg/85 dark:bg-surface/20 border border-border/30 dark:border-border/10 rounded-xl">
-                  <span className="block text-slate-400">Total Contacts</span>
-                  <span className="font-bold text-slate-900 dark:text-white mt-1 block">1,248</span>
-                </div>
-                <div className="p-3 bg-bg/85 dark:bg-surface/20 border border-border/30 dark:border-border/10 rounded-xl">
-                  <span className="block text-slate-400">Active Customers</span>
-                  <span className="font-bold text-slate-900 dark:text-white mt-1 block">342</span>
-                </div>
-                <div className="p-3 bg-bg/85 dark:bg-surface/20 border border-border/30 dark:border-border/10 rounded-xl">
-                  <span className="block text-slate-400">Avg. Deal Value</span>
-                  <span className="font-bold text-slate-900 dark:text-white mt-1 block">₹15,200</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {showcaseTab === 'WhatsApp Chat' && (
-            <div className="space-y-4 flex-1 flex flex-col justify-between">
-              <h3 className="text-base font-extrabold text-slate-900 dark:text-white">WhatsApp CRM Integration</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Click any lead's phone number to launch a pre-filled WhatsApp conversation. Log chat outcomes directly on the lead record and track response timelines in the activity feed.</p>
-              <div className="p-4 bg-bg/80 dark:bg-surface/30 border border-border/40 dark:border-border/10 rounded-xl flex items-center gap-3 text-xs mt-2">
-                <div className="w-8 h-8 rounded-full bg-success/10 border border-success/20 text-success flex items-center justify-center shrink-0">
-                  <MessageCircle size={14} />
-                </div>
-                <div>
-                  <p className="font-bold text-slate-900 dark:text-white text-[11px]">One-click WhatsApp from any lead</p>
-                  <p className="text-[10px] text-slate-500 mt-0.5">Links contact numbers to wa.me for instant outreach.</p>
-                </div>
-              </div>
-            </div>
-          )}
 
           {showcaseTab === 'Analytics' && (
             <div className="space-y-4 flex-1 flex flex-col justify-between">
