@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+
 
 /**
  * Sends a premium, responsive HTML email containing the generated OTP.
@@ -13,14 +13,7 @@ export const sendOtpEmail = async (toEmail, otp, purpose, name = '') => {
   const title = isRegister ? 'Email Verification' : 'Password Reset Request';
   const actionText = isRegister ? 'verify your email address' : 'reset your account password';
 
-  // Configure transporter using environment values
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+
 
   const welcomeMessage = isRegister
     ? `Welcome to AuraCRM${name ? `, ${name}` : ''}! Thank you for signing up. To complete your registration and activate your workspace, please use the verification code below.`
@@ -180,11 +173,28 @@ export const sendOtpEmail = async (toEmail, otp, purpose, name = '') => {
     </html>
   `;
 
-  // Send the email
-  await transporter.sendMail({
-    from: `"AuraCRM" <${process.env.EMAIL_USER}>`,
-    to: toEmail,
-    subject: `AuraCRM: ${title}`,
-    html: htmlContent,
+  // Send the email using Resend API
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error('RESEND_API_KEY is not defined in environment variables');
+  }
+
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      from: 'AuraCRM <onboarding@resend.dev>',
+      to: toEmail,
+      subject: `AuraCRM: ${title}`,
+      html: htmlContent,
+    }),
   });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(`Resend API error: ${response.status} - ${JSON.stringify(errorData)}`);
+  }
 };
