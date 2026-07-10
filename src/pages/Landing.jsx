@@ -326,95 +326,102 @@ const Landing = () => {
           </div>
         </div>
 
-        {/* RHS: 3D Floating Dashboard Preview */}
+        {/* RHS: Clean Dashboard Preview Card */}
         <div className="lg:w-1/2 mt-12 lg:mt-0 relative flex items-center justify-center select-none">
-          {/* Circular Glow back */}
-          <div className="absolute w-[80%] h-[80%] rounded-full bg-blue-500/10 dark:bg-blue-550/15 blur-3xl -z-10" />
+          {/* Soft glow behind card */}
+          <div className="absolute w-[70%] h-[70%] rounded-full bg-blue-500/10 dark:bg-blue-550/15 blur-3xl -z-10" />
 
-          {/* Mockup Card Container */}
-          <div className="w-full max-w-lg relative p-4 space-y-4">
+          {/* Single Clean Dashboard Card */}
+          <div className="w-full max-w-lg glass-card border border-border/40 dark:border-border/10 rounded-2xl shadow-2xl text-left bg-white/80 dark:bg-card/80 overflow-hidden">
 
-            {/* Widget 1: Revenue stats (frosted glass) */}
-            <div className="hidden sm:block absolute top-[-5%] left-[5%] glass-card border border-white/40 dark:border-white/5 rounded-2xl p-4 shadow-xl z-20 w-44 text-left">
-              <span className="text-[9px] font-extrabold uppercase text-slate-400 tracking-wider">Revenue Won</span>
-              <p className="text-lg font-black text-success tracking-tight mt-1">₹4,85,200</p>
-              <div className="w-full bg-slate-200 dark:bg-white/10 h-1.5 rounded-full overflow-hidden mt-2.5">
-                <div className="bg-success w-[72%] h-full rounded-full" />
+            {/* Window title bar */}
+            <div className="flex items-center justify-between px-5 py-3 border-b border-border/20 dark:border-border/10 bg-slate-50/80 dark:bg-slate-900/50">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+                <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
               </div>
+              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-mono">AURA CRM — Workspace Dashboard</span>
+              <span className="w-2 h-2 rounded-full bg-success" />
             </div>
 
-            {/* Widget 2: Active leads (frosted glass) */}
-            <div className="hidden sm:block absolute bottom-[8%] right-[-5%] glass-card border border-white/40 dark:border-white/5 rounded-2xl p-4 shadow-xl z-20 w-48 text-left">
-              <div className="flex items-center justify-between text-slate-400">
-                <span className="text-[9px] font-extrabold uppercase tracking-wider">Acquisition Leader</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
+            <div className="p-5 space-y-5">
+
+              {/* KPI Row */}
+              <div className="grid grid-cols-3 gap-3">
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-border/30 dark:border-white/5">
+                  <p className="text-[9px] font-bold uppercase text-slate-400 tracking-wider">Revenue Won</p>
+                  <p className="text-sm font-black text-success mt-1">₹4,85,200</p>
+                  <div className="w-full bg-slate-200 dark:bg-white/10 h-1 rounded-full overflow-hidden mt-2">
+                    <div className="bg-success w-[72%] h-full rounded-full" />
+                  </div>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-border/30 dark:border-white/5">
+                  <p className="text-[9px] font-bold uppercase text-slate-400 tracking-wider">Active Leads</p>
+                  <p className="text-sm font-black text-primary mt-1">145</p>
+                  <div className="w-full bg-slate-200 dark:bg-white/10 h-1 rounded-full overflow-hidden mt-2">
+                    <div className="bg-primary w-[90%] h-full rounded-full" />
+                  </div>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-border/30 dark:border-white/5">
+                  <p className="text-[9px] font-bold uppercase text-slate-400 tracking-wider">Win Rate</p>
+                  <p className="text-sm font-black text-accent mt-1">32.4%</p>
+                  <div className="w-full bg-slate-200 dark:bg-white/10 h-1 rounded-full overflow-hidden mt-2">
+                    <div className="bg-accent w-[32%] h-full rounded-full" />
+                  </div>
+                </div>
               </div>
-              <p className="text-sm font-extrabold text-slate-905 dark:text-white mt-1">LinkedIn Ads</p>
-              <p className="text-[10px] text-slate-450 dark:text-slate-500 mt-0.5">Qualification efficiency: <span className="text-accent font-bold">87%</span></p>
+
+              {/* Pipeline Funnel */}
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <h3 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Active Funnel Conversion</h3>
+                    <p className="text-[10px] text-slate-450 dark:text-slate-500">Pipeline progression analytics</p>
+                  </div>
+                  <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-lg border border-primary/15">+14.2%</span>
+                </div>
+                <div className="space-y-2.5">
+                  {[
+                    { label: 'New Leads', value: 145, pct: '90%', color: 'bg-primary' },
+                    { label: 'Qualified', value: 94, pct: '65%', color: 'bg-accent' },
+                    { label: 'Won Deals', value: 32, pct: '25%', color: 'bg-success' },
+                  ].map((row) => (
+                    <div key={row.label}>
+                      <div className="flex justify-between text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1">
+                        <span>{row.label}</span>
+                        <span>{row.value}</span>
+                      </div>
+                      <div className="w-full bg-slate-200 dark:bg-white/5 h-2 rounded-xl overflow-hidden">
+                        <div className={`${row.color} h-full rounded-xl`} style={{ width: row.pct }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom row: Source leader + recent activity */}
+              <div className="grid grid-cols-2 gap-3 pt-1">
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-border/30 dark:border-white/5">
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-[9px] font-bold uppercase text-slate-400 tracking-wider">Top Source</p>
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                  </div>
+                  <p className="text-xs font-extrabold text-slate-900 dark:text-white">LinkedIn Ads</p>
+                  <p className="text-[10px] text-slate-450 dark:text-slate-500 mt-0.5">Efficiency: <span className="text-accent font-bold">87%</span></p>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-border/30 dark:border-white/5 flex items-start gap-2">
+                  <div className="w-6 h-6 rounded-full bg-success/10 flex items-center justify-center shrink-0 mt-0.5">
+                    <MessageCircle size={12} className="text-success fill-success" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-bold text-slate-900 dark:text-white leading-tight">Priya Patel</p>
+                    <p className="text-[8px] text-slate-400 dark:text-slate-500 truncate mt-0.5">"Share the final proposal..."</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
-
-            {/* Widget 3: Mobile WhatsApp message mock */}
-            <div className="hidden sm:block absolute bottom-[-10%] left-[15%] glass-card border border-white/40 dark:border-white/5 rounded-xl p-3 shadow-xl z-20 flex items-center gap-3 w-56 text-left">
-              <div className="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center shrink-0">
-                <MessageCircle size={15} className="text-success fill-success" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-[10px] font-bold text-slate-900 dark:text-white">Priya Patel (Nova Retail)</p>
-                <p className="text-[8px] text-slate-400 dark:text-slate-500 truncate">"Please share the final proposal sheet..."</p>
-              </div>
-            </div>
-
-            {/* Main Mockup: Dashboard chart */}
-            <div className="w-full glass-card border border-border/40 dark:border-border/10 rounded-2xl p-5 shadow-2xl text-left bg-surface/80 dark:bg-card/75">
-              <div className="flex items-center justify-between border-b border-border/20 dark:border-border/10 pb-3 mb-4">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
-                </div>
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-mono">Workspace: Main</span>
-              </div>
-
-              <div className="flex justify-between items-center mb-6">
-                <div>
-                  <h3 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Active Funnel Conversion</h3>
-                  <p className="text-[10px] text-slate-450 dark:text-slate-500">Pipeline progression analytics</p>
-                </div>
-                <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-lg border border-primary/15">+14.2%</span>
-              </div>
-
-              {/* Simulated bars grid */}
-              <div className="space-y-3 pt-2">
-                <div>
-                  <div className="flex justify-between text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1">
-                    <span>New Leads</span>
-                    <span>145</span>
-                  </div>
-                  <div className="w-full bg-slate-200 dark:bg-white/5 h-2.5 rounded-xl overflow-hidden border border-border/30 dark:border-white/5">
-                    <div className="bg-primary w-[90%] h-full rounded-xl" />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1">
-                    <span>Qualified</span>
-                    <span>94</span>
-                  </div>
-                  <div className="w-full bg-slate-200 dark:bg-white/5 h-2.5 rounded-xl overflow-hidden border border-border/30 dark:border-white/5">
-                    <div className="bg-accent w-[65%] h-full rounded-xl" />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1">
-                    <span>Won Deals</span>
-                    <span>32</span>
-                  </div>
-                  <div className="w-full bg-slate-200 dark:bg-white/5 h-2.5 rounded-xl overflow-hidden border border-border/30 dark:border-white/5">
-                    <div className="bg-success w-[25%] h-full rounded-xl" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </section >
