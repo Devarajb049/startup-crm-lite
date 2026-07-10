@@ -38,7 +38,7 @@ const Layout = ({ children }) => {
 
   // Bottom Navigation links definition for Mobile viewports
   const bottomNavLinks = [
-    { name: 'Dashboard', path: '/', icon: LayoutDashboard },
+    { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
     { name: 'Leads', path: '/leads', icon: Users },
     { name: 'Analytics', path: '/analytics', icon: BarChart3 },
     { name: 'Settings', path: '/settings', icon: SettingsIcon }

@@ -207,3 +207,73 @@ export const logout = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * Verify Google ID Token / Access Token and login or auto-create account.
+ */
+export const googleLogin = async (req, res, next) => {
+  const { idToken } = req.body;
+
+  if (!idToken) {
+    return errorResponse(res, 'Google ID token is required', 400);
+  }
+
+  try {
+    // 1. Verify token by calling Google TokenInfo endpoint
+    const response = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${idToken}`);
+    if (!response.ok) {
+      return errorResponse(res, 'Invalid Google token signature', 400);
+    }
+
+    const payload = await response.json();
+    const { sub: googleId, email, name, picture } = payload;
+
+    if (!email) {
+      return errorResponse(res, 'Google account email not verified or missing', 400);
+    }
+
+    // Optional client ID check
+    if (process.env.GOOGLE_CLIENT_ID && payload.aud !== process.env.GOOGLE_CLIENT_ID) {
+      return errorResponse(res, 'Google client identity mismatch', 400);
+    }
+
+    // 2. Locate or create user
+    let user = await User.findOne({ email });
+
+    if (user) {
+      // Link Google Account if not linked yet
+      if (!user.googleId) {
+        user.googleId = googleId;
+        if (!user.picture && picture) {
+          user.picture = picture;
+        }
+        await user.save();
+      }
+    } else {
+      // Create user
+      user = await User.create({
+        name,
+        email,
+        googleId,
+        picture: picture || null
+      });
+    }
+
+    // 3. Verify active status
+    if (!user.isActive) {
+      return errorResponse(res, 'Account is deactivated', 403);
+    }
+
+    // 4. Generate JWT
+    const token = generateToken(user._id);
+    const userObject = user.toJSON();
+
+    return successResponse(
+      res,
+      { token, user: userObject },
+      'Google Login successful'
+    );
+  } catch (error) {
+    next(error);
+  }
+};

@@ -41,7 +41,12 @@ const UserSchema = new mongoose.Schema(
      */
     password: {
       type: String,
-      required: [true, 'Password is required'],
+      required: [
+        function () {
+          return !this.googleId;
+        },
+        'Password is required',
+      ],
       minlength: [6, 'Password must be at least 6 characters long'],
     },
     /**
@@ -64,6 +69,14 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    googleId: {
+      type: String,
+      default: null,
+    },
+    picture: {
+      type: String,
+      default: null,
+    },
   },
   {
     timestamps: true, // Auto-generates and manages createdAt and updatedAt fields
@@ -76,8 +89,8 @@ const UserSchema = new mongoose.Schema(
  * Pre-save Mongoose hook to encrypt password using bcryptjs before storage.
  */
 UserSchema.pre('save', async function () {
-  // Only hash password if it was modified (or is new)
-  if (!this.isModified('password')) {
+  // Only hash password if it exists and was modified (or is new)
+  if (!this.password || !this.isModified('password')) {
     return;
   }
 
@@ -92,6 +105,9 @@ UserSchema.pre('save', async function () {
  * @returns {Promise<Boolean>} True if matches, false otherwise
  */
 UserSchema.methods.comparePassword = async function (candidatePassword) {
+  if (!this.password) {
+    return false;
+  }
   return await bcrypt.compare(candidatePassword, this.password);
 };
 

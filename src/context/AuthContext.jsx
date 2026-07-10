@@ -68,6 +68,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginWithGoogle = async (idToken) => {
+    setIsLoading(true);
+    try {
+      const response = await authService.googleLogin(idToken);
+      const { token: receivedToken, user: receivedUser } = response.data || response;
+      
+      localStorage.setItem('crm-token', receivedToken);
+      localStorage.setItem('startup-crm-auth-user', JSON.stringify(receivedUser));
+      
+      setToken(receivedToken);
+      setUser(receivedUser);
+      return response;
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   /**
    * Register a new user account.
    *
@@ -143,6 +162,7 @@ export const AuthProvider = ({ children }) => {
         register,
         updateProfile,
         logout,
+        loginWithGoogle,
       }}
     >
       {children}

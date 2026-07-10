@@ -22,12 +22,14 @@ const Navbar = ({ onOpenAddLead, isCollapsed, toggleCollapse }) => {
   // Resolve active page titles based on pathnames for breadcrumbs
   const getBreadcrumbs = () => {
     switch (location.pathname) {
-      case '/':
+      case '/dashboard':
         return { parent: 'Dashboards', active: 'Overview' };
       case '/leads':
         return { parent: 'Workspace', active: 'Leads' };
       case '/analytics':
         return { parent: 'Workspace', active: 'Analytics' };
+      case '/source-analytics':
+        return { parent: 'Workspace', active: 'Source Channel Analytics' };
       case '/settings':
         return { parent: 'Workspace', active: 'Settings' };
       default:

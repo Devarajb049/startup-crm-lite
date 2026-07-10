@@ -21,17 +21,20 @@ const delayedImport = (importFunc) => {
   });
 };
 
-// Use delayed imports for main app views to show the complete A-U-R-A logo loop
+const Landing = lazy(() => import('../pages/Landing'));
 const Dashboard = delayedImport(() => import('../pages/Dashboard'));
 const Leads = delayedImport(() => import('../pages/Leads'));
 const Analytics = delayedImport(() => import('../pages/Analytics'));
+const SourceAnalytics = delayedImport(() => import('../pages/SourceAnalytics'));
 const Settings = delayedImport(() => import('../pages/Settings'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const Login = lazy(() => import('../pages/Login'));
 const Register = lazy(() => import('../pages/Register'));
+const Terms = lazy(() => import('../pages/Terms'));
+const Privacy = lazy(() => import('../pages/Privacy'));
 
 const loadingMessages = [
-  "Loading Startup CRM...",
+  "Loading CRM Workspace...",
   "Preparing your workspace...",
   "Initializing dashboard...",
   "Please wait..."
@@ -137,7 +140,7 @@ const PublicOnly = ({ children }) => {
 
   if (isLoading || delayActive) return <PageLoader />;
 
-  return !token ? children : <Navigate to="/" replace />;
+  return !token ? children : <Navigate to="/dashboard" replace />;
 };
 
 /**
@@ -148,6 +151,9 @@ export const AppRoutes = () => {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
+        {/* Public Landing Page */}
+        <Route path="/" element={<Landing />} />
+
         {/* Public Authentication Routes */}
         <Route
           path="/login"
@@ -169,13 +175,16 @@ export const AppRoutes = () => {
         {/* Private Dashboard Shell Routes */}
         <Route element={<ProtectedRoute />}>
           {/* Route targeting the main landing Dashboard overview */}
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
 
           {/* Route targeting the Leads table CRUD control desk */}
           <Route path="/leads" element={<Leads />} />
 
           {/* Route targeting deep graphical charts & stats */}
           <Route path="/analytics" element={<Analytics />} />
+
+          {/* Route targeting source channel metrics charts */}
+          <Route path="/source-analytics" element={<SourceAnalytics />} />
 
           {/* Route targeting user account profile configurations */}
           <Route path="/settings" element={<Settings />} />

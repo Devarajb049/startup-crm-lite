@@ -4,17 +4,11 @@ import useAnalytics from '../hooks/useAnalytics';
 import AnalyticsFilters from '../components/analytics/AnalyticsFilters';
 import StatsCards from '../components/analytics/StatsCards';
 import PieChartCard from '../components/analytics/PieChartCard';
-import FunnelChartCard from '../components/analytics/FunnelChartCard';
-import BarChartCard from '../components/analytics/BarChartCard';
-import LineChartCard from '../components/analytics/LineChartCard';
-import RevenueChartCard from '../components/analytics/RevenueChartCard';
 import LeadSourceChart from '../components/analytics/LeadSourceChart';
-import SalesVelocityCard from '../components/analytics/SalesVelocityCard';
-import ForecastCard from '../components/analytics/ForecastCard';
-import ActivityHeatmap from '../components/analytics/ActivityHeatmap';
-import TopPerformersCard from '../components/analytics/TopPerformersCard';
 import EmptyAnalyticsState from '../components/analytics/EmptyAnalyticsState';
 import LoadingSkeleton from '../components/analytics/LoadingSkeleton';
+import { RefreshCw } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 
 /**
  * Analytics Component
@@ -33,6 +27,7 @@ const Analytics = () => {
 
   // Simulated transition loading state for polished skeleton pulse animation
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Trigger brief loading animation on filter change to give high-fidelity feedback
   const handleFilterRangeChange = (range) => {
@@ -40,26 +35,49 @@ const Analytics = () => {
     setFilterRange(range);
   };
 
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsRefreshing(false);
+      setIsLoading(false);
+      toast.success('Analytics refreshed.');
+    }, 450);
+  };
+
   useEffect(() => {
-    if (isLoading) {
+    if (isLoading && !isRefreshing) {
       const timer = setTimeout(() => {
         setIsLoading(false);
       }, 450);
       return () => clearTimeout(timer);
     }
-  }, [isLoading]);
+  }, [isLoading, isRefreshing]);
 
   return (
     <div className="space-y-6 max-w-[1600px] mx-auto pb-8">
       
       {/* 1. Dashboard Page Header */}
-      <div className="flex flex-col gap-1 sm:gap-2">
-        <h2 className="text-xl font-extrabold text-slate-905 dark:text-white sm:text-2xl tracking-tight">
-          Analytics Dashboard
-        </h2>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-          Track sales performance and growth trends.
-        </p>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="text-xl font-extrabold text-slate-905 dark:text-white sm:text-2xl tracking-tight">
+            Analytics Dashboard
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            Track sales performance and growth trends.
+          </p>
+        </div>
+
+        {/* Refresh button */}
+        <button
+          type="button"
+          onClick={handleRefresh}
+          disabled={isRefreshing || isLoading}
+          className="p-2.5 rounded-xl border border-border/80 dark:border-border/10 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-surface dark:bg-card hover:bg-hover active:scale-95 transition-all cursor-pointer shadow-xs disabled:opacity-50 disabled:pointer-events-none"
+          title="Refresh analytics"
+        >
+          <RefreshCw size={15} className={isRefreshing ? 'animate-spin' : ''} />
+        </button>
       </div>
 
       {/* 2. Real-time Memoized Filters toolbar */}
@@ -83,34 +101,10 @@ const Analytics = () => {
             filterRange={filterRange} 
           />
 
-          {/* Row 1: Pie Chart & Funnel Chart (2 columns) */}
+          {/* Row 1: Pie Chart & Lead Source Chart (2 columns) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <PieChartCard leads={leads} />
-            <FunnelChartCard leads={leads} />
-          </div>
-
-          {/* Row 2: Monthly Lead Counts Bar & Monthly Conversion Trend Line (2 columns) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <BarChartCard leads={leads} />
-            <LineChartCard leads={leads} />
-          </div>
-
-          {/* Row 3: Revenue Area Chart & Lead Source Horizontal Bar (2 columns) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <RevenueChartCard leads={leads} />
             <LeadSourceChart leads={leads} />
-          </div>
-
-          {/* Row 4: Heatmap & Top Performers rep list (2 columns) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <ActivityHeatmap leads={leads} />
-            <TopPerformersCard leads={leads} />
-          </div>
-
-          {/* Row 5: Revenue Forecast & Sales Velocity Widget (2 columns) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <ForecastCard leads={leads} />
-            <SalesVelocityCard leads={leads} filterRange={filterRange} />
+            <PieChartCard leads={leads} />
           </div>
 
         </div>

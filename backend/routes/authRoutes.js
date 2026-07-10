@@ -6,6 +6,7 @@ import {
   getProfile,
   updateProfile,
   logout,
+  googleLogin,
 } from '../controllers/authController.js';
 import { protect } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
@@ -64,5 +65,8 @@ router.put('/profile', protect, updateProfile);
 
 // 5. POST /api/auth/logout - Logout user and clear session state (invalidated client-side)
 router.post('/logout', protect, logout);
+
+// 6. POST /api/auth/google-login - Google OAuth login endpoint
+router.post('/google-login', googleLogin);
 
 export default router;

@@ -53,3 +53,14 @@ export const updateProfile = async (data) => {
   const response = await api.put('/api/auth/profile', data);
   return response.data;
 };
+
+/**
+ * Log in a user with Google credentials ID token.
+ * 
+ * @param {string} idToken - The identity token from Google
+ * @returns {Promise<Object>} The API response payload
+ */
+export const googleLogin = async (idToken) => {
+  const response = await api.post('/api/auth/google-login', { idToken });
+  return response.data;
+};

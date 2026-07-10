@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Users, BarChart3, LogOut, X, Settings as SettingsIcon } from 'lucide-react';
+import { LayoutDashboard, Users, BarChart3, LogOut, X, Settings as SettingsIcon, PieChart } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import Logo from './Logo';
 
@@ -25,9 +25,10 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed = false, toggleCollapse })
 
   const initials = getInitials(user?.name);
   const navigationLinks = [
-    { name: 'Dashboard', subLabel: 'Overview & KPI Metrics', path: '/', icon: LayoutDashboard },
+    { name: 'Dashboard', subLabel: 'Overview & KPI Metrics', path: '/dashboard', icon: LayoutDashboard },
     { name: 'Leads Management', subLabel: 'Active Opportunities Directory', path: '/leads', icon: Users },
     { name: 'Analytics', subLabel: 'Conversion & Revenue Charts', path: '/analytics', icon: BarChart3 },
+    { name: 'Source Analytics', subLabel: 'Source Channel Charts', path: '/source-analytics', icon: PieChart },
     { name: 'Settings', subLabel: 'User & System Profiles', path: '/settings', icon: SettingsIcon }
   ];
 
