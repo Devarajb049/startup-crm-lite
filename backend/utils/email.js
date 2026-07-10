@@ -182,9 +182,9 @@ export const sendOtpEmail = async (toEmail, otp, purpose, name = '') => {
 
   // Send the email
   await transporter.sendMail({
-    from: `"AuraCRM Systems" <${process.env.EMAIL_USER}>`,
+    from: `"AuraCRM" <${process.env.EMAIL_USER}>`,
     to: toEmail,
-    subject: `[AuraCRM] ${title}`,
+    subject: `AuraCRM: ${title}`,
     html: htmlContent,
   });
 };
