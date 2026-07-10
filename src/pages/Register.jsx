@@ -104,15 +104,16 @@ const Register = () => {
 
     try {
       await register(name, email, password);
-      toast.success('Successfully registered workspace!', {
+      localStorage.setItem('pending-verify-email', email);
+      toast.success('Registration request received. Verification code sent!', {
         style: {
           background: '#22C55E',
           color: '#FFFFFF',
           fontWeight: 'bold',
         },
-        duration: 3000,
+        duration: 4000,
       });
-      navigate('/dashboard');
+      navigate('/verify-email');
     } catch (err) {
       const errorMsg = err.response?.data?.message || err.message || 'Registration failed.';
       setError(errorMsg);

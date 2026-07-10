@@ -32,6 +32,8 @@ const Register = lazy(() => import('../pages/Register'));
 const Terms = lazy(() => import('../pages/Terms'));
 const Privacy = lazy(() => import('../pages/Privacy'));
 const Security = lazy(() => import('../pages/Security'));
+const VerifyEmail = lazy(() => import('../pages/VerifyEmail'));
+const ForgotPassword = lazy(() => import('../pages/ForgotPassword'));
 
 const loadingMessages = [
   "Loading CRM Workspace...",
@@ -177,6 +179,8 @@ export const AppRoutes = () => {
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/security" element={<Security />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/forgot" element={<ForgotPassword />} />
 
         {/* Private Dashboard Shell Routes */}
         <Route element={<ProtectedRoute />}>

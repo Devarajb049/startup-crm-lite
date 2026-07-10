@@ -98,14 +98,33 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const response = await authService.register(name, email, password);
-      // The API response contains { success: true, data: { token, user } }
+      return response;
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  /**
+   * Verify registration or reset password OTP.
+   *
+   * @param {string} email
+   * @param {string} otp
+   * @param {string} purpose
+   */
+  const verifyOtp = async (email, otp, purpose) => {
+    setIsLoading(true);
+    try {
+      const response = await authService.verifyOtp(email, otp, purpose);
       const { token: receivedToken, user: receivedUser } = response.data || response;
       
-      localStorage.setItem('crm-token', receivedToken);
-      localStorage.setItem('startup-crm-auth-user', JSON.stringify(receivedUser));
-      
-      setToken(receivedToken);
-      setUser(receivedUser);
+      if (purpose === 'register' && receivedToken && receivedUser) {
+        localStorage.setItem('crm-token', receivedToken);
+        localStorage.setItem('startup-crm-auth-user', JSON.stringify(receivedUser));
+        setToken(receivedToken);
+        setUser(receivedUser);
+      }
       return response;
     } catch (error) {
       throw error;
@@ -160,6 +179,7 @@ export const AuthProvider = ({ children }) => {
         isLoading,
         login,
         register,
+        verifyOtp,
         updateProfile,
         logout,
         loginWithGoogle,
