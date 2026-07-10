@@ -263,11 +263,11 @@ const Landing = () => {
         <div className="lg:w-1/2 space-y-6 text-left">
           <div className="inline-flex items-center gap-2 px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-primary bg-primary/10 border border-primary/20 rounded-full select-none">
             <Zap size={10} className="fill-primary" />
-            <span>Introducing AURA CRM Lite 2.0</span>
+            <span>Introducing AURA CRM 2.0</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-905 dark:text-white leading-none tracking-tight">
-            Manage Your Business Smarter with <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-300">AURA CRM</span>
+            Manage Your Business Smarter with <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-300">AURA CRM</span>
           </h1>
 
           <p className="text-sm sm:text-base text-slate-550 dark:text-slate-400 leading-relaxed max-w-xl">
@@ -417,10 +417,10 @@ const Landing = () => {
 
           </div>
         </div>
-      </section>
+      </section >
 
       {/* 3. TRUSTED BY SECTION */}
-      <section className="bg-bg/40 dark:bg-surface/20 border-y border-border/40 dark:border-border/10 py-10 select-none">
+      < section className="bg-bg/40 dark:bg-surface/20 border-y border-border/40 dark:border-border/10 py-10 select-none" >
         <div className="max-w-[1400px] mx-auto px-4 text-center">
           <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-6">Trusted by High-Performance Teams globally</p>
           <div className="flex flex-wrap items-center justify-center gap-10 sm:gap-16 text-sm font-black text-slate-400 dark:text-slate-650 tracking-widest uppercase">
@@ -431,10 +431,10 @@ const Landing = () => {
             <span>Enterprises</span>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* 4. FEATURES SECTION */}
-      <section id="features" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      < section id="features" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20" >
         <div className="text-center max-w-2xl mx-auto mb-14">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
             Comprehensive CRM Feature Suite
@@ -463,10 +463,10 @@ const Landing = () => {
             );
           })}
         </div>
-      </section>
+      </section >
 
       {/* 5. WORKFLOW SECTION */}
-      <section id="workflow" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10">
+      < section id="workflow" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
         <div className="text-center max-w-2xl mx-auto mb-14">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
             How AURA CRM Drives Growth
@@ -518,10 +518,10 @@ const Landing = () => {
             );
           })}
         </div>
-      </section>
+      </section >
 
       {/* 6. SHOWCASE SECTION */}
-      <section id="showcase" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10">
+      < section id="showcase" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
         <div className="text-center max-w-2xl mx-auto mb-10">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
             Explore the CRM Workspace
@@ -641,10 +641,10 @@ const Landing = () => {
           )}
 
         </div>
-      </section>
+      </section >
 
       {/* 7. WHY CHOOSE SECTION */}
-      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10">
+      < section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
         <div className="text-center max-w-2xl mx-auto mb-14">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
             Why Choose AURA CRM
@@ -674,10 +674,10 @@ const Landing = () => {
             </div>
           ))}
         </div>
-      </section>
+      </section >
 
       {/* 8. STATISTICS SECTION */}
-      <section className="bg-gradient-to-r from-primary via-indigo-650 to-purple-650 text-white py-14 select-none">
+      < section className="bg-gradient-to-r from-primary via-indigo-650 to-purple-650 text-white py-14 select-none" >
         <div className="max-w-[1400px] mx-auto px-4 grid grid-cols-2 lg:grid-cols-5 gap-8 text-center">
           <div>
             <span className="text-2xl sm:text-3xl font-black block">10,000+</span>
@@ -700,10 +700,10 @@ const Landing = () => {
             <span className="text-[9px] font-bold uppercase tracking-wider text-white/70 block mt-1.5">Attentive Support</span>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* 9. TESTIMONIALS */}
-      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      < section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20" >
         <div className="text-center max-w-2xl mx-auto mb-14">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
             What Our Customers Say
@@ -738,10 +738,10 @@ const Landing = () => {
             </div>
           ))}
         </div>
-      </section>
+      </section >
 
       {/* 10. PRICING SECTION */}
-      <section id="pricing" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10">
+      < section id="pricing" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
         <div className="text-center max-w-2xl mx-auto mb-14">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
             Simple, Transparent Pricing
@@ -816,10 +816,10 @@ const Landing = () => {
             </Link>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* 11. FAQ ACCORDION SECTION */}
-      <section id="faq" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10">
+      < section id="faq" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10" >
         <div className="text-center max-w-2xl mx-auto mb-14">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
             Frequently Asked Questions
@@ -853,12 +853,12 @@ const Landing = () => {
             </div>
           ))}
         </div>
-      </section>
+      </section >
 
       {/* 12. CONTACT SECTION */}
-      <section id="contact" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10 lg:flex lg:gap-12">
+      < section id="contact" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/40 dark:border-border/10 lg:flex lg:gap-12" >
         {/* LHS contacts */}
-        <div className="lg:w-1/2 text-left space-y-6">
+        < div className="lg:w-1/2 text-left space-y-6" >
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-905 dark:text-white tracking-tight">
             Get in Touch
           </h2>
@@ -886,10 +886,10 @@ const Landing = () => {
               <span>Madnapalle, India</span>
             </div>
           </div>
-        </div>
+        </div >
 
         {/* RHS form */}
-        <div className="lg:w-1/2 mt-10 lg:mt-0">
+        < div className="lg:w-1/2 mt-10 lg:mt-0" >
           <div className="glass-card border border-border/40 dark:border-border/10 rounded-3xl p-6 sm:p-8 bg-surface/75 dark:bg-card/75 shadow-xl text-left">
             <h4 className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider mb-5">Send Message</h4>
 
@@ -954,11 +954,11 @@ const Landing = () => {
               </button>
             </form>
           </div>
-        </div>
-      </section>
+        </div >
+      </section >
 
       {/* 13. FINAL CTA */}
-      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-20">
+      < section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-20" >
         <div className="glass-card border-2 border-primary/20 dark:border-primary/10 rounded-3xl p-8 sm:p-12 text-center bg-gradient-to-br from-indigo-500/5 via-primary/5 to-purple-500/5 dark:bg-slate-900/30 relative overflow-hidden shadow-2xl">
 
           <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] rounded-full bg-blue-500/10 blur-[100px] pointer-events-none" />
@@ -996,10 +996,10 @@ const Landing = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* 14. FOOTER */}
-      <footer className="border-t border-border/40 dark:border-border/10 bg-bg/60 dark:bg-slate-950/40 py-12 relative select-none">
+      < footer className="border-t border-border/40 dark:border-border/10 bg-bg/60 dark:bg-slate-950/40 py-12 relative select-none" >
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-left">
 
           <div className="space-y-4">
@@ -1041,9 +1041,9 @@ const Landing = () => {
           </div>
 
         </div>
-      </footer>
+      </footer >
 
-    </div>
+    </div >
   );
 };
 
