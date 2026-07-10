@@ -64,7 +64,7 @@ export const register = async (req, res, next) => {
       await sendOtpEmail(email, otpCode, 'register', name);
     } catch (err) {
       console.error('Failed to send OTP email:', err);
-      return errorResponse(res, 'Failed to send verification email. Please check your email credentials.', 500);
+      return errorResponse(res, `Failed to send verification email: ${err.message}`, 500);
     }
 
     return successResponse(
@@ -410,7 +410,7 @@ export const forgotPassword = async (req, res, next) => {
       await sendOtpEmail(email, otpCode, 'forgot', user.name);
     } catch (err) {
       console.error('Failed to send reset OTP email:', err);
-      return errorResponse(res, 'Failed to send reset email. Please check server email configurations.', 500);
+      return errorResponse(res, `Failed to send reset email: ${err.message}`, 500);
     }
 
     return successResponse(
