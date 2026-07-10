@@ -227,7 +227,7 @@ const VerifyEmail = () => {
               Email Verification
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed max-w-xs">
-              We sent a 6-digit verification code to <span className="font-extrabold text-slate-800 dark:text-slate-200">{email}</span>
+              We sent a 6-digit verification code to <span className="font-extrabold text-slate-800 dark:text-slate-200">{email}</span>. Please check your inbox (and <span className="font-bold text-primary dark:text-blue-400">spam folder</span>).
             </p>
           </div>
 

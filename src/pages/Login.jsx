@@ -258,12 +258,9 @@ const Login = () => {
             </div>
 
             <div className="space-y-1">
-              <div className="flex justify-between items-center">
-                <label htmlFor="password" className="block text-[9px] font-extrabold uppercase tracking-wider text-slate-450">
-                  Password
-                </label>
-                <a href="#/forgot" className="text-[9px] font-bold text-primary hover:underline">Forgot password?</a>
-              </div>
+              <label htmlFor="password" className="block text-[9px] font-extrabold uppercase tracking-wider text-slate-455">
+                Password
+              </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 dark:text-slate-500 z-10 pointer-events-none">
                   <Lock size={15} />
@@ -288,15 +285,10 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                type="checkbox"
-                className="w-3.5 h-3.5 rounded-sm border-border text-primary focus:ring-0 focus:outline-hidden cursor-pointer"
-              />
-              <label htmlFor="remember-me" className="ml-2 text-[10px] font-semibold text-slate-500 dark:text-slate-400 select-none cursor-pointer">
-                Remember my session
-              </label>
+            <div className="flex justify-end select-none">
+              <Link to="/forgot" className="text-[10px] font-bold text-primary hover:underline">
+                Forgot password?
+              </Link>
             </div>
 
             <ShimmerButton

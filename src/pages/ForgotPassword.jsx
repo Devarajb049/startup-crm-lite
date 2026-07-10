@@ -251,8 +251,8 @@ const ForgotPassword = () => {
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-450 mt-1.5 leading-relaxed">
               {step === 1 
-                ? 'Enter your registered email address to receive a password reset code.' 
-                : `Enter the code and your new password to restore account access.`
+                ? <>Enter your registered email address to receive a password reset code. Please check your inbox (and <span className="font-bold text-primary dark:text-blue-400">spam folder</span>).</>
+                : <>Enter the code and your new password to restore account access. Please check your inbox (and <span className="font-bold text-primary dark:text-blue-400">spam folder</span>).</>
               }
             </p>
           </div>

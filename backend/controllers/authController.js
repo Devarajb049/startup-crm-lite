@@ -70,7 +70,7 @@ export const register = async (req, res, next) => {
     return successResponse(
       res,
       { email },
-      'Verification code sent successfully. Please check your inbox.',
+      'Verification code sent successfully. Please check your inbox (and spam folder).',
       200
     );
   } catch (error) {
@@ -416,7 +416,7 @@ export const forgotPassword = async (req, res, next) => {
     return successResponse(
       res,
       { email },
-      'Reset verification code sent successfully.',
+      'Reset verification code sent successfully. Please check your inbox (and spam folder).',
       200
     );
   } catch (error) {
