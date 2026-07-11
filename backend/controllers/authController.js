@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
 import Otp from '../models/Otp.js';
 import { successResponse, errorResponse } from '../utils/apiResponse.js';
-import { sendOtpEmail } from '../utils/email.js';
+import { sendOtpEmail, sendPasswordResetSuccessEmail, sendRegistrationSuccessEmail } from '../utils/email.js';
 
 /**
  * Helper function to generate a JSON Web Token (JWT) for a user.
@@ -195,6 +195,13 @@ export const updateProfile = async (req, res, next) => {
     // Save user document (triggers validation and password hashing if updated)
     await user.save();
 
+    // Send password change confirmation email asynchronously if updated
+    if (newPassword) {
+      sendPasswordResetSuccessEmail(user.email, user.name).catch((err) => {
+        console.error('Failed to send password change success email for profile update:', err);
+      });
+    }
+
     // Retrieve updated record without password for response
     const updatedUser = await User.findById(user._id).select('-password');
 
@@ -349,6 +356,11 @@ export const verifyOtp = async (req, res, next) => {
       // Generate session token
       const token = generateToken(user._id);
 
+      // Send welcome email asynchronously
+      sendRegistrationSuccessEmail(user.email, user.name).catch((err) => {
+        console.error('Failed to send registration success welcome email:', err);
+      });
+
       return successResponse(
         res,
         { token, user },
@@ -474,6 +486,11 @@ export const resetPassword = async (req, res, next) => {
 
     // Delete OTP document
     await Otp.deleteOne({ _id: record._id });
+
+    // Send password reset success email asynchronously
+    sendPasswordResetSuccessEmail(user.email, user.name).catch((err) => {
+      console.error('Failed to send password reset success email:', err);
+    });
 
     return successResponse(
       res,

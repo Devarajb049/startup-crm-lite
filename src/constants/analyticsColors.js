@@ -1,14 +1,14 @@
 export const STATUS_COLORS = {
   New: 'var(--muted)',
-  Contacted: 'var(--primary)',
-  Qualified: 'var(--accent)',
-  'Meeting Scheduled': 'var(--warning)',
-  'Proposal Sent': 'var(--purple)',
+  Contacted: 'var(--warning)',
+  Qualified: 'var(--purple)',
+  'Meeting Scheduled': '#6366F1',
+  'Proposal Sent': 'var(--primary)',
   Negotiation: 'var(--pink)',
   Won: 'var(--success)',
   Lost: 'var(--error)'
 };
- 
+
 export const SOURCE_COLORS = {
   Website: 'var(--primary)',
   Referral: 'var(--accent)',
@@ -20,7 +20,7 @@ export const SOURCE_COLORS = {
   'Google Ads': 'var(--secondary)',
   Other: 'var(--muted)'
 };
- 
+
 export const CHART_THEME = {
   primary: 'var(--primary)',
   success: 'var(--success)',
