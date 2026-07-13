@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { useLeads } from '../../context/LeadContext';
 import { Users, Percent, DollarSign, TrendingUp, Clock, AlertTriangle, ArrowUpRight, ArrowDownRight, IndianRupee } from 'lucide-react';
+import { getAverageSalesCycle, getLostRate } from '../../utils/analyticsHelpers';
 
 /**
  * StatsCards Component
@@ -12,7 +13,7 @@ const StatsCards = ({ stats, filterRange }) => {
   // Compute previous period stats for growth comparisons
   const comparison = useMemo(() => {
     if (!Array.isArray(allLeads) || allLeads.length === 0) {
-      return { totalLeadsChange: 0, convRateChange: 0, pipeChange: 0, revChange: 0 };
+      return { totalLeadsChange: 0, convRateChange: 0, pipeChange: 0, revChange: 0, cycleChange: 0, lostRateChange: 0 };
     }
 
     const now = new Date();
@@ -50,6 +51,9 @@ const StatsCards = ({ stats, filterRange }) => {
       .filter((l) => l.status === 'Won')
       .reduce((sum, l) => sum + (Number(l.value) || 0), 0);
 
+    const prevSalesCycle = getAverageSalesCycle(prevLeads);
+    const prevLostRate = getLostRate(prevLeads);
+
     // Calculate percentage changes
     const getPctChange = (current, previous) => {
       if (previous === 0) return current > 0 ? 100 : 0;
@@ -60,7 +64,9 @@ const StatsCards = ({ stats, filterRange }) => {
       totalLeadsChange: getPctChange(stats.totalLeads, prevTotal),
       convRateChange: stats.conversionRate - prevConv, // absolute change in percentage points
       pipeChange: getPctChange(stats.pipelineValue, prevPipe),
-      revChange: getPctChange(stats.wonRevenue, prevRev)
+      revChange: getPctChange(stats.wonRevenue, prevRev),
+      cycleChange: getPctChange(stats.averageSalesCycle, prevSalesCycle),
+      lostRateChange: stats.lostRate - prevLostRate
     };
   }, [allLeads, stats, filterRange]);
 
@@ -116,7 +122,7 @@ const StatsCards = ({ stats, filterRange }) => {
       color: 'purple',
       bgColor: 'bg-purple-500/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400',
       borderColor: 'border-purple-500/10 dark:border-purple-500/15 shadow-purple-500/2 dark:shadow-purple-500/5',
-      trend: stats.averageSalesCycle > 0 ? -8 : 0, // Mock improvement indicating shorter cycle
+      trend: comparison.cycleChange,
       trendType: 'percentage',
       subtext: 'createdAt to wonAt'
     },
@@ -127,7 +133,7 @@ const StatsCards = ({ stats, filterRange }) => {
       color: 'red',
       bgColor: 'bg-rose-500/10 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400',
       borderColor: 'border-rose-500/10 dark:border-rose-500/15 shadow-rose-500/2 dark:shadow-rose-500/5',
-      trend: stats.lostRate > 20 ? 5 : -5, // Warning indicators
+      trend: comparison.lostRateChange,
       trendType: 'points',
       subtext: 'Lost / Total Leads'
     }

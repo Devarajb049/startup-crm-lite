@@ -1,14 +1,7 @@
 import React, { useMemo } from 'react';
 import { getForecastRevenue } from '../../utils/analyticsHelpers';
 import { ArrowUpRight, ArrowDownRight, Compass, ShieldCheck } from 'lucide-react';
-
-const formatRupee = (value) => {
-  return new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'INR',
-    maximumFractionDigits: 0
-  }).format(value);
-};
+import { useLeads } from '../../context/LeadContext';
 
 /**
  * ForecastCard Component
@@ -16,6 +9,7 @@ const formatRupee = (value) => {
  * Includes confidence scores and growth trend indicators.
  */
 const ForecastCard = ({ leads }) => {
+  const { formatCurrency } = useLeads();
   const forecast = useMemo(() => getForecastRevenue(leads), [leads]);
 
   // Determine confidence descriptor
@@ -51,7 +45,7 @@ const ForecastCard = ({ leads }) => {
           Predicted Revenue Next Month
         </span>
         <h4 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
-          {formatRupee(forecast.predictedRevenue)}
+          {formatCurrency(forecast.predictedRevenue)}
         </h4>
 
         {/* Growth Trend */}
