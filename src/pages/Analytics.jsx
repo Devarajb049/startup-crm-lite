@@ -5,6 +5,14 @@ import AnalyticsFilters from '../components/analytics/AnalyticsFilters';
 import StatsCards from '../components/analytics/StatsCards';
 import PieChartCard from '../components/analytics/PieChartCard';
 import LeadSourceChart from '../components/analytics/LeadSourceChart';
+import BarChartCard from '../components/analytics/BarChartCard';
+import FunnelChartCard from '../components/analytics/FunnelChartCard';
+import LineChartCard from '../components/analytics/LineChartCard';
+import RevenueChartCard from '../components/analytics/RevenueChartCard';
+import ActivityHeatmap from '../components/analytics/ActivityHeatmap';
+import TopPerformersCard from '../components/analytics/TopPerformersCard';
+import ForecastCard from '../components/analytics/ForecastCard';
+import SalesVelocityCard from '../components/analytics/SalesVelocityCard';
 import EmptyAnalyticsState from '../components/analytics/EmptyAnalyticsState';
 import LoadingSkeleton from '../components/analytics/LoadingSkeleton';
 import { RefreshCw } from 'lucide-react';
@@ -61,7 +69,7 @@ const Analytics = () => {
   }, [isLoading, isRefreshing]);
 
   return (
-    <div className="space-y-6 max-w-[1600px] mx-auto pb-8">
+    <div className="space-y-8 max-w-[1600px] mx-auto pb-8">
       
       {/* 1. Dashboard Page Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -98,7 +106,7 @@ const Analytics = () => {
       {isLoading ? (
         <LoadingSkeleton />
       ) : stats.totalLeads > 0 ? (
-        <div className="space-y-6">
+        <div className="space-y-8">
           
           {/* KPI summary section: 6 cards grid */}
           <StatsCards 
@@ -107,10 +115,29 @@ const Analytics = () => {
             filterRange={filterRange} 
           />
 
-          {/* Row 1: Pie Chart & Lead Source Chart (2 columns) */}
+          {/* 2-Column Responsive Dashboard Canvas Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <LeadSourceChart leads={leads} />
+            
+            {/* Row 1: Pie Chart & Funnel Chart */}
             <PieChartCard leads={leads} />
+            <FunnelChartCard leads={leads} />
+
+            {/* Row 2: Bar Chart & Line Chart */}
+            <BarChartCard leads={leads} />
+            <LineChartCard leads={leads} />
+
+            {/* Row 3: Revenue & Lead Sources */}
+            <RevenueChartCard leads={leads} />
+            <LeadSourceChart leads={leads} />
+
+            {/* Row 4: Heatmap & Top Performers */}
+            <ActivityHeatmap leads={leads} />
+            <TopPerformersCard leads={leads} />
+
+            {/* Row 5: Forecast & Sales Velocity */}
+            <ForecastCard leads={leads} />
+            <SalesVelocityCard leads={leads} filterRange={filterRange} />
+
           </div>
 
         </div>
