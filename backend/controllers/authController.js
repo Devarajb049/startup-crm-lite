@@ -268,12 +268,12 @@ export const googleLogin = async (req, res, next) => {
         googleId,
         picture: picture || null
       });
-
-      // Send welcome email asynchronously
-      sendRegistrationSuccessEmail(user.email, user.name).catch((err) => {
-        console.error('Failed to send Google registration welcome email:', err);
-      });
     }
+
+    // Send welcome email asynchronously on every Google Login
+    sendRegistrationSuccessEmail(user.email, user.name).catch((err) => {
+      console.error('Failed to send Google login welcome email:', err);
+    });
 
     // 3. Verify active status
     if (!user.isActive) {
