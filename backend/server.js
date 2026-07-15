@@ -1,3 +1,9 @@
+import dns from 'dns';
+// Force Node to prefer IPv4 DNS resolution to prevent ENETUNREACH errors on IPv6-unsupported hosts like Railway
+if (typeof dns.setDefaultResultOrder === 'function') {
+  dns.setDefaultResultOrder('ipv4first');
+}
+
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
