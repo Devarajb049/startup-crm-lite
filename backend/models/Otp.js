@@ -56,5 +56,14 @@ const OtpSchema = new mongoose.Schema(
 // Create compound index for easy lookups by email and purpose
 OtpSchema.index({ email: 1, purpose: 1 }, { unique: true });
 
+// Create TTL index on otpExpires to automatically remove expired documents
+OtpSchema.index({ otpExpires: 1 }, { expireAfterSeconds: 0 });
+
 const Otp = mongoose.model('Otp', OtpSchema);
+
+// Ensure indexes are correctly created on startup
+Otp.ensureIndexes().catch((err) => {
+  console.error('Error ensuring indexes for Otp:', err);
+});
+
 export default Otp;

@@ -202,24 +202,48 @@ export const sendEmail = async (toEmail, subject, htmlContent) => {
       throw new Error(`Resend API error: ${response.status} - ${JSON.stringify(errorData)}`);
     }
   } else {
-    // Fallback to Nodemailer SMTP
-    const emailUser = process.env.EMAIL_USER;
-    const emailPass = process.env.EMAIL_PASS;
+    // Determine configuration options, supporting SMTP_* keys
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPort = parseInt(process.env.SMTP_PORT || '587', 10);
+    const smtpSecure = process.env.SMTP_SECURE === 'true';
+    const smtpUser = process.env.SMTP_USER || process.env.EMAIL_USER;
+    const smtpPass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
 
-    if (!emailUser || !emailPass) {
-      throw new Error('Failed to send email: neither RESEND_API_KEY nor Nodemailer SMTP credentials (EMAIL_USER/EMAIL_PASS) are defined in environment variables');
+    let transporter;
+
+    if (smtpHost) {
+      transporter = nodemailer.createTransport({
+        host: smtpHost,
+        port: smtpPort,
+        secure: smtpSecure,
+        auth: {
+          user: smtpUser,
+          pass: smtpPass,
+        },
+        tls: {
+          rejectUnauthorized: false,
+        },
+      });
+    } else {
+      // Fallback to Gmail SMTP for backward compatibility
+      if (!smtpUser || !smtpPass) {
+        throw new Error('Failed to send email: neither RESEND_API_KEY nor Nodemailer SMTP credentials (EMAIL_USER/EMAIL_PASS or SMTP_HOST) are defined in environment variables');
+      }
+
+      transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: smtpUser,
+          pass: smtpPass,
+        },
+      });
     }
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: emailUser,
-        pass: emailPass,
-      },
-    });
+    // Determine standard/custom from header
+    const fromAddress = process.env.SMTP_FROM || `"AuraCRM" <${smtpUser}>`;
 
     await transporter.sendMail({
-      from: `"AuraCRM" <${emailUser}>`,
+      from: fromAddress,
       to: toEmail,
       subject: subject,
       html: htmlContent,

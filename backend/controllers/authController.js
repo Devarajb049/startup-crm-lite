@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
@@ -36,8 +37,18 @@ export const register = async (req, res, next) => {
       return errorResponse(res, 'Email already exists', 409);
     }
 
-    // Generate 6-digit OTP
-    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+    // Check cooldown for duplicate registration OTP requests
+    const existingOtp = await Otp.findOne({ email, purpose: 'register' });
+    if (existingOtp) {
+      const cooldown = parseInt(process.env.OTP_RESEND_DELAY) || 60;
+      const secondsElapsed = Math.floor((Date.now() - new Date(existingOtp.lastResendTime || existingOtp.updatedAt).getTime()) / 1000);
+      if (secondsElapsed < cooldown) {
+        return errorResponse(res, `Please wait ${cooldown - secondsElapsed} seconds before requesting another code.`, 400);
+      }
+    }
+
+    // Generate secure 6-digit OTP using crypto
+    const otpCode = crypto.randomInt(100000, 1000000).toString();
     const expiryMinutes = parseInt(process.env.OTP_EXPIRY_MINUTES) || 5;
     const otpExpires = new Date(Date.now() + expiryMinutes * 60 * 1000);
 
@@ -331,13 +342,15 @@ export const verifyOtp = async (req, res, next) => {
       return errorResponse(res, 'Too many incorrect attempts. Please request a new code.', 400);
     }
 
-    // Increment attempts
-    record.attempts += 1;
-    await record.save();
-
     // Verify OTP
     const isMatch = await bcrypt.compare(otp, record.otp);
     if (!isMatch) {
+      record.attempts += 1;
+      if (record.attempts >= 3) {
+        await Otp.deleteOne({ _id: record._id });
+        return errorResponse(res, 'Too many incorrect attempts. Your code has been invalidated. Please request a new one.', 400);
+      }
+      await record.save();
       return errorResponse(res, `Invalid verification code. ${3 - record.attempts} attempts remaining.`, 400);
     }
 
@@ -396,8 +409,19 @@ export const forgotPassword = async (req, res, next) => {
       return errorResponse(res, 'No account exists with this email address.', 404);
     }
 
-    // Generate 6-digit OTP
-    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+    // Check cooldown for duplicate forgot password OTP requests
+    const existingOtp = await Otp.findOne({ email, purpose: 'forgot' });
+    if (existingOtp) {
+      const cooldown = parseInt(process.env.OTP_RESEND_DELAY) || 60;
+      const secondsElapsed = Math.floor((Date.now() - new Date(existingOtp.lastResendTime || existingOtp.updatedAt).getTime()) / 1000);
+      if (secondsElapsed < cooldown) {
+        return errorResponse(res, `Please wait ${cooldown - secondsElapsed} seconds before requesting another code.`, 400);
+      }
+    }
+
+
+    // Generate secure 6-digit OTP using crypto
+    const otpCode = crypto.randomInt(100000, 1000000).toString();
     const expiryMinutes = parseInt(process.env.OTP_EXPIRY_MINUTES) || 5;
     const otpExpires = new Date(Date.now() + expiryMinutes * 60 * 1000);
 
@@ -464,13 +488,15 @@ export const resetPassword = async (req, res, next) => {
       return errorResponse(res, 'Too many incorrect attempts. Please request a new code.', 400);
     }
 
-    // Increment attempts
-    record.attempts += 1;
-    await record.save();
-
     // Verify OTP
     const isMatch = await bcrypt.compare(otp, record.otp);
     if (!isMatch) {
+      record.attempts += 1;
+      if (record.attempts >= 3) {
+        await Otp.deleteOne({ _id: record._id });
+        return errorResponse(res, 'Too many incorrect attempts. Your code has been invalidated. Please request a new one.', 400);
+      }
+      await record.save();
       return errorResponse(res, `Invalid verification code. ${3 - record.attempts} attempts remaining.`, 400);
     }
 
@@ -537,8 +563,8 @@ export const resendOtp = async (req, res, next) => {
       record.resendCount = 0;
     }
 
-    // Generate new OTP
-    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+    // Generate new OTP using crypto
+    const otpCode = crypto.randomInt(100000, 1000000).toString();
     const expiryMinutes = parseInt(process.env.OTP_EXPIRY_MINUTES) || 5;
     const otpExpires = new Date(Date.now() + expiryMinutes * 60 * 1000);
 

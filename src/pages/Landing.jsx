@@ -150,12 +150,12 @@ const Landing = () => {
 
       {/* 1. STICKY NAVBAR */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-        ? 'bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-border/40 dark:border-border/10 py-3 shadow-xs'
-        : 'bg-transparent py-5'
+        ? 'bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-border/40 dark:border-border/10 py-4 shadow-xs'
+        : 'bg-transparent py-4'
         }`}>
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <div className="flex items-center gap-2.5 cursor-pointer shrink-0" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <Logo className="w-8 h-8 text-primary" />
             <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white uppercase">
               AURA<span className="text-primary">CRM</span>
@@ -205,11 +205,11 @@ const Landing = () => {
           </div>
 
           {/* Mobile menu trigger */}
-          <div className="flex items-center gap-3 lg:hidden">
+          <div className="flex items-center gap-3 lg:hidden shrink-0">
             <DarkModeToggle />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 rounded-xl border border-border dark:border-border/30 text-slate-500 dark:text-slate-400"
+              className="p-1.5 rounded-xl border border-border dark:border-border/30 text-slate-500 dark:text-slate-400 shrink-0"
               aria-label="Toggle menu"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -219,10 +219,39 @@ const Landing = () => {
           </div>
         </div>
 
-        {/* Mobile menu drawer */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden absolute top-16 left-0 right-0 bg-white/95 dark:bg-slate-950/95 backdrop-blur-lg border-b border-border/40 dark:border-border/10 p-5 space-y-4 shadow-xl z-50">
-            <div className="flex flex-col gap-3 font-semibold text-xs text-slate-600 dark:text-slate-400">
+        {/* Mobile menu drawer backdrop */}
+        <div 
+          className={`lg:hidden fixed inset-0 z-40 bg-slate-950/45 backdrop-blur-xs transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} 
+          onClick={() => setMobileMenuOpen(false)} 
+        />
+
+        {/* Mobile menu drawer panel */}
+        <div 
+          className={`lg:hidden fixed top-0 right-0 bottom-0 w-[280px] sm:w-[320px] z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-l border-slate-200/50 dark:border-slate-800/50 p-6 flex flex-col justify-between shadow-2xl transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        >
+          <div className="space-y-6">
+            {/* Drawer Header */}
+            <div className="flex items-center justify-between">
+              <div 
+                className="flex items-center gap-2.5 cursor-pointer shrink-0" 
+                onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              >
+                <Logo className="w-8 h-8 text-primary" />
+                <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white uppercase">
+                  AURA<span className="text-primary">CRM</span>
+                </span>
+              </div>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-500 dark:text-slate-400 min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors"
+                aria-label="Close menu"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Drawer Links */}
+            <div className="flex flex-col gap-1.5 pt-4">
               {['Home', 'Features', 'Workflow', 'Showcase', 'Pricing', 'FAQ', 'Contact'].map((item) => (
                 <button
                   key={item}
@@ -230,34 +259,38 @@ const Landing = () => {
                     setActiveTab(item);
                     scrollToSection(item.toLowerCase());
                   }}
-                  className="text-left py-2 border-b border-border/30 dark:border-border/5"
+                  className={`w-full text-left py-3 px-4 rounded-xl text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-900 min-h-[44px] flex items-center ${activeTab === item ? 'bg-primary/10 text-primary dark:text-white' : 'text-slate-650 dark:text-slate-400'}`}
                 >
                   {item}
                 </button>
               ))}
             </div>
-            <div className="pt-2 flex flex-col gap-3">
-              {token ? (
-                <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)}>
-                  <button className="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-xl shadow-md">
-                    Go to Dashboard
+          </div>
+
+          {/* Drawer Actions */}
+          <div className="border-t border-slate-200/50 dark:border-slate-800/50 pt-4 flex flex-col gap-3">
+            {token ? (
+              <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)}>
+                <button className="w-full min-h-[44px] bg-primary text-white text-xs font-bold rounded-xl shadow-md flex items-center justify-center hover:bg-opacity-90 transition-all active:scale-98">
+                  Go to Dashboard
+                </button>
+              </Link>
+            ) : (
+              <>
+                <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="w-full">
+                  <button className="w-full min-h-[44px] text-center text-xs font-bold text-slate-750 dark:text-slate-400 rounded-xl border border-slate-200/50 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors flex items-center justify-center">
+                    Sign In
                   </button>
                 </Link>
-              ) : (
-                <>
-                  <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="w-full text-center py-2.5 text-xs font-bold text-slate-750 dark:text-slate-400">
-                    Sign In
-                  </Link>
-                  <Link to="/register" onClick={() => setMobileMenuOpen(false)}>
-                    <button className="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-xl shadow-md">
-                      Get Started Free
-                    </button>
-                  </Link>
-                </>
-              )}
-            </div>
+                <Link to="/register" onClick={() => setMobileMenuOpen(false)} className="w-full">
+                  <button className="w-full min-h-[44px] bg-primary text-white text-xs font-bold rounded-xl shadow-md flex items-center justify-center hover:bg-opacity-90 transition-all active:scale-98">
+                    Get Started Free
+                  </button>
+                </Link>
+              </>
+            )}
           </div>
-        )}
+        </div>
       </nav>
 
       {/* 2. HERO SECTION */}
