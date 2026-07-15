@@ -153,11 +153,11 @@ const Landing = () => {
         ? 'bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-border/40 dark:border-border/10 py-4 shadow-xs'
         : 'bg-transparent py-4'
         }`}>
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-2.5 cursor-pointer shrink-0" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <Logo className="w-8 h-8 text-primary" />
-            <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white uppercase">
+          <div className="flex items-center gap-2.5 cursor-pointer shrink-0 whitespace-nowrap" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <Logo className="w-8 h-8 text-primary shrink-0" />
+            <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white uppercase shrink-0">
               AURA<span className="text-primary">CRM</span>
             </span>
           </div>
@@ -233,11 +233,11 @@ const Landing = () => {
             {/* Drawer Header */}
             <div className="flex items-center justify-between">
               <div 
-                className="flex items-center gap-2.5 cursor-pointer shrink-0" 
+                className="flex items-center gap-2.5 cursor-pointer shrink-0 whitespace-nowrap" 
                 onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               >
-                <Logo className="w-8 h-8 text-primary" />
-                <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white uppercase">
+                <Logo className="w-8 h-8 text-primary shrink-0" />
+                <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white uppercase shrink-0">
                   AURA<span className="text-primary">CRM</span>
                 </span>
               </div>
