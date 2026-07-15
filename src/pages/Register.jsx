@@ -103,31 +103,16 @@ const Register = () => {
     setIsLoading(true);
 
     try {
-      const response = await register(name, email, password);
-      localStorage.setItem('pending-verify-email', email);
-      
-      const resData = response?.data || response;
-      if (resData && resData.otp) {
-        localStorage.setItem('debug-otp', resData.otp);
-        toast.success(`Demo Mode: Fallback OTP is ${resData.otp}`, {
-          style: {
-            background: '#3B82F6',
-            color: '#FFFFFF',
-            fontWeight: 'bold',
-          },
-          duration: 8000,
-        });
-      } else {
-        toast.success('Registration request received. Verification code sent!', {
-          style: {
-            background: '#22C55E',
-            color: '#FFFFFF',
-            fontWeight: 'bold',
-          },
-          duration: 4000,
-        });
-      }
-      navigate('/verify-email');
+      await register(name, email, password);
+      toast.success('Registration successful! Welcome to your workspace.', {
+        style: {
+          background: '#22C55E',
+          color: '#FFFFFF',
+          fontWeight: 'bold',
+        },
+        duration: 4000,
+      });
+      navigate('/dashboard');
     } catch (err) {
       const errorMsg = err.response?.data?.message || err.message || 'Registration failed.';
       setError(errorMsg);

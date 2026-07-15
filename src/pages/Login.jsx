@@ -285,11 +285,7 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="flex justify-end select-none">
-              <Link to="/forgot" className="text-[10px] font-bold text-primary hover:underline">
-                Forgot password?
-              </Link>
-            </div>
+
 
             <ShimmerButton
               type="submit"

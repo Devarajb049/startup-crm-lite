@@ -98,6 +98,14 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const response = await authService.register(name, email, password);
+      const { token: receivedToken, user: receivedUser } = response.data || response;
+      
+      if (receivedToken && receivedUser) {
+        localStorage.setItem('crm-token', receivedToken);
+        localStorage.setItem('startup-crm-auth-user', JSON.stringify(receivedUser));
+        setToken(receivedToken);
+        setUser(receivedUser);
+      }
       return response;
     } catch (error) {
       throw error;
