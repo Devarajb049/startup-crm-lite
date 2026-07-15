@@ -75,7 +75,12 @@ export const register = async (req, res, next) => {
       await sendOtpEmail(email, otpCode, 'register', name);
     } catch (err) {
       console.error('Failed to send OTP email:', err);
-      return errorResponse(res, `Failed to send verification email: ${err.message}`, 500);
+      return successResponse(
+        res,
+        { email, otp: otpCode, note: 'Email delivery failed. Using fallback OTP in response for demo.' },
+        'Verification code generated (Email delivery failed, code provided in response for demo).',
+        200
+      );
     }
 
     return successResponse(
@@ -446,7 +451,12 @@ export const forgotPassword = async (req, res, next) => {
       await sendOtpEmail(email, otpCode, 'forgot', user.name);
     } catch (err) {
       console.error('Failed to send reset OTP email:', err);
-      return errorResponse(res, `Failed to send reset email: ${err.message}`, 500);
+      return successResponse(
+        res,
+        { email, otp: otpCode, note: 'Email delivery failed. Using fallback OTP in response for demo.' },
+        'Reset verification code generated (Email delivery failed, code provided in response for demo).',
+        200
+      );
     }
 
     return successResponse(
@@ -594,7 +604,12 @@ export const resendOtp = async (req, res, next) => {
       await sendOtpEmail(email, otpCode, purpose, name);
     } catch (err) {
       console.error('Failed to send resend OTP email:', err);
-      return errorResponse(res, 'Failed to send verification email. Please check server email config.', 500);
+      return successResponse(
+        res,
+        { email, otp: otpCode, note: 'Email delivery failed. Using fallback OTP in response for demo.' },
+        'A new verification code has been generated (Email delivery failed, code provided in response for demo).',
+        200
+      );
     }
 
     return successResponse(

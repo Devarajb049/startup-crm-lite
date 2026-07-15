@@ -159,6 +159,15 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+app.get('/api/debug-dns', (req, res) => {
+  res.json({
+    dnsOrderSupported: typeof dns.setDefaultResultOrder === 'function',
+    time: new Date(),
+    env: process.env.NODE_ENV,
+    version: '1.0.1'
+  });
+});
+
 // Register feature modules routes
 app.use('/api/auth', authRoutes);
 app.use('/api/leads', leadRoutes);

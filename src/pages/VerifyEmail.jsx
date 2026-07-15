@@ -18,8 +18,25 @@ const VerifyEmail = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [countdown, setCountdown] = useState(60);
   const [resendLoading, setResendLoading] = useState(false);
+  const [debugOtp, setDebugOtp] = useState('');
 
   const inputRefs = useRef([]);
+
+  useEffect(() => {
+    const code = localStorage.getItem('debug-otp');
+    if (code) {
+      setDebugOtp(code);
+    }
+  }, []);
+
+  const handleAutoFillDebug = () => {
+    if (debugOtp) {
+      setOtp(debugOtp.split(''));
+      toast.success('Code auto-filled!');
+      localStorage.removeItem('debug-otp');
+      setDebugOtp('');
+    }
+  };
 
   useDocumentMetadata(
     'Verify Email | AuraCRM',
@@ -230,6 +247,24 @@ const VerifyEmail = () => {
               We sent a 6-digit verification code to <span className="font-extrabold text-slate-800 dark:text-slate-200">{email}</span>. Please check your inbox (and <span className="font-bold text-primary dark:text-blue-400">spam folder</span>).
             </p>
           </div>
+
+          {debugOtp && (
+            <div className="flex flex-col gap-2 p-3.5 bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200/40 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl text-xs mb-6 text-left animate-fade-in">
+              <div className="flex items-start gap-2.5">
+                <Shield size={15} className="shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-bold">Demo Verification Notice:</span> Email delivery failed on Railway, but a fallback code was generated: <span className="font-mono font-bold bg-blue-100 dark:bg-blue-900/40 px-1 rounded">{debugOtp}</span>.
+                </div>
+              </div>
+              <button 
+                type="button"
+                onClick={handleAutoFillDebug}
+                className="mt-1 text-[10px] font-bold text-primary dark:text-blue-400 text-left hover:underline w-fit cursor-pointer"
+              >
+                Click here to auto-fill code.
+              </button>
+            </div>
+          )}
 
           {error && (
             <div className="flex items-start gap-2.5 p-3.5 bg-red-50/50 dark:bg-red-950/20 border border-red-200/40 dark:border-red-900/30 text-red-600 dark:text-red-400 rounded-xl text-xs mb-6 animate-fade-in text-left">

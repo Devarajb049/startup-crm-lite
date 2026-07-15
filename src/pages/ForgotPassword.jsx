@@ -21,8 +21,29 @@ const ForgotPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [countdown, setCountdown] = useState(60);
   const [resendLoading, setResendLoading] = useState(false);
+  const [debugOtp, setDebugOtp] = useState('');
 
   const inputRefs = useRef([]);
+
+  useEffect(() => {
+    if (step === 2) {
+      const code = localStorage.getItem('debug-otp');
+      if (code) {
+        setDebugOtp(code);
+      }
+    } else {
+      setDebugOtp('');
+    }
+  }, [step]);
+
+  const handleAutoFillDebug = () => {
+    if (debugOtp) {
+      setOtp(debugOtp.split(''));
+      toast.success('Code auto-filled!');
+      localStorage.removeItem('debug-otp');
+      setDebugOtp('');
+    }
+  };
 
   useDocumentMetadata(
     'Reset Password | AuraCRM',
@@ -137,8 +158,21 @@ const ForgotPassword = () => {
 
     setIsLoading(true);
     try {
-      await authService.forgotPassword(email);
-      toast.success('A reset verification code has been sent to your email.');
+      const response = await authService.forgotPassword(email);
+      const resData = response?.data || response;
+      if (resData && resData.otp) {
+        localStorage.setItem('debug-otp', resData.otp);
+        toast.success(`Demo Mode: Fallback OTP is ${resData.otp}`, {
+          style: {
+            background: '#3B82F6',
+            color: '#FFFFFF',
+            fontWeight: 'bold',
+          },
+          duration: 8000,
+        });
+      } else {
+        toast.success('A reset verification code has been sent to your email.');
+      }
       setStep(2);
       setCountdown(60);
     } catch (err) {
@@ -387,6 +421,24 @@ const ForgotPassword = () => {
           ) : (
             /* Step 2: Input OTP and New Password Form */
             <form onSubmit={handleResetPassword} className="space-y-5 text-left">
+              {debugOtp && (
+                <div className="flex flex-col gap-2 p-3.5 bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200/40 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl text-xs mb-4 text-left animate-fade-in">
+                  <div className="flex items-start gap-2.5">
+                    <Shield size={15} className="shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-bold">Demo Verification Notice:</span> Email delivery failed on Railway, but a fallback code was generated: <span className="font-mono font-bold bg-blue-100 dark:bg-blue-900/40 px-1 rounded">{debugOtp}</span>.
+                    </div>
+                  </div>
+                  <button 
+                    type="button"
+                    onClick={handleAutoFillDebug}
+                    className="mt-1 text-[10px] font-bold text-primary dark:text-blue-400 text-left hover:underline w-fit cursor-pointer"
+                  >
+                    Click here to auto-fill code.
+                  </button>
+                </div>
+              )}
+
               <div className="space-y-2">
                 <label className="block text-[9px] font-extrabold uppercase tracking-wider text-slate-550 dark:text-slate-400">
                   Verification Code
