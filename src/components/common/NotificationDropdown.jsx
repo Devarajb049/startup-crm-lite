@@ -53,15 +53,15 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
   return (
     <>
       {/* Backdrop overlay to close dropdown on clicking outside */}
-      <div 
-        className="fixed inset-0 z-40" 
-        onClick={onClose} 
+      <div
+        className="fixed inset-0 z-40"
+        onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Main Dropdown Panel Container */}
-      <div className="absolute right-0 mt-3 w-80 sm:w-96 max-h-[480px] z-50 flex flex-col bg-card/85 dark:bg-card/85 backdrop-blur-2xl border border-border/50 dark:border-border/10 rounded-2xl shadow-2xl transition-all duration-200 animate-fade-in origin-top-right">
-        
+      <div className="absolute right-0 mt-3 w-80 sm:w-96 max-h-[480px] z-50 flex flex-col bg-floating/85 backdrop-blur-2xl border border-border/50 dark:border-border/10 rounded-2xl shadow-2xl transition-all duration-200 animate-fade-in origin-top-right">
+
         {/* Dropdown Header */}
         <div className="flex items-center justify-between px-4 py-3.5 border-b border-border/40 dark:border-border/10">
           <div className="flex items-center gap-2">
@@ -74,9 +74,9 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
               </span>
             )}
           </div>
-          
-          <button 
-            type="button" 
+
+          <button
+            type="button"
             onClick={onClose}
             className="p-1 rounded-lg text-slate-400 hover:text-slate-650 dark:hover:text-slate-200 focus:outline-hidden md:hidden"
             aria-label="Close notifications"
@@ -113,14 +113,13 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
             notifications.map((notif) => {
               const config = getNotificationConfig(notif.type);
               const Icon = config.icon;
-              
+
               return (
                 <div
                   key={notif.id}
                   onClick={() => markNotificationAsRead(notif.id)}
-                  className={`flex items-start gap-3 p-4 hover:bg-hover/70 dark:hover:bg-hover/40 cursor-pointer transition-all duration-150 relative ${
-                    !notif.read ? 'bg-active-nav/20 dark:bg-active-nav/5' : ''
-                  }`}
+                  className={`flex items-start gap-3 p-4 hover:bg-hover/70 dark:hover:bg-hover/40 cursor-pointer transition-all duration-150 relative ${!notif.read ? 'bg-active-nav/20 dark:bg-active-nav/5' : ''
+                    }`}
                 >
                   {/* Category Indicator Icon */}
                   <div className={`p-2 rounded-xl border shrink-0 ${config.color}`}>

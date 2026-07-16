@@ -143,10 +143,7 @@ const Landing = () => {
   return (
     <div className="min-h-screen bg-bg dark:bg-bg text-slate-800 dark:text-slate-350 transition-colors duration-200 overflow-x-hidden">
 
-      {/* GLOWING AMBIENT BACKGROUNDS */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-500/5 dark:bg-blue-650/8 blur-[150px] pointer-events-none animate-float-slow" />
-      <div className="absolute bottom-[20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-500/5 dark:bg-purple-650/6 blur-[180px] pointer-events-none animate-float-reverse" />
-      <div className="absolute top-[40%] left-[5%] w-[40%] h-[40%] rounded-full bg-pink-500/3 dark:bg-pink-650/4 blur-[130px] pointer-events-none animate-float-alternate" />
+
 
       {/* 1. STICKY NAVBAR */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
@@ -750,48 +747,76 @@ const Landing = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            {
-              name: 'Arjun Mehta',
-              role: 'Head of Sales',
-              company: 'NovaTech Solutions',
-              rating: 5,
-              review: 'AURA CRM completely transformed how we manage our pipeline. The WhatsApp integration saves our team 2 hours daily, and the source analytics help us double down on channels that actually convert.'
-            },
-            {
-              name: 'Riya Sharma',
-              role: 'Founder & CEO',
-              company: 'GrowthBridge Agency',
-              rating: 5,
-              review: 'We evaluated HubSpot and Zoho, but AURA CRM\'s interface is faster and easier for our team. The lead qualification workflow and CSV export are exactly what a growing agency needs.'
-            },
-            {
-              name: 'Daniel Okafor',
-              role: 'Sales Manager',
-              company: 'Velocity Retail',
-              rating: 5,
-              review: 'The pipeline funnel analytics are outstanding. I can see exactly where deals are stalling, who is following up, and which channels drive the best ROI — all in real time.'
-            }
-          ].map((test, idx) => (
-            <div key={idx} className="p-6 glass-card border border-border/40 dark:border-border/10 rounded-3xl text-left bg-surface/50 dark:bg-card/40 flex flex-col justify-between min-h-[190px]">
-              <div>
-                <div className="flex gap-1 mb-3.5">
-                  {[...Array(test.rating)].map((_, i) => (
-                    <Star key={i} size={13} className="text-warning fill-warning shrink-0" />
-                  ))}
+        <div className="relative w-full overflow-hidden py-4 select-none">
+          {/* Subtle gradient overlays for fade-out effects on sides */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none" />
+
+          <div className="animate-marquee flex gap-6 hover:[animation-play-state:paused] cursor-grab active:cursor-grabbing">
+            {[
+              {
+                name: 'Arjun Mehta',
+                role: 'Head of Sales',
+                company: 'NovaTech Solutions',
+                rating: 5,
+                review: 'AURA CRM completely transformed how we manage our pipeline. The WhatsApp integration saves our team 2 hours daily, and the source analytics help us double down on channels that actually convert.'
+              },
+              {
+                name: 'Riya Sharma',
+                role: 'Founder & CEO',
+                company: 'GrowthBridge Agency',
+                rating: 5,
+                review: 'We evaluated HubSpot and Zoho, but AURA CRM\'s interface is faster and easier for our team. The lead qualification workflow and CSV export are exactly what a growing agency needs.'
+              },
+              {
+                name: 'Daniel Okafor',
+                role: 'Sales Manager',
+                company: 'Velocity Retail',
+                rating: 5,
+                review: 'The pipeline funnel analytics are outstanding. I can see exactly where deals are stalling, who is following up, and which channels drive the best ROI — all in real time.'
+              }
+            ].concat([
+              {
+                name: 'Arjun Mehta',
+                role: 'Head of Sales',
+                company: 'NovaTech Solutions',
+                rating: 5,
+                review: 'AURA CRM completely transformed how we manage our pipeline. The WhatsApp integration saves our team 2 hours daily, and the source analytics help us double down on channels that actually convert.'
+              },
+              {
+                name: 'Riya Sharma',
+                role: 'Founder & CEO',
+                company: 'GrowthBridge Agency',
+                rating: 5,
+                review: 'We evaluated HubSpot and Zoho, but AURA CRM\'s interface is faster and easier for our team. The lead qualification workflow and CSV export are exactly what a growing agency needs.'
+              },
+              {
+                name: 'Daniel Okafor',
+                role: 'Sales Manager',
+                company: 'Velocity Retail',
+                rating: 5,
+                review: 'The pipeline funnel analytics are outstanding. I can see exactly where deals are stalling, who is following up, and which channels drive the best ROI — all in real time.'
+              }
+            ]).map((test, idx) => (
+              <div key={idx} className="w-[300px] sm:w-[380px] shrink-0 p-6 glass-card border border-border/40 dark:border-border/10 rounded-3xl text-left bg-surface/50 dark:bg-card/40 flex flex-col justify-between min-h-[190px]">
+                <div>
+                  <div className="flex gap-1 mb-3.5">
+                    {[...Array(test.rating)].map((_, i) => (
+                      <Star key={i} size={13} className="text-warning fill-warning shrink-0" />
+                    ))}
+                  </div>
+                  <p className="text-[11px] text-slate-650 dark:text-slate-350 leading-relaxed italic">"{test.review}"</p>
                 </div>
-                <p className="text-[11px] text-slate-650 dark:text-slate-350 leading-relaxed italic">"{test.review}"</p>
-              </div>
-              <div className="mt-4 pt-4 border-t border-border/40 dark:border-border/10 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center font-bold text-xs text-primary select-none shrink-0">{test.name.charAt(0)}</div>
-                <div className="min-w-0">
-                  <p className="text-[10px] font-bold text-slate-900 dark:text-white truncate">{test.name}</p>
-                  <p className="text-[8px] text-slate-450 dark:text-slate-500 truncate">{test.role} · {test.company}</p>
+                <div className="mt-4 pt-4 border-t border-border/40 dark:border-border/10 flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center font-bold text-xs text-primary select-none shrink-0">{test.name.charAt(0)}</div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-bold text-slate-900 dark:text-white truncate">{test.name}</p>
+                    <p className="text-[8px] text-slate-450 dark:text-slate-500 truncate">{test.role} · {test.company}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section >
 

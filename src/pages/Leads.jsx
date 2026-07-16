@@ -378,7 +378,7 @@ const Leads = () => {
           />
 
           {/* Modal content body card: full screen on mobile, centered max-w-lg on tablet+ */}
-          <div className="relative w-full sm:max-w-2xl bg-card/85 dark:bg-card/85 backdrop-blur-2xl border border-border/40 dark:border-border/10 rounded-2xl shadow-2xl z-10 overflow-hidden max-h-[90vh] sm:max-h-[85vh] flex flex-col animate-fade-in">
+          <div className="relative w-full sm:max-w-2xl bg-floating/85 backdrop-blur-2xl border border-border/40 dark:border-border/10 rounded-2xl shadow-2xl z-10 overflow-hidden max-h-[90vh] sm:max-h-[85vh] flex flex-col animate-fade-in">
             
             {/* Title Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-border/40 dark:border-border/10 bg-bg/20 dark:bg-surface/20 shrink-0">
@@ -420,7 +420,7 @@ const Leads = () => {
           />
 
           {/* Modal content body card: scrollable layout centered on screen */}
-          <div className="relative w-full max-w-4xl bg-card/85 dark:bg-card/85 backdrop-blur-2xl border border-border/40 dark:border-border/10 rounded-2xl shadow-2xl z-10 overflow-hidden max-h-[92vh] flex flex-col animate-fade-in text-left">
+          <div className="relative w-full max-w-4xl bg-floating/85 backdrop-blur-2xl border border-border/40 dark:border-border/10 rounded-2xl shadow-2xl z-10 overflow-hidden max-h-[92vh] flex flex-col animate-fade-in text-left">
             
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-border/40 dark:border-border/10 bg-bg/20 dark:bg-surface/20 shrink-0">

@@ -46,11 +46,8 @@ const Layout = ({ children }) => {
 
   return (
     <div className="h-screen flex bg-bg dark:bg-bg relative overflow-hidden transition-colors duration-200">
-      
-      {/* Ambient background glows for glassmorphism mesh effect */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-500/5 dark:bg-blue-650/8 blur-[120px] pointer-events-none animate-float-slow" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-500/5 dark:bg-purple-650/6 blur-[150px] pointer-events-none animate-float-reverse" />
-      <div className="absolute top-[30%] right-[10%] w-[35%] h-[35%] rounded-full bg-pink-500/3 dark:bg-pink-650/4 blur-[120px] pointer-events-none animate-float-alternate" />
+
+
 
       {/* 1. Left Sidebar (tablet + desktop) */}
       <Sidebar
