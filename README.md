@@ -1,7 +1,7 @@
 # AuraCRM Lite — Enterprise Sales Opportunity Qualifier & High-Velocity Dashboard
 
 <div align="center">
-  <img src="src/assets/logo.svg" alt="AuraCRM Logo" width="120px" height="120px" style="border-radius: 20%;" />
+  <img src="src/assets/logo.png" alt="AuraCRM Logo" width="120px" height="120px" style="border-radius: 20%;" />
   <p><strong>A sleek, high-performance, visual sales enablement platform and lead qualification pipeline.</strong></p>
 </div>
 

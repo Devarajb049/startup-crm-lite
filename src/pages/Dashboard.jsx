@@ -6,7 +6,6 @@ import PipelineOverview from '../components/dashboard/PipelineOverview';
 import RecentLeads from '../components/dashboard/RecentLeads';
 import QuickActions from '../components/dashboard/QuickActions';
 import AddLeadModal from '../components/leads/AddLeadModal';
-import ShimmerButton from '../components/common/ShimmerButton';
 import useDocumentMetadata from '../hooks/useDocumentMetadata';
 
 /**
@@ -18,7 +17,7 @@ import useDocumentMetadata from '../hooks/useDocumentMetadata';
  * 4. Workspace Quick Actions toolbar (including inline lead registration modal trigger)
  */
 const Dashboard = () => {
-  const { leads, formatCurrency, currency, loadDemoLeads } = useLeads();
+  const { leads, formatCurrency, currency } = useLeads();
 
   useDocumentMetadata(
     'Dashboard | AuraCRM',

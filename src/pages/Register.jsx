@@ -11,12 +11,7 @@ import {
   AlertCircle, 
   Eye, 
   EyeOff, 
-  CheckCircle2,
-  Users,
-  TrendingUp,
-  MessageCircle,
-  Award,
-  Star
+  CheckCircle2
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import Logo from '../components/common/Logo';

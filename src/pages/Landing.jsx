@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import DarkModeToggle from '../components/common/DarkModeToggle';
 import Logo from '../components/common/Logo';
@@ -15,9 +15,6 @@ import {
   FileSpreadsheet,
   Layers,
   Calendar,
-  Settings,
-  Bell,
-  HelpCircle,
   ChevronDown,
   Play,
   ArrowRight,
@@ -26,7 +23,6 @@ import {
   MapPin,
   Phone,
   Globe,
-  ExternalLink,
   MessageCircle,
   FolderLock,
   Target,
@@ -36,7 +32,6 @@ import { toast } from 'react-hot-toast';
 import useDocumentMetadata from '../hooks/useDocumentMetadata';
 
 const Landing = () => {
-  const navigate = useNavigate();
   const { token } = useAuth();
 
   useDocumentMetadata(
