@@ -72,6 +72,7 @@ export const getLeads = async (req, res, next) => {
     // Run query and document counter in parallel
     const [leads, total] = await Promise.all([
       Lead.find(filter)
+        .populate('owner', 'name')
         .sort(sort)
         .skip(skipNum)
         .limit(limitNum),

@@ -337,7 +337,14 @@ export const getTopPerformers = (leads = []) => {
 
   leads.forEach((lead) => {
     if (lead.status === 'Won') {
-      const rep = lead.owner || 'Unassigned';
+      let rep = 'Unassigned';
+      if (lead.owner) {
+        if (typeof lead.owner === 'object' && lead.owner.name) {
+          rep = lead.owner.name;
+        } else {
+          rep = lead.owner;
+        }
+      }
       performance[rep] = (performance[rep] || 0) + (Number(lead.value) || 0);
     }
   });
