@@ -244,7 +244,7 @@ const Register = () => {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4 text-left">
-            <div className="space-y-1">
+             <div className="space-y-1">
               <label htmlFor="name" className="block text-[9px] font-extrabold uppercase tracking-wider text-slate-455">
                 Full Name
               </label>
@@ -256,7 +256,7 @@ const Register = () => {
                   id="name"
                   type="text"
                   required
-                  placeholder="John Doe"
+                  placeholder="Full name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="block w-full pl-10.5 pr-4 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden"
@@ -276,7 +276,7 @@ const Register = () => {
                   id="email"
                   type="email"
                   required
-                  placeholder="you@example.com"
+                  placeholder="Email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="block w-full pl-10.5 pr-4 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden"
@@ -297,7 +297,7 @@ const Register = () => {
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     required
-                    placeholder="Min 6 chars"
+                    placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="block w-full pl-10.5 pr-10 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden"
@@ -325,7 +325,7 @@ const Register = () => {
                     id="confirmPassword"
                     type={showPassword ? 'text' : 'password'}
                     required
-                    placeholder="Repeat password"
+                    placeholder="Confirm password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     className="block w-full pl-10.5 pr-10 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden"

@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import { ResponsiveContainer, FunnelChart, Funnel, Cell, Tooltip, LabelList } from 'recharts';
 import { getFunnelData } from '../../utils/analyticsHelpers';
 
-// Harmonious gradient colors for the funnel stages
-const FUNNEL_COLORS = ['#3B82F6', '#2563EB', '#6366F1', '#7C3AED', '#22C55E'];
+// Harmonious gradient colors for the funnel stages using design tokens
+const FUNNEL_COLORS = ['var(--accent)', 'var(--primary)', 'var(--secondary)', 'var(--purple)', 'var(--success)'];
 
 /**
  * FunnelChartCard Component

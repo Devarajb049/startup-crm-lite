@@ -2,9 +2,8 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
-import Otp from '../models/Otp.js';
 import { successResponse, errorResponse } from '../utils/apiResponse.js';
-import { sendOtpEmail, sendPasswordResetSuccessEmail, sendRegistrationSuccessEmail } from '../utils/email.js';
+import { sendPasswordResetSuccessEmail, sendRegistrationSuccessEmail } from '../utils/email.js';
 
 /**
  * Helper function to generate a JSON Web Token (JWT) for a user.
@@ -294,22 +293,4 @@ export const googleLogin = async (req, res, next) => {
   }
 };
 
-/**
- * Verify OTP entered by the user.
- * Activates the pending registration account if correct, or validates for password reset.
- */
-export const verifyOtp = async (req, res, next) => {
-  return errorResponse(res, 'OTP verification is deprecated.', 400);
-};
 
-export const forgotPassword = async (req, res, next) => {
-  return errorResponse(res, 'Password resets must be performed inside Profile Settings when logged in.', 400);
-};
-
-export const resetPassword = async (req, res, next) => {
-  return errorResponse(res, 'Password resets must be performed inside Profile Settings when logged in.', 400);
-};
-
-export const resendOtp = async (req, res, next) => {
-  return errorResponse(res, 'OTP verification is deprecated.', 400);
-};

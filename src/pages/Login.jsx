@@ -249,7 +249,7 @@ const Login = () => {
                   id="email"
                   type="email"
                   required
-                  placeholder="you@example.com"
+                  placeholder="Email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="block w-full pl-10.5 pr-4 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden"
@@ -269,7 +269,7 @@ const Login = () => {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   required
-                  placeholder="Enter password"
+                  placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="block w-full pl-10.5 pr-10 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden"

@@ -94,7 +94,7 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="e.g. Sarah Connor"
+              placeholder="Full name"
               className={`w-full px-3.5 py-2.5 text-xs rounded-xl glass-input ${
                 errors.name ? 'border-danger focus:border-danger' : ''
               } text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500`}
@@ -113,7 +113,7 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
               name="company"
               value={formData.company}
               onChange={handleChange}
-              placeholder="e.g. Cyberdyne Systems"
+              placeholder="Company name"
               className={`w-full px-3.5 py-2.5 text-xs rounded-xl glass-input ${
                 errors.company ? 'border-danger focus:border-danger' : ''
               } text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500`}
@@ -132,7 +132,7 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="sarah@cyberdyne.com"
+              placeholder="Email address"
               className={`w-full px-3.5 py-2.5 text-xs rounded-xl glass-input ${
                 errors.email ? 'border-danger focus:border-danger' : ''
               } text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500`}
@@ -151,7 +151,7 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              placeholder="+1 (555) 0144"
+              placeholder="Phone number"
               className="w-full px-3.5 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
             />
           </div>
@@ -167,7 +167,7 @@ const LeadForm = ({ initialData = null, onSubmit, onCancel }) => {
               name="value"
               value={formData.value}
               onChange={handleChange}
-              placeholder="25000"
+              placeholder="Estimated value"
               className="w-full px-3.5 py-2.5 text-xs rounded-xl glass-input text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
             />
           </div>

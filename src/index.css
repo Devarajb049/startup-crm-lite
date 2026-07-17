@@ -41,65 +41,65 @@
 }
 
 :root {
-  --primary: #2563EB;
-  --primary-hover: #1D4ED8;
-  --secondary: #0EA5E9;
-  --accent: #14B8A6;
+  --primary: #1D4ED8;
+  --primary-hover: #1E40AF;
+  --secondary: #3B82F6;
+  --accent: #F59E0B;
   --success: #16A34A;
-  --warning: #F59E0B;
+  --warning: #D97706;
   --error: #DC2626;
-  --info: #0EA5E9;
-  --bg: #F8FAFC;
-  --bg-secondary: #F1F5F9;
+  --info: #1D4ED8;
+  --bg: #F7F9FC;
+  --bg-secondary: #F3F4F6;
   --surface: #FFFFFF;
   --card: #FFFFFF;
   --sidebar: #FFFFFF;
-  --heading: #0F172A;
-  --body: #475569;
-  --muted: #94A3B8;
-  --border: #E2E8F0;
-  --divider: #E2E8F0;
+  --heading: #111827;
+  --body: #6B7280;
+  --muted: #9CA3AF;
+  --border: #E5E7EB;
+  --divider: #E5E7EB;
   --floating: #FFFFFF;
-  --icons: #475569;
-  --hover: #F1F5F9;
-  --active-navigation: #DBEAFE;
+  --icons: #6B7280;
+  --hover: #F3F4F6;
+  --active-navigation: #F3F4F6;
   --input-bg: #FFFFFF;
-  --input-border: #E2E8F0;
-  --table-header: #F8FAFC;
-  --table-row-hover: #F8FAFC;
-  --scrollbar-thumb: #CBD5E1;
+  --input-border: #E5E7EB;
+  --table-header: #F7F9FC;
+  --table-row-hover: #F3F4F6;
+  --scrollbar-thumb: #D1D5DB;
   --purple: #8B5CF6;
   --pink: #EC4899;
 }
 
 .dark {
-  --primary: #3B82F6;
-  --primary-hover: #2563EB;
-  --secondary: #60A5FA;
-  --accent: #2DD4BF;
-  --success: #16A34A;
-  --warning: #F59E0B;
-  --error: #DC2626;
-  --info: #3B82F6;
-  --bg: #0B0F19;
-  --bg-secondary: #161B26;
-  --surface: #1E293B;
-  --card: #1E293B;
-  --sidebar: #1E293B;
+  --primary: #60A5FA;
+  --primary-hover: #3B82F6;
+  --secondary: #93C5FD;
+  --accent: #FBBF24;
+  --success: #4ADE80;
+  --warning: #FBBF24;
+  --error: #F87171;
+  --info: #60A5FA;
+  --bg: #0B1220;
+  --bg-secondary: #161F31;
+  --surface: #161F31;
+  --card: #161F31;
+  --sidebar: #161F31;
   --heading: #F8FAFC;
-  --body: #94A3B8;
-  --muted: #64748B;
-  --border: #334155;
-  --divider: #334155;
-  --floating: #2A354D;
-  --icons: #94A3B8;
-  --hover: #2E3B52;
-  --active-navigation: #2563EB;
-  --input-bg: #1E293B;
-  --input-border: #334155;
-  --table-header: #0B0F19;
-  --table-row-hover: #263147;
-  --scrollbar-thumb: #475569;
+  --body: #CBD5E1;
+  --muted: #CBD5E1;
+  --border: #2A3955;
+  --divider: #2A3955;
+  --floating: #212F46;
+  --icons: #CBD5E1;
+  --hover: #212F46;
+  --active-navigation: #212F46;
+  --input-bg: #161F31;
+  --input-border: #2A3955;
+  --table-header: #0B1220;
+  --table-row-hover: #212F46;
+  --scrollbar-thumb: #212F46;
   --purple: #A855F7;
   --pink: #FB7185;
 }
@@ -134,30 +134,30 @@
 
   .glass-input {
     background: var(--input-bg) !important;
-    border: 1px solid var(--input-border) !important;
-    border-radius: 8px !important;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02) !important;
-    transition: all 0.15s ease !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    box-shadow: inset 0 1.5px 2px rgba(0, 0, 0, 0.02) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
 
   .glass-input:focus {
     background: var(--surface) !important;
     border-color: var(--primary) !important;
-    box-shadow: 0 0 0 2px var(--active-navigation) !important;
+    box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15) !important;
     outline: none !important;
   }
 
   .dark .glass-input:focus {
     background: var(--surface) !important;
     border-color: var(--primary) !important;
-    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.25) !important;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2) !important;
     outline: none !important;
   }
 
   /* Validation error styling */
   .border-danger {
     border-color: var(--error) !important;
-    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15) !important;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15) !important;
   }
 
   /* Custom scrollbar for modern premium feel */
@@ -401,7 +401,7 @@ aside nav a.active {
 
 .dark aside nav a.active {
   box-shadow:
-    0 4px 12px rgba(37, 99, 235, 0.25),
+    0 4px 12px rgba(96, 165, 250, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
 
   border-left: 3px solid var(--primary) !important;
@@ -412,7 +412,7 @@ aside nav a svg {
   padding: 6px;
   box-sizing: content-box;
   background: rgba(255, 255, 255, 0.6) !important;
-  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  border: 1px solid rgba(229, 231, 235, 0.8) !important;
   border-radius: 10px !important;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -427,15 +427,15 @@ aside nav a svg {
 /* Layered active icon containers */
 aside nav a.active svg {
   background: var(--surface) !important;
-  border-color: rgba(37, 99, 235, 0.25) !important;
+  border-color: rgba(29, 78, 216, 0.25) !important;
   box-shadow:
-    0 2px 6px rgba(37, 99, 235, 0.1),
+    0 2px 6px rgba(29, 78, 216, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
 }
 
 .dark aside nav a.active svg {
-  background: rgba(37, 99, 235, 0.15) !important;
-  border-color: rgba(59, 130, 246, 0.35) !important;
+  background: rgba(96, 165, 250, 0.15) !important;
+  border-color: rgba(96, 165, 250, 0.35) !important;
 }
 
 /* ==========================================================================
@@ -619,8 +619,8 @@ aside nav a.active svg {
   border: 1px solid rgba(255, 255, 255, 0.25) !important;
   color: white !important;
   box-shadow:
-    0 2px 6px rgba(37, 99, 235, 0.2),
-    0 8px 20px rgba(37, 99, 235, 0.15) !important;
+    0 2px 6px rgba(29, 78, 216, 0.2),
+    0 8px 20px rgba(29, 78, 216, 0.15) !important;
 }
 
 .dark aside nav a.active svg {
@@ -628,8 +628,8 @@ aside nav a.active svg {
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   color: white !important;
   box-shadow:
-    0 2px 8px rgba(37, 99, 235, 0.3),
-    0 8px 24px rgba(37, 99, 235, 0.25) !important;
+    0 2px 8px rgba(96, 165, 250, 0.3),
+    0 8px 24px rgba(96, 165, 250, 0.25) !important;
 }
 
 /* Mirrored slide-in animations for split-screen layouts */
