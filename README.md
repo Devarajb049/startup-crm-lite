@@ -223,7 +223,6 @@ startup-crm-lite/
 * **`backend/controllers/authController.js`**: Governs JWT token distribution, account creation, and validation checks. Note: all OTP-based paths have been deprecated.
 * **`backend/models/User.js`**: Encapsulates user accounts, pre-save cryptography hashes, and serialization filters.
 * **`backend/models/Lead.js`**: Governs opportunity schemas, owner keys, and performance queries.
-* **`backend/utils/email.js`**: Deactivated utility. All mail-sending routines are safely handled as console logs for security and performance reasons.
 
 ### Frontend Layers
 * **`src/context/AuthContext.jsx`**: Global authentication listener, managing login states, JWT tokens, and localStorage variables.
@@ -321,7 +320,6 @@ All API endpoints return JSON payloads. Authentication endpoints are rate-limite
 
 * **Google Identity Services**: Handles OAuth2 flow securely using redirected pop-up frames and postMessage channel handshakes.
 * **CSV Parsing**: Parses imported spreadsheets client-side, validating emails and names before syncing with the backend database.
-* **Outbound Emails**: Disabled. All outbound emails are routed to the local console to prevent unwanted network traffic.
 
 ---
 
@@ -547,9 +545,6 @@ The root directory includes a `vercel.json` routing configuration to allow page 
 
 #### Q: How do I change the default CRM theme colors?
 A: You can update the design system tokens at the top of [index.css](file:///x:/Codeon/Project/startup-crm-lite/src/index.css) inside the `:root` and `.dark` blocks.
-
-#### Q: What happened to the email verification and OTP features?
-A: Outbound emails and OTP features have been deprecated to prevent server spam and external API costs.
 
 #### Q: Can I run this database on a local MongoDB server?
 A: Yes, just update your `backend/.env` file and set `MONGODB_URI=mongodb://localhost:27017/crm`.

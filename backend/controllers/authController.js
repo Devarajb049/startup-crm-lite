@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
 import { successResponse, errorResponse } from '../utils/apiResponse.js';
-import { sendPasswordResetSuccessEmail, sendRegistrationSuccessEmail } from '../utils/email.js';
 
 /**
  * Helper function to generate a JSON Web Token (JWT) for a user.
@@ -46,10 +45,7 @@ export const register = async (req, res, next) => {
     // Generate JWT token
     const token = generateToken(user._id);
 
-    // Send welcome email asynchronously
-    sendRegistrationSuccessEmail(user.email, user.name).catch((err) => {
-      console.error('Failed to send welcome email:', err);
-    });
+
 
     const userObject = user.toJSON();
 
@@ -181,12 +177,7 @@ export const updateProfile = async (req, res, next) => {
     // Save user document (triggers validation and password hashing if updated)
     await user.save();
 
-    // Send password change confirmation email asynchronously if updated
-    if (newPassword) {
-      sendPasswordResetSuccessEmail(user.email, user.name).catch((err) => {
-        console.error('Failed to send password change success email for profile update:', err);
-      });
-    }
+
 
     // Retrieve updated record without password for response
     const updatedUser = await User.findById(user._id).select('-password');
@@ -269,10 +260,7 @@ export const googleLogin = async (req, res, next) => {
       });
     }
 
-    // Send welcome email asynchronously on every Google Login
-    sendRegistrationSuccessEmail(user.email, user.name).catch((err) => {
-      console.error('Failed to send Google login welcome email:', err);
-    });
+
 
     // 3. Verify active status
     if (!user.isActive) {
