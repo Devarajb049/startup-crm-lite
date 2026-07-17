@@ -66,7 +66,7 @@
 
 ## Project Overview
 
-**AuraCRM Lite** is a premium, visual-first customer relationship manager and pipeline management tool optimized for high-growth startups and sales teams. Featuring custom 3D typography rendering, glassmorphic analytics cards, and transition physics built with React, Vite, Framer Motion, and Three.js, it translates standard sales metrics into readable dashboard charts and drag-and-drop opportunity boards. 
+**AuraCRM Lite** is a premium, visual-first customer relationship manager and pipeline management tool optimized for high-growth startups and sales teams. Featuring glassmorphic analytics cards, and transition physics built with React, Vite, and Framer Motion, it translates standard sales metrics into readable dashboard charts and drag-and-drop opportunity boards. 
 
 Operating under a decoupled client-server model, the backend leverages Express 5.x and MongoDB to process opportunity records, index query paths, and manage session tokens safely.
 
@@ -91,7 +91,7 @@ High-velocity sales teams are routinely slowed down by legacy CRM systems that s
 
 ## Key Features
 
-* **3D Glassmorphic Interface**: Gorgeous responsive frames, custom cards, and interactive interactive components.
+* **Glassmorphic Interface**: Gorgeous responsive frames, custom cards, and interactive components.
 * **Opportunity Kanban Pipeline**: Visual drag-and-drop column organization corresponding to sales stages (New, Qualified, Proposal, Won, Lost).
 * **CSV Bulk Import/Export**: Parse spreadsheet templates instantly to populate customer collections.
 * **Analytical Dashboard**: Render deal status distribution, lead source breakdown, and value funnels using Recharts.
@@ -178,7 +178,6 @@ sequenceDiagram
 * **React 19.2.6**: Advanced component rendering and state orchestration.
 * **Vite 8.0.12**: Fast build packaging and HMR dev environment.
 * **React Router DOM 7.17.0**: Declarative layout routing and loaders.
-* **Three.js & React Three Fiber**: Embedded 3D landing elements.
 * **Framer Motion 12.42.2**: Physics-based layout transitions.
 * **Recharts 3.8.1**: Interactive vector analytics graphics.
 * **TailwindCSS 4.3.1**: Style utilities.
