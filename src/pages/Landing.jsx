@@ -44,6 +44,18 @@ const Landing = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Disable body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   // Accordion faq control state
   const [openFaq, setOpenFaq] = useState(null);
 
@@ -210,80 +222,80 @@ const Landing = () => {
             </button>
           </div>
         </div>
+      </nav>
 
-        {/* Mobile menu drawer backdrop */}
-        <div 
-          className={`lg:hidden fixed inset-0 z-40 bg-slate-950/45 backdrop-blur-xs transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} 
-          onClick={() => setMobileMenuOpen(false)} 
-        />
+      {/* Mobile menu drawer backdrop */}
+      <div 
+        className={`lg:hidden fixed inset-0 z-45 bg-slate-950/45 backdrop-blur-xs transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} 
+        onClick={() => setMobileMenuOpen(false)} 
+      />
 
-        {/* Mobile menu drawer panel */}
-        <div 
-          className={`lg:hidden fixed top-0 right-0 bottom-0 w-[280px] sm:w-[320px] z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-l border-slate-200/50 dark:border-slate-800/50 p-6 flex flex-col justify-between shadow-2xl transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
-        >
-          <div className="space-y-6">
-            {/* Drawer Header */}
-            <div className="flex items-center justify-between">
-              <div 
-                className="flex items-center gap-2.5 cursor-pointer shrink-0 whitespace-nowrap" 
-                onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              >
-                <Logo className="w-8 h-8 text-primary shrink-0" />
-                <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white uppercase shrink-0">
-                  AURA<span className="text-primary">CRM</span>
-                </span>
-              </div>
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-500 dark:text-slate-400 min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors"
-                aria-label="Close menu"
-              >
-                <X size={20} />
-              </button>
+      {/* Mobile menu drawer panel */}
+      <div 
+        className={`lg:hidden fixed top-0 right-0 bottom-0 w-[280px] sm:w-[320px] z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-l border-slate-200/50 dark:border-slate-800/50 p-6 flex flex-col justify-between shadow-2xl transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+      >
+        <div className="space-y-6">
+          {/* Drawer Header */}
+          <div className="flex items-center justify-between">
+            <div 
+              className="flex items-center gap-2.5 cursor-pointer shrink-0 whitespace-nowrap" 
+              onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            >
+              <Logo className="w-8 h-8 text-primary shrink-0" />
+              <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white uppercase shrink-0">
+                AURA<span className="text-primary">CRM</span>
+              </span>
             </div>
-
-            {/* Drawer Links */}
-            <div className="flex flex-col gap-1.5 pt-4">
-              {['Home', 'Features', 'Workflow', 'Showcase', 'Pricing', 'FAQ', 'Contact'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => {
-                    setActiveTab(item);
-                    scrollToSection(item.toLowerCase());
-                  }}
-                  className={`w-full text-left py-3 px-4 rounded-xl text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-900 min-h-[44px] flex items-center ${activeTab === item ? 'bg-primary/10 text-primary dark:text-white' : 'text-slate-650 dark:text-slate-400'}`}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-500 dark:text-slate-400 min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors"
+              aria-label="Close menu"
+            >
+              <X size={20} />
+            </button>
           </div>
 
-          {/* Drawer Actions */}
-          <div className="border-t border-slate-200/50 dark:border-slate-800/50 pt-4 flex flex-col gap-3">
-            {token ? (
-              <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)}>
-                <button className="w-full min-h-[44px] bg-primary text-white text-xs font-bold rounded-xl shadow-md flex items-center justify-center hover:bg-opacity-90 transition-all active:scale-98">
-                  Go to Dashboard
-                </button>
-              </Link>
-            ) : (
-              <>
-                <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="w-full">
-                  <button className="w-full min-h-[44px] text-center text-xs font-bold text-slate-750 dark:text-slate-400 rounded-xl border border-slate-200/50 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors flex items-center justify-center">
-                    Sign In
-                  </button>
-                </Link>
-                <Link to="/register" onClick={() => setMobileMenuOpen(false)} className="w-full">
-                  <button className="w-full min-h-[44px] bg-primary text-white text-xs font-bold rounded-xl shadow-md flex items-center justify-center hover:bg-opacity-90 transition-all active:scale-98">
-                    Get Started Free
-                  </button>
-                </Link>
-              </>
-            )}
+          {/* Drawer Links */}
+          <div className="flex flex-col gap-1.5 pt-4">
+            {['Home', 'Features', 'Workflow', 'Showcase', 'Pricing', 'FAQ', 'Contact'].map((item) => (
+              <button
+                key={item}
+                onClick={() => {
+                  setActiveTab(item);
+                  scrollToSection(item.toLowerCase());
+                }}
+                className={`w-full text-left py-3 px-4 rounded-xl text-sm font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-900 min-h-[44px] flex items-center ${activeTab === item ? 'bg-primary/10 text-primary dark:text-white' : 'text-slate-650 dark:text-slate-400'}`}
+              >
+                {item}
+              </button>
+            ))}
           </div>
         </div>
-      </nav>
+
+        {/* Drawer Actions */}
+        <div className="border-t border-slate-200/50 dark:border-slate-800/50 pt-4 flex flex-col gap-3">
+          {token ? (
+            <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)}>
+              <button className="w-full min-h-[44px] bg-primary text-white text-xs font-bold rounded-xl shadow-md flex items-center justify-center hover:bg-opacity-90 transition-all active:scale-98">
+                Go to Dashboard
+              </button>
+            </Link>
+          ) : (
+            <>
+              <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="w-full">
+                <button className="w-full min-h-[44px] text-center text-xs font-bold text-slate-750 dark:text-slate-400 rounded-xl border border-slate-200/50 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors flex items-center justify-center">
+                  Sign In
+                </button>
+              </Link>
+              <Link to="/register" onClick={() => setMobileMenuOpen(false)} className="w-full">
+                <button className="w-full min-h-[44px] bg-primary text-white text-xs font-bold rounded-xl shadow-md flex items-center justify-center hover:bg-opacity-90 transition-all active:scale-98">
+                  Get Started Free
+                </button>
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
 
       {/* 2. HERO SECTION */}
       <section id="home" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 sm:pt-40 lg:flex lg:items-center lg:gap-10">
